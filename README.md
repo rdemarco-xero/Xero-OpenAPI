@@ -1,6 +1,8 @@
 # Xero-OpenAPI
 An OpenAPI (Swagger) specification for the Xero API
 
+OAuth 1.0a version
+
 ## Description
 This repository holds the official Xero [OpenAPI](https://www.openapis.org/) descriptions.   
 
