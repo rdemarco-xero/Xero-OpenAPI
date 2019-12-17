@@ -17543,6 +17543,9 @@ components:
         HasAttachments:
           description: boolean to indicate if a credit note has an attachment
           type: boolean
+        HasErrors:
+          description: A boolean to indicate if a credit note has an validation errors
+          type: boolean
         ValidationErrors: 
           description: Displays array of validation error messages from the API
           type: array
@@ -18566,6 +18569,7 @@ components:
           description: Organisation Type
           type: string
           enum:
+            - ACCOUNTING_PRACTICE
             - COMPANY
             - CHARITY
             - CLUB_OR_SOCIETY
@@ -18656,6 +18660,7 @@ components:
           description: Organisation Type
           type: string
           enum:
+            - ACCOUNTING_PRACTICE
             - COMPANY
             - CHARITY
             - CLUB_OR_SOCIETY
@@ -18666,7 +18671,7 @@ components:
             - SELF_MANAGED_SUPERANNUATION_FUND
             - SOLE_TRADER
             - SUPERANNUATION_FUND
-            - TRUST
+            - TRUST 
         ShortCode:
           description: A unique identifier for the organisation. Potential uses.
           type: string
@@ -19460,7 +19465,6 @@ components:
           format: uuid
         CurrencyRate:
           description: The currency rate for a multicurrency purchase order. As no rate can  be specified, the XE.com day rate is used.
-          readOnly: true
           type: number
           format: double
         SubTotal:
@@ -20019,6 +20023,7 @@ components:
             - ACTIVE
             - DELETED
             - ARCHIVED
+            - PENDING
         ReportTaxType:
           description: See ReportTaxTypes
           type: string
@@ -20034,6 +20039,7 @@ components:
           - ECOUTPUTSERVICES
           - ECINPUT
           - ECACQUISITIONS
+          - EXEMPTCAPITAL
           - CAPITALSALESOUTPUT
           - CAPITALEXPENSESINPUT
           - MOSSSALES
