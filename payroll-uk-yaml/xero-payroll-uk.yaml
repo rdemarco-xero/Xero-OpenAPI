@@ -4668,7 +4668,7 @@ components:
           type: string
           format: date
           x-is-date: true 
-        periods:
+        Periods:
           description: The leave period information. The StartDate, EndDate and NumberOfUnits needs to be specified when you do not want to calculate NumberOfUnits automatically. Using incorrect period StartDate and EndDate will result in automatic computation of the NumberOfUnits.
           type: array
           items:
@@ -4884,7 +4884,7 @@ components:
           description: the type of statutory leave
           type: string
           example: "Pending"
-        workPattern:
+        WorkPattern:
           description: The days of the work week the employee is scheduled to work at the time the leave is taken  
           type: array
           items:
@@ -4913,7 +4913,7 @@ components:
         overlapsWithOtherLeave:
           description: Whether another leave (Paternity, Shared Parental specifically) occurs during the requested leave's period. While this is allowed it could affect payment amounts
           type: boolean
-        entitlementFailureReasons:
+        EntitlementFailureReasons:
           description: If the leave requested was considered "not entitled", the reasons why are listed here. 
           type: array
           items:
@@ -5560,8 +5560,10 @@ components:
           type: string
           format: date-time
           x-is-datetime: true
-        timesheetLines:
-          $ref: '#/components/schemas/TimesheetLines'
+        TimesheetLines:
+          type: array
+          items: 
+            $ref: '#/components/schemas/TimesheetLines'
     TimesheetLines:
       type: array
       items:
@@ -5689,7 +5691,7 @@ components:
             - Cheque
             - Electronically
             - Manual
-        bankAccounts:
+        BankAccounts:
           type: array
           items:
             $ref: '#/components/schemas/BankAccount'
