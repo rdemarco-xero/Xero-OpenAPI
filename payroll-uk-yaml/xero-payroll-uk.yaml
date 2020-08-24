@@ -5565,8 +5565,6 @@ components:
           items: 
             $ref: '#/components/schemas/TimesheetLines'
     TimesheetLines:
-      type: array
-      items:
         $ref: '#/components/schemas/TimesheetLine'
     TimesheetLineObject:
       type: object
