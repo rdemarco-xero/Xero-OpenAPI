@@ -5561,10 +5561,10 @@ components:
           format: date-time
           x-is-datetime: true
         TimesheetLines:
-          type: array
-          items: 
-            $ref: '#/components/schemas/TimesheetLines'
+          $ref: '#/components/schemas/TimesheetLines'
     TimesheetLines:
+      type: array
+      items:
         $ref: '#/components/schemas/TimesheetLine'
     TimesheetLineObject:
       type: object
