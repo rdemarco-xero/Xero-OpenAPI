@@ -5119,4 +5119,24 @@ paths:
           type: string
       - in: query
         name: page
-        description: e.g. page=1 
+        description: e.g. page=1
+components:
+  responses:
+    400Error:
+      description: Validation Error - some data was incorrect returns response of type Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            ErrorNumber: 10
+            Type: ValidationException
+            Message: A validation exception occurred
+            Elements:
+              - AccountID: 00000000-0000-0000-0000-000000000000
+                Code: "123456"
+                Name: Foobar
+                Type: EXPENSE
+                Description: Hello World
+                ValidationErrors:
+                  - Message: Please enter a unique Name.
