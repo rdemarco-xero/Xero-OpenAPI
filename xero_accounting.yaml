@@ -86,6 +86,8 @@ paths:
                   TaxType: OUTPUT2
                   Description: Income from any normal business activity
                   EnablePaymentsToAccount: false
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -232,6 +234,8 @@ paths:
                   ReportingCode: EXP
                   ReportingCodeName: Expense
                   UpdatedDateUTC: /Date(1550797359120+0000)/
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -456,6 +460,8 @@ paths:
                   Url: https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg
                   MimeType: image/jpg
                   ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
   /Accounts/{AccountID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific account attachment by ID
     description: Retrieve a specific account attachment by ID.
@@ -485,6 +491,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /Accounts/{AccountID}/Attachments/{FileName}:
     summary: Retrieve or upload an account attachment by file name
     description: Retrieve or upload an account attachment by file name.
@@ -514,6 +522,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -735,6 +745,8 @@ paths:
                   TotalAmount: 1000.00
                   UpdatedDateUTC: /Date(1511893792820+0000)/
                   IsReconciled: false
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -1141,6 +1153,8 @@ paths:
                   TotalAmount: 4533.55
                   UpdatedDateUTC: /Date(1538525239370+0000)/
                   IsReconciled: false
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -1225,6 +1239,8 @@ paths:
                   DateUTC: /Date(1511893792813+0000)/
                   User: Buzz Lightyear
                   Details: ""
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -1441,6 +1457,8 @@ paths:
                   Total: 8
                   UpdatedDateUTC: /Date(1476392487037+0000)/
                   CurrencyCode: USD
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -2076,6 +2094,8 @@ paths:
                   Total: 10.00
                   UpdatedDateUTC: /Date(1476389616437+0000)/
                   CurrencyCode: USD
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -2429,6 +2449,8 @@ paths:
                   Url: https://api.xero.com/api.xro/2.0/BankTransactions/db54aab0-ad40-4ced-bcff-0940ba20db2c/Attachments/sample2.jpg
                   MimeType: image/jpg
                   ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
   /BankTransactions/{BankTransactionID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific bank transaction attachment by ID
     description: Retrieve a specific bank transaction attachment by ID.
@@ -2458,6 +2480,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /BankTransactions/{BankTransactionID}/Attachments/{FileName}:
     summary: Retrieve or upload a bank transaction attachment by file name
     description: Retrieve or upload a bank transaction attachment by file name.
@@ -2487,6 +2511,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -2598,6 +2624,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRetrieved"
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -2727,6 +2755,8 @@ paths:
                   ToIsReconciled: false
                   Reference: Sub 098801
                   HasAttachments: false
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -2948,6 +2978,8 @@ paths:
                     Url: https://api.xero.com/api.xro/2.0/banktransfer/6221458a-ef7a-4d5f-9b1c-1b96ce03833c/Attachments/HelloWorld.jpg
                     MimeType: image/jpg
                     ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
   /BankTransfers/{BankTransferID}/Attachments:
     summary: List attachments on a specific bank transfer
     description: List attachments on a specific bank transfer.
@@ -2985,6 +3017,8 @@ paths:
                   Url: https://api.xero.com/api.xro/2.0/BankTransfers/6221458a-ef7a-4d5f-9b1c-1b96ce03833c/Attachments/HelloWorld.jpg
                   MimeType: image/jpg
                   ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
   /BankTransfers/{BankTransferID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific bank transfer attachment by ID
     description: Retrieve a specific bank transfer attachment by ID.
@@ -3014,6 +3048,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /BankTransfers/{BankTransferID}/Attachments/{FileName}:
     summary: Retrieve or upload a bank transfer attachment by file name
     description: Retrieve or upload a bank transfer attachment by file name.
@@ -3043,6 +3079,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -3154,6 +3192,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRetrieved"
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -3235,6 +3275,8 @@ paths:
                   Name: Standard
                   SortOrder: 0
                   CreatedDateUTC: /Date(1464967643813+0000)/
+        '400':
+          $ref: '#/components/responses/400Error'
   /BrandingThemes/{BrandingThemeID}:
     summary: Retrieve or update a specific branding theme
     description: Retrieve or update a specific branding theme.
@@ -3270,6 +3312,8 @@ paths:
                   Name: Standard
                   SortOrder: 0
                   CreatedDateUTC: /Date(1464967643813+0000)/
+        '400':
+          $ref: '#/components/responses/400Error'
   /BrandingThemes/{BrandingThemeID}/PaymentServices:
     summary: Manage payment services linked to a specific branding theme
     description: Manage payment services linked to a specific branding theme.
@@ -3309,6 +3353,8 @@ paths:
                   PaymentServiceUrl: https://www.payupnow.com/
                   PaymentServiceType: Custom
                   PayNowText: Pay Now
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -3479,6 +3525,8 @@ paths:
                   UpdatedDateUTC: /Date(1622137786913+0000)/
                   BudgetLines: []
                   Tracking: []
+        '400':
+          $ref: '#/components/responses/400Error'
   /Budgets/{BudgetID}:
     summary: Retrieve a specific budget
     description: Retrieve a specific budget.
@@ -3564,6 +3612,8 @@ paths:
                     - Period: 2019-10
                       Amount: "510"
                       Notes: ""
+        '400':
+          $ref: '#/components/responses/400Error'
   /Contacts:
     summary: Manage contacts including customers and suppliers
     description: Manage contacts including customers and suppliers.
@@ -3767,6 +3817,8 @@ paths:
                   ContactPersons: []
                   HasAttachments: false
                   HasValidationErrors: false
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -4363,6 +4415,8 @@ paths:
                     MimeType: image/jpg
                     ContentLength: 2878711
                   HasValidationErrors: false
+        '400':
+          $ref: '#/components/responses/400Error'
   /Contacts/{ContactID}:
     summary: Retrieve or update a specific contact
     description: Retrieve or update a specific contact.
@@ -4486,6 +4540,8 @@ paths:
                     MimeType: image/jpg
                     ContentLength: 2878711
                   HasValidationErrors: false
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -4641,6 +4697,8 @@ paths:
                   Url: https://api.xero.com/api.xro/2.0/Contacts/8138a266-fb42-49b2-a104-014b7045753d/Attachments/sample5.jpg
                   MimeType: image/jpg
                   ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
       parameters:
       - $ref: "#/components/parameters/ContactID"
   /Contacts/{ContactID}/Attachments/{AttachmentID}:
@@ -4672,6 +4730,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /Contacts/{ContactID}/Attachments/{FileName}:
     summary: Retrieve or upload a contact attachment by file name
     description: Retrieve or upload a contact attachment by file name.
@@ -4701,6 +4761,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -4822,6 +4884,8 @@ paths:
                 - CISContractorEnabled: true
                   CISSubContractorEnabled: true
                   Rate: 100
+        '400':
+          $ref: '#/components/responses/400Error'
   /Contacts/{ContactID}/History:
     summary: Manage history records for a specific contact
     description: Manage history records for a specific contact.
@@ -4843,6 +4907,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRetrieved"
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -4949,6 +5015,8 @@ paths:
                   Status: ACTIVE
                   Contacts: []
                   HasValidationErrors: false
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -5084,6 +5152,8 @@ paths:
                     ContactPersons: []
                     HasValidationErrors: false
                   HasValidationErrors: false
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -5255,6 +5325,8 @@ paths:
         "204":
           description: Success - return response 204 no content
           x-isEmpty: true
+        '400':
+          $ref: '#/components/responses/400Error'
   /ContactGroups/{ContactGroupID}/Contacts/{ContactID}:
     summary: Remove a specific contact from a contact group
     description: Remove a specific contact from a contact group.
@@ -5405,6 +5477,8 @@ paths:
                   Total: 46.00
                   UpdatedDateUTC: /Date(1551812506153+0000)/
                   CurrencyCode: NZD
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -6036,6 +6110,8 @@ paths:
                   Total: 34.50
                   UpdatedDateUTC: /Date(1551812346157+0000)/
                   CurrencyCode: NZD
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -6346,6 +6422,8 @@ paths:
                   Url: https://api.xero.com/api.xro/2.0/CreditNotes/249f15fa-f2a7-4acc-8769-0984103f2225/Attachments/HelloWorld.png
                   MimeType: image/png
                   ContentLength: 76091
+        '400':
+          $ref: '#/components/responses/400Error'
   /CreditNotes/{CreditNoteID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific credit note attachment by ID
     description: Retrieve a specific credit note attachment by ID.
@@ -6375,6 +6453,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /CreditNotes/{CreditNoteID}/Attachments/{FileName}:
     summary: Retrieve or upload a credit note attachment by file name
     description: Retrieve or upload a credit note attachment by file name.
@@ -6404,6 +6484,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -6523,6 +6605,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /CreditNotes/{CreditNoteID}/Allocations:
     summary: Manage allocations on a specific credit note
     description: Manage allocations on a specific credit note.
@@ -6686,6 +6770,8 @@ paths:
                 Invoice:
                 - InvoiceID: b7eb1fc9-a0f9-4e8e-9373-6689f5350832
                 IsDeleted: true
+        '400':
+          $ref: '#/components/responses/400Error'
   /CreditNotes/{CreditNoteID}/History:
     summary: Manage history records for a specific credit note
     description: Manage history records for a specific credit note.
@@ -6707,6 +6793,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRetrieved"
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -6804,6 +6892,8 @@ paths:
                 Currencies:
                 - Code: NZD
                   Description: New Zealand Dollar
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -6851,6 +6941,8 @@ paths:
                 Currencies:
                 - Code: USD
                   Description: United States Dollar
+        '400':
+          $ref: '#/components/responses/400Error'
       requestBody:
         required: true
         description: Currency object in the body of request
@@ -7124,6 +7216,8 @@ paths:
                   Total: 115.00
                   UpdatedDateUTC: /Date(1541176648927+0000)/
                   CurrencyCode: NZD
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -7933,6 +8027,8 @@ paths:
                   StatusAttributeString: ERROR
                   ValidationErrors:
                   - Message: "Invoice # must be unique."
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -8104,6 +8200,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /Invoices/{InvoiceID}/Attachments:
     summary: List attachments on a specific invoice
     description: List attachments on a specific invoice.
@@ -8146,6 +8244,8 @@ paths:
                   Url: https://api.xero.com/api.xro/2.0/Invoices/4074292c-09b3-456d-84e7-add864c6c39b/Attachments/sample5.jpg
                   MimeType: image/jpg
                   ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
   /Invoices/{InvoiceID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific invoice attachment by ID
     description: Retrieve a specific invoice attachment by ID.
@@ -8175,6 +8275,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /Invoices/{InvoiceID}/Attachments/{FileName}:
     summary: Retrieve or upload an invoice attachment by file name
     description: Retrieve or upload an invoice attachment by file name.
@@ -8204,6 +8306,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -8327,6 +8431,8 @@ paths:
                 DateTimeUTC: /Date(1552331100745)/
                 OnlineInvoices:
                 - OnlineInvoiceUrl: https://in.xero.com/bCWCCfytGdTXoJam9HENWlQt07G6zcDaj4gQojHu
+        '400':
+          $ref: '#/components/responses/400Error'
   /Invoices/{InvoiceID}/Email:
     summary: Send a specific invoice by email
     description: Send a specific invoice by email.
@@ -8386,6 +8492,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRetrieved"
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -8464,6 +8572,8 @@ paths:
                 DateTimeUTC: /Date(1552331430618)/
                 InvoiceReminders:
                 - Enabled: false
+        '400':
+          $ref: '#/components/responses/400Error'
   /Items:
     summary: Manage inventory items
     description: Manage inventory items.
@@ -8533,6 +8643,8 @@ paths:
                   IsTrackedAsInventory: false
                   IsSold: true
                   IsPurchased: true
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -8791,6 +8903,8 @@ paths:
                   IsSold: true
                   IsPurchased: true
                   ValidationErrors: []
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -8909,6 +9023,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRetrieved"
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -8953,6 +9069,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRecordCreated"
+        '400':
+          $ref: '#/components/responses/400Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /Journals:
@@ -9127,6 +9245,8 @@ paths:
                     GrossAmount: 3750.00
                     TaxAmount: 0.00
                     TrackingCategories: []
+        '400':
+          $ref: '#/components/responses/400Error'
   /Journals/{JournalID}:
     summary: Retrieve a specific journal by ID
     description: Retrieve a specific journal by ID.
@@ -9186,6 +9306,8 @@ paths:
                     TaxType: NONE
                     TaxName: No GST
                     TrackingCategories: []
+        '400':
+          $ref: '#/components/responses/400Error'
   /Journals/{JournalNumber}:
     summary: Retrieve a specific journal by journal number
     description: Retrieve a specific journal by journal number.
@@ -9245,6 +9367,8 @@ paths:
                     TaxType: NONE
                     TaxName: No GST
                     TrackingCategories: []
+        '400':
+          $ref: '#/components/responses/400Error'
   /LinkedTransactions:
     summary: Manage linked transactions between purchase orders and bills
     description: Manage linked transactions between purchase orders and bills.
@@ -9336,6 +9460,8 @@ paths:
                   Type: BILLABLEEXPENSE
                   UpdatedDateUTC: /Date(1552347991000+0000)/
                   SourceTransactionTypeCode: ACCPAY
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -9446,6 +9572,8 @@ paths:
                   Type: BILLABLEEXPENSE
                   UpdatedDateUTC: /Date(1552347991000+0000)/
                   SourceTransactionTypeCode: ACCPAY
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -9656,6 +9784,8 @@ paths:
                   JournalLines: []
                   ShowOnCashBasisReports: true
                   HasAttachments: false
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -10137,6 +10267,8 @@ paths:
                     Url: https://api.xero.com/api.xro/2.0/manualjournal/99cb8353-ce73-4a5d-8e0d-8b0edf86cfc4/Attachments/ridehistory.pdf
                     MimeType: application/pdf
                     ContentLength: 4423
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -10372,6 +10504,8 @@ paths:
                   Url: https://api.xero.com/api.xro/2.0/ManualJournals/0b159335-606b-485f-b51b-97b3b32bad32/Attachments/foobar.jpg
                   MimeType: image/jpg
                   ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
   /ManualJournals/{ManualJournalID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific manual journal attachment by ID
     description: Retrieve a specific manual journal attachment by ID.
@@ -10401,6 +10535,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /ManualJournals/{ManualJournalID}/Attachments/{FileName}:
     summary: Retrieve or upload a manual journal attachment by file name
     description: Retrieve or upload a manual journal attachment by file name.
@@ -10430,6 +10566,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -10541,6 +10679,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRetrieved"
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -10648,6 +10788,8 @@ paths:
                   Phones: []
                   ExternalLinks: []
                   PaymentTerms: {}
+        '400':
+          $ref: '#/components/responses/400Error'
   /Organisation/Actions:
     summary: Retrieve available actions for the organisation
     description: Retrieve available actions for the organisation.
@@ -10703,6 +10845,8 @@ paths:
                   Status: ALLOWED
                 - Name: CreateDraftBill
                   Status: ALLOWED
+        '400':
+          $ref: '#/components/responses/400Error'
   /Organisation/{OrganisationID}/CISSettings:
     summary: Retrieve CIS settings for a specific organisation
     description: Retrieve CIS settings for a specific organisation.
@@ -10732,6 +10876,8 @@ paths:
                 CISSettings:
                 - CISEnambed: true
                   Rate: 10
+        '400':
+          $ref: '#/components/responses/400Error'
   /Overpayments:
     summary: Retrieve overpayments
     description: Retrieve overpayments.
@@ -10941,6 +11087,8 @@ paths:
                   Total: 20.00
                   UpdatedDateUTC: /Date(1552428950730+0000)/
                   CurrencyCode: NZD
+        '400':
+          $ref: '#/components/responses/400Error'
   /Overpayments/{OverpaymentID}:
     summary: Retrieve a specific overpayment
     description: Retrieve a specific overpayment.
@@ -11061,6 +11209,8 @@ paths:
                   Total: 3000.00
                   UpdatedDateUTC: /Date(1552428952890+0000)/
                   CurrencyCode: NZD
+        '400':
+          $ref: '#/components/responses/400Error'
   /Overpayments/{OverpaymentID}/Allocations:
     summary: Manage allocations on a specific overpayment
     description: Manage allocations on a specific overpayment.
@@ -11226,6 +11376,8 @@ paths:
                 Invoice:
                 - InvoiceID: b7eb1fc9-a0f9-4e8e-9373-6689f5350832
                 IsDeleted: true
+        '400':
+          $ref: '#/components/responses/400Error'
   /Overpayments/{OverpaymentID}/History:
     summary: Manage history records for a specific overpayment
     description: Manage history records for a specific overpayment.
@@ -11247,6 +11399,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRetrieved"
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -11454,6 +11608,8 @@ paths:
                     LineItems: []
                     CurrencyCode: NZD
                   HasValidationErrors: false
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -11932,6 +12088,8 @@ paths:
                     CurrencyCode: NZD
                     FullyPaidOnDate: /Date(1543449600000+0000)/
                   HasValidationErrors: false
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -12055,6 +12213,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRetrieved"
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -12151,6 +12311,8 @@ paths:
                   PaymentServiceUrl: https://www.payupnow.com/
                   PaymentServiceType: Custom
                   PayNowText: Time To Pay
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -12342,6 +12504,8 @@ paths:
                   Total: 3450.00
                   UpdatedDateUTC: /Date(1552489187730+0000)/
                   CurrencyCode: NZD
+        '400':
+          $ref: '#/components/responses/400Error'
   /Prepayments/{PrepaymentID}:
     summary: Retrieve a specific prepayment
     description: Retrieve a specific prepayment.
@@ -12460,6 +12624,8 @@ paths:
                   Total: 3450.00
                   UpdatedDateUTC: /Date(1552522424850+0000)/
                   CurrencyCode: NZD
+        '400':
+          $ref: '#/components/responses/400Error'
   /Prepayments/{PrepaymentID}/Allocations:
     summary: Manage allocations on a specific prepayment
     description: Manage allocations on a specific prepayment.
@@ -12623,6 +12789,8 @@ paths:
                 Invoice:
                 - InvoiceID: b7eb1fc9-a0f9-4e8e-9373-6689f5350832
                 IsDeleted: true
+        '400':
+          $ref: '#/components/responses/400Error'
   /Prepayments/{PrepaymentID}/History:
     summary: Manage history records for a specific prepayment
     description: Manage history records for a specific prepayment.
@@ -12644,6 +12812,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRetrieved"
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -12888,6 +13058,8 @@ paths:
                   Total: 20.00
                   UpdatedDateUTC: /Date(1552522834733+0000)/
                   HasAttachments: false
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -13403,6 +13575,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /PurchaseOrders/{PurchaseOrderID}:
     summary: Retrieve or update a specific purchase order
     description: Retrieve or update a specific purchase order.
@@ -13531,6 +13705,8 @@ paths:
                     Url: https://api.xero.com/api.xro/2.0/PurchaseOrders/15369a9f-17b6-4235-83c4-0029256d1c37/Attachments/HelloWorld.png
                     MimeType: image/png
                     ContentLength: 76091
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -13805,6 +13981,8 @@ paths:
                     Url: https://api.xero.com/api.xro/2.0/PurchaseOrders/15369a9f-17b6-4235-83c4-0029256d1c37/Attachments/HelloWorld.png
                     MimeType: image/png
                     ContentLength: 76091
+        '400':
+          $ref: '#/components/responses/400Error'
   /PurchaseOrders/{PurchaseOrderID}/History:
     summary: Manage history records for a specific purchase order
     description: Manage history records for a specific purchase order.
@@ -13826,6 +14004,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRetrieved"
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -13921,6 +14101,8 @@ paths:
                   Url: https://api.xero.com/api.xro/2.0/PurchaseOrders/93369c9b-c481-4e21-aaab-bb19e9a26efe/Attachments/Screen%20Shot%202020-09-12%20at%204.31.14%20pm.png
                   MimeType: image/png
                   ContentLength: 146384
+        '400':
+          $ref: '#/components/responses/400Error'
   /PurchaseOrders/{PurchaseOrderID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific purchase order attachment by ID
     description: Retrieve a specific purchase order attachment by ID.
@@ -13950,6 +14132,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /PurchaseOrders/{PurchaseOrderID}/Attachments/{FileName}:
     summary: Retrieve or upload a purchase order attachment by file name
     description: Retrieve or upload a purchase order attachment by file name.
@@ -13979,6 +14163,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -14218,6 +14404,8 @@ paths:
                   BrandingThemeID: 4c82c365-35cb-467f-bb11-dce1f2f2f67c
                   UpdatedDateUTC: /Date(1571869373890)/
                   LineAmountTypes: EXCLUSIVE
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -14678,6 +14866,8 @@ paths:
                   BrandingThemeID: 324587a9-7eed-46c0-ad64-fa941a1b5b3e
                   UpdatedDateUTC: /Date(1580607757040)/
                   LineAmountTypes: EXCLUSIVE
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -14833,6 +15023,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRetrieved"
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -14909,6 +15101,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /Quotes/{QuoteID}/Attachments:
     summary: List attachments on a specific quote
     description: List attachments on a specific quote.
@@ -14946,6 +15140,8 @@ paths:
                   Url: https://api.xero.com/api.xro/2.0/Quotes/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg
                   MimeType: image/jpg
                   ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
   /Quotes/{QuoteID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific quote attachment by ID
     description: Retrieve a specific quote attachment by ID.
@@ -14975,6 +15171,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /Quotes/{QuoteID}/Attachments/{FileName}:
     summary: Retrieve or upload a quote attachment by file name
     description: Retrieve or upload a quote attachment by file name.
@@ -15004,6 +15202,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -15188,6 +15388,8 @@ paths:
                   TotalTax: 750.00
                   Total: 5750.00
                   CurrencyCode: NZD
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -15491,6 +15693,8 @@ paths:
                   TotalTax: 750.00
                   Total: 5750.00
                   CurrencyCode: NZD
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -15658,6 +15862,8 @@ paths:
                   Url: https://api.xero.com/api.xro/2.0/RepeatingInvoices/428c0d75-909f-4b04-8403-a48dc27283b0/Attachments/helo-heros.jpg
                   MimeType: image/jpeg
                   ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
   /RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific repeating invoice attachment by ID
     description: Retrieve a specific repeating invoice attachment by ID.
@@ -15687,6 +15893,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
   /RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}:
     summary: Retrieve or upload a repeating invoice attachment by file name
     description: Retrieve or upload a repeating invoice attachment by file name.
@@ -15716,6 +15924,8 @@ paths:
                 type: string
                 format: binary
                 example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -15827,6 +16037,8 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/HistoryRetrieved"
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -16008,6 +16220,8 @@ paths:
                     LegalName: Jake Peralta
                     BusinessName: Truxton Property Management
                     FederalTaxClassification: C_CORP
+        '400':
+          $ref: '#/components/responses/400Error'
   /Reports/AgedPayablesByContact:
     summary: Retrieve aged payables report by contact
     description: Retrieve aged payables report by contact.
@@ -16151,6 +16365,8 @@ paths:
                       - Value: "0.00"
                       - Value: "0.00"
                       - Value: "250.00"
+        '400':
+          $ref: '#/components/responses/400Error'
   /Reports/AgedReceivablesByContact:
     summary: Retrieve aged receivables report by contact
     description: Retrieve aged receivables report by contact.
@@ -16328,6 +16544,8 @@ paths:
                       - Value: "0.00"
                       - Value: "0.00"
                       - Value: "150.00"
+        '400':
+          $ref: '#/components/responses/400Error'
   /Reports/BalanceSheet:
     summary: Retrieve balance sheet report
     description: Retrieve balance sheet report.
@@ -16733,6 +16951,8 @@ paths:
                       - Value: "185448.29"
                       - Value: "185333.67"
                       - Value: "464.00"
+        '400':
+          $ref: '#/components/responses/400Error'
   /Reports/BankSummary:
     summary: Retrieve bank summary report
     description: Retrieve bank summary report.
@@ -16807,6 +17027,8 @@ paths:
                       - Value: "110.00"
                       - Value: "100.00"
                       - Value: "10.00"
+        '400':
+          $ref: '#/components/responses/400Error'
   /Reports/{ReportID}:
     summary: Retrieve a specific custom report by ID
     description: Retrieve a specific custom report by ID.
@@ -16839,6 +17061,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ReportWithRows"
+        '400':
+          $ref: '#/components/responses/400Error'
   /Reports/BudgetSummary:
     summary: Retrieve budget summary report
     description: Retrieve budget summary report.
@@ -16970,6 +17194,8 @@ paths:
                       - Value: "0.00"
                       - Value: "0.00"
                       - Value: "0.00"
+        '400':
+          $ref: '#/components/responses/400Error'
   /Reports/ExecutiveSummary:
     summary: Retrieve executive summary report
     description: Retrieve executive summary report.
@@ -17179,6 +17405,8 @@ paths:
                       - Value: ""
                       - Value: ""
                       - Value: 0.0%
+        '400':
+          $ref: '#/components/responses/400Error'
   /Reports:
     summary: List organisation-specific reports requiring a unique ID
     description: List organisation-specific reports requiring a unique ID.
@@ -17201,6 +17429,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ReportWithRows"
+        '400':
+          $ref: '#/components/responses/400Error'
   /Reports/ProfitAndLoss:
     summary: Retrieve profit and loss report
     description: Retrieve profit and loss report.
@@ -17294,6 +17524,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ReportWithRows"
+        '400':
+          $ref: '#/components/responses/400Error'
   /Reports/TrialBalance:
     summary: Retrieve trial balance report
     description: Retrieve trial balance report.
@@ -17816,6 +18048,8 @@ paths:
                       - Value: "1200.00"
                       - Value: "46019.00"
                       - Value: "46019.00"
+        '400':
+          $ref: '#/components/responses/400Error'
   /Setup:
     summary: Configure chart of accounts, conversion date and opening balances
     description: Configure chart of accounts, conversion date and opening balances.
@@ -17951,6 +18185,8 @@ paths:
                     NewOrUpdated: 8
                   Organisation:
                     Present: false
+        '400':
+          $ref: '#/components/responses/400Error'
       requestBody:
         required: true
         description: Object including an accounts array, a conversion balances array and a conversion date object in body of request
@@ -18108,6 +18344,8 @@ paths:
                     Rate: 0.0000
                     IsCompound: false
                     IsNonRecoverable: false
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -18404,6 +18642,8 @@ paths:
                     Rate: 15.0000
                     IsCompound: false
                     IsNonRecoverable: false
+        '400':
+          $ref: '#/components/responses/400Error'
   /TrackingCategories:
     summary: Manage tracking categories and options
     description: Manage tracking categories and options.
@@ -18469,6 +18709,8 @@ paths:
                   Status: ACTIVE
                   TrackingCategoryID: 0c9fce3e-a111-4d99-803a-62cf3f40e633
                   Options: []
+        '400':
+          $ref: '#/components/responses/400Error'
     put:
       security:
       - OAuth2:
@@ -18556,6 +18798,8 @@ paths:
                   Status: DELETED
                   TrackingCategoryID: 22f10184-0deb-44ae-a312-b1f6ea70e51f
                   Options: []
+        '400':
+          $ref: '#/components/responses/400Error'
     post:
       security:
       - OAuth2:
@@ -18855,6 +19099,8 @@ paths:
                   UpdatedDateUTC: /Date(1511957179217+0000)/
                   IsSubscriber: true
                   OrganisationRole: FINANCIALADVISER
+        '400':
+          $ref: '#/components/responses/400Error'
   /Users/{UserID}:
     summary: Retrieve a specific user
     description: Retrieve a specific user.
@@ -18893,6 +19139,8 @@ paths:
                   UpdatedDateUTC: /Date(1508523261613+0000)/
                   IsSubscriber: false
                   OrganisationRole: FINANCIALADVISER
+        '400':
+          $ref: '#/components/responses/400Error'
 components:
   securitySchemes:
     OAuth2:
