@@ -3975,6 +3975,7 @@ paths:
         - accounting.budgets.read
       tags:
       - Accounting
+      - Reports
       operationId: getBudgets
       summary: List budget records for the organisation
       description: Returns the organisation's budget-record collection in the budget-list response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
@@ -4066,6 +4067,7 @@ paths:
         - accounting.budgets.read
       tags:
       - Accounting
+      - Reports
       operationId: getBudget
       summary: Get the budget identified by budget ID
       description: Returns the requested budget record, identified by the supplied budget ID, in the budget response payload.
@@ -10368,6 +10370,7 @@ paths:
         - accounting.journals.read
       tags:
       - Accounting
+      - Reports
       operationId: getJournals
       summary: List journals for the organisation
       description: Returns the organisation's journals in a Journals response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
@@ -10554,6 +10557,7 @@ paths:
         - accounting.journals.read
       tags:
       - Accounting
+      - Reports
       operationId: getJournal
       summary: Get the journal identified by journal ID
       description: Returns the journal identified by the supplied journal ID in a Journals response payload.
@@ -10627,6 +10631,7 @@ paths:
         - accounting.journals.read
       tags:
       - Accounting
+      - Reports
       operationId: getJournalByNumber
       summary: Get a journal by journal number
       description: Returns the journal identified by the supplied journal number in a Journals response payload.
