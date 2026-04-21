@@ -88,6 +88,14 @@ paths:
                   EnablePaymentsToAccount: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -178,6 +186,14 @@ paths:
                   Description: Hello World
                   ValidationErrors:
                   - Message: Please enter a unique Name.
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Account object in body of request
@@ -236,6 +252,14 @@ paths:
                   UpdatedDateUTC: /Date(1550797359120+0000)/
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -345,6 +369,14 @@ paths:
                   Description: Hello World
                   ValidationErrors:
                   - Message: Please enter a unique Name.
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Request of type Accounts array with one Account
@@ -423,6 +455,14 @@ paths:
                   Description: Hello World
                   ValidationErrors:
                   - Message: Please enter a unique Name.
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Accounts/{AccountID}/Attachments:
     summary: List attachments on a specific account
     description: List attachments on a specific account.
@@ -462,6 +502,14 @@ paths:
                   ContentLength: 2878711
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Accounts/{AccountID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific account attachment by ID
     description: Retrieve a specific account attachment by ID.
@@ -493,6 +541,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Accounts/{AccountID}/Attachments/{FileName}:
     summary: Retrieve or upload an account attachment by file name
     description: Retrieve or upload an account attachment by file name.
@@ -524,6 +580,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -564,6 +628,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -609,6 +681,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -747,6 +827,14 @@ paths:
                   IsReconciled: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -978,6 +1066,14 @@ paths:
                   IsReconciled: false
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: BatchPayments with an array of Payments in body of request
@@ -1060,6 +1156,14 @@ paths:
                   IsReconciled: false
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -1155,6 +1259,14 @@ paths:
                   IsReconciled: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -1195,6 +1307,14 @@ paths:
                   IsReconciled: false
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -1241,6 +1361,14 @@ paths:
                   Details: ""
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -1301,6 +1429,14 @@ paths:
                   ValidationErrors: []
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /BankTransactions:
@@ -1459,6 +1595,14 @@ paths:
                   CurrencyCode: USD
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -1699,6 +1843,14 @@ paths:
                   - Message: "The Contact must contain at least 1 of the following elements to identify the contact: Name, ContactID, ContactNumber"
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: BankTransactions with an array of BankTransaction objects in body of request
@@ -1958,6 +2110,14 @@ paths:
                   - Message: "The Contact must contain at least 1 of the following elements to identify the contact: Name, ContactID, ContactNumber"
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -2096,6 +2256,14 @@ paths:
                   CurrencyCode: USD
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -2340,6 +2508,14 @@ paths:
                   CurrencyCode: USD
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -2451,6 +2627,14 @@ paths:
                   ContentLength: 2878711
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /BankTransactions/{BankTransactionID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific bank transaction attachment by ID
     description: Retrieve a specific bank transaction attachment by ID.
@@ -2482,6 +2666,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /BankTransactions/{BankTransactionID}/Attachments/{FileName}:
     summary: Retrieve or upload a bank transaction attachment by file name
     description: Retrieve or upload a bank transaction attachment by file name.
@@ -2513,6 +2705,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -2549,6 +2749,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -2594,6 +2802,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -2626,6 +2842,14 @@ paths:
           $ref: "#/components/responses/HistoryRetrieved"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -2672,6 +2896,14 @@ paths:
           $ref: "#/components/responses/HistoryRecordCreated"
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /BankTransfers:
@@ -2757,6 +2989,14 @@ paths:
                   HasAttachments: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -2873,6 +3113,14 @@ paths:
                   ValidationErrors: []
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: BankTransfers with array of BankTransfer objects in request body
@@ -2980,6 +3228,14 @@ paths:
                     ContentLength: 2878711
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /BankTransfers/{BankTransferID}/Attachments:
     summary: List attachments on a specific bank transfer
     description: List attachments on a specific bank transfer.
@@ -3019,6 +3275,14 @@ paths:
                   ContentLength: 2878711
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /BankTransfers/{BankTransferID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific bank transfer attachment by ID
     description: Retrieve a specific bank transfer attachment by ID.
@@ -3050,6 +3314,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /BankTransfers/{BankTransferID}/Attachments/{FileName}:
     summary: Retrieve or upload a bank transfer attachment by file name
     description: Retrieve or upload a bank transfer attachment by file name.
@@ -3081,6 +3353,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -3117,6 +3397,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -3162,6 +3450,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -3194,6 +3490,14 @@ paths:
           $ref: "#/components/responses/HistoryRetrieved"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -3240,6 +3544,14 @@ paths:
           $ref: "#/components/responses/HistoryRecordCreated"
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /BrandingThemes:
@@ -3277,6 +3589,14 @@ paths:
                   CreatedDateUTC: /Date(1464967643813+0000)/
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /BrandingThemes/{BrandingThemeID}:
     summary: Retrieve or update a specific branding theme
     description: Retrieve or update a specific branding theme.
@@ -3314,6 +3634,14 @@ paths:
                   CreatedDateUTC: /Date(1464967643813+0000)/
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /BrandingThemes/{BrandingThemeID}/PaymentServices:
     summary: Manage payment services linked to a specific branding theme
     description: Manage payment services linked to a specific branding theme.
@@ -3355,6 +3683,14 @@ paths:
                   PayNowText: Pay Now
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -3434,6 +3770,14 @@ paths:
                   PayNowText: Pay Now
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: PaymentServices array with PaymentService object in body of request
@@ -3527,6 +3871,14 @@ paths:
                   Tracking: []
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Budgets/{BudgetID}:
     summary: Retrieve a specific budget
     description: Retrieve a specific budget.
@@ -3614,6 +3966,14 @@ paths:
                       Notes: ""
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Contacts:
     summary: Manage contacts including customers and suppliers
     description: Manage contacts including customers and suppliers.
@@ -3819,6 +4179,14 @@ paths:
                   HasValidationErrors: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -4013,6 +4381,14 @@ paths:
                   HasValidationErrors: true
                   ValidationErrors:
                   - Message: The contact name Buzz Lightyear is already assigned to another contact. The contact name must be unique across all active contacts.
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Contacts with an array of Contact objects to create in body of request
@@ -4263,6 +4639,14 @@ paths:
                   HasValidationErrors: true
                   ValidationErrors:
                   - Message: The contact name Buzz Lightyear is already assigned to another contact. The contact name must be unique across all active contacts.
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -4417,6 +4801,14 @@ paths:
                   HasValidationErrors: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Contacts/{ContactID}:
     summary: Retrieve or update a specific contact
     description: Retrieve or update a specific contact.
@@ -4542,6 +4934,14 @@ paths:
                   HasValidationErrors: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -4650,6 +5050,14 @@ paths:
                   HasValidationErrors: false
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         description: an array of Contacts containing single Contact object with properties to update
         required: true
@@ -4699,6 +5107,14 @@ paths:
                   ContentLength: 2878711
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       parameters:
       - $ref: "#/components/parameters/ContactID"
   /Contacts/{ContactID}/Attachments/{AttachmentID}:
@@ -4732,6 +5148,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Contacts/{ContactID}/Attachments/{FileName}:
     summary: Retrieve or upload a contact attachment by file name
     description: Retrieve or upload a contact attachment by file name.
@@ -4763,6 +5187,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -4799,6 +5231,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -4844,6 +5284,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -4886,6 +5334,14 @@ paths:
                   Rate: 100
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Contacts/{ContactID}/History:
     summary: Manage history records for a specific contact
     description: Manage history records for a specific contact.
@@ -4909,6 +5365,14 @@ paths:
           $ref: "#/components/responses/HistoryRetrieved"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -4957,6 +5421,14 @@ paths:
           $ref: "#/components/responses/HistoryRecordCreated"
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /ContactGroups:
     summary: Manage contact groups
     description: Manage contact groups.
@@ -5017,6 +5489,14 @@ paths:
                   HasValidationErrors: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -5092,6 +5572,14 @@ paths:
                   HasValidationErrors: true
                   ValidationErrors:
                   - Message: YouΓÇÖve reached the limit of 100 contact groups.
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         description: ContactGroups with an array of names in request body
         required: true
@@ -5154,6 +5642,14 @@ paths:
                   HasValidationErrors: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -5215,6 +5711,14 @@ paths:
                   HasValidationErrors: false
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         description: an array of Contact groups with Name of specific group to update
         required: true
@@ -5298,6 +5802,14 @@ paths:
                   ValidationErrors: []
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         description: Contacts with array of contacts specifying the ContactID to be added to ContactGroup in body of request
         required: true
@@ -5327,6 +5839,14 @@ paths:
           x-isEmpty: true
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /ContactGroups/{ContactGroupID}/Contacts/{ContactID}:
     summary: Remove a specific contact from a contact group
     description: Remove a specific contact from a contact group.
@@ -5351,6 +5871,14 @@ paths:
           x-isEmpty: true
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /CreditNotes:
     summary: Manage credit notes
     description: Manage credit notes.
@@ -5479,6 +6007,14 @@ paths:
                   CurrencyCode: NZD
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -5717,6 +6253,14 @@ paths:
                   - Message: An existing Credit Note with the specified CreditNoteID could not be found
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         description: Credit Notes with array of CreditNote object in body of request
         required: true
@@ -5974,6 +6518,14 @@ paths:
                   - Message: An existing Credit Note with the specified CreditNoteID could not be found
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         description: an array of Credit Notes with a single CreditNote object.
         required: true
@@ -6112,6 +6664,14 @@ paths:
                   CurrencyCode: NZD
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -6364,6 +6924,14 @@ paths:
                   CurrencyCode: NZD
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         description: an array of Credit Notes containing credit note details to update
         required: true
@@ -6424,6 +6992,14 @@ paths:
                   ContentLength: 76091
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /CreditNotes/{CreditNoteID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific credit note attachment by ID
     description: Retrieve a specific credit note attachment by ID.
@@ -6455,6 +7031,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /CreditNotes/{CreditNoteID}/Attachments/{FileName}:
     summary: Retrieve or upload a credit note attachment by file name
     description: Retrieve or upload a credit note attachment by file name.
@@ -6486,6 +7070,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -6522,6 +7114,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -6568,6 +7168,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -6607,6 +7215,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /CreditNotes/{CreditNoteID}/Allocations:
     summary: Manage allocations on a specific credit note
     description: Manage allocations on a specific credit note.
@@ -6725,6 +7341,14 @@ paths:
                   ValidationErrors: []
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         description: Allocations with array of Allocation object in body of request.
         required: true
@@ -6772,6 +7396,14 @@ paths:
                 IsDeleted: true
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /CreditNotes/{CreditNoteID}/History:
     summary: Manage history records for a specific credit note
     description: Manage history records for a specific credit note.
@@ -6795,6 +7427,14 @@ paths:
           $ref: "#/components/responses/HistoryRetrieved"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -6841,6 +7481,14 @@ paths:
           $ref: "#/components/responses/HistoryRecordCreated"
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /Currencies:
@@ -6894,6 +7542,14 @@ paths:
                   Description: New Zealand Dollar
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -6943,6 +7599,14 @@ paths:
                   Description: United States Dollar
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Currency object in the body of request
@@ -7218,6 +7882,14 @@ paths:
                   CurrencyCode: NZD
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -7550,6 +8222,14 @@ paths:
                   StatusAttributeString: OK
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Invoices with an array of invoice objects in body of request
@@ -7864,6 +8544,14 @@ paths:
                   StatusAttributeString: OK
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -8029,6 +8717,14 @@ paths:
                   - Message: "Invoice # must be unique."
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -8159,6 +8855,14 @@ paths:
                   CurrencyCode: NZD
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -8202,6 +8906,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Invoices/{InvoiceID}/Attachments:
     summary: List attachments on a specific invoice
     description: List attachments on a specific invoice.
@@ -8246,6 +8958,14 @@ paths:
                   ContentLength: 2878711
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Invoices/{InvoiceID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific invoice attachment by ID
     description: Retrieve a specific invoice attachment by ID.
@@ -8277,6 +8997,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Invoices/{InvoiceID}/Attachments/{FileName}:
     summary: Retrieve or upload an invoice attachment by file name
     description: Retrieve or upload an invoice attachment by file name.
@@ -8308,6 +9036,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -8344,6 +9080,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -8390,6 +9134,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -8433,6 +9185,14 @@ paths:
                 - OnlineInvoiceUrl: https://in.xero.com/bCWCCfytGdTXoJam9HENWlQt07G6zcDaj4gQojHu
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Invoices/{InvoiceID}/Email:
     summary: Send a specific invoice by email
     description: Send a specific invoice by email.
@@ -8464,6 +9224,14 @@ paths:
           x-isEmpty: true
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -8494,6 +9262,14 @@ paths:
           $ref: "#/components/responses/HistoryRetrieved"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -8540,6 +9316,14 @@ paths:
           $ref: "#/components/responses/HistoryRecordCreated"
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /InvoiceReminders/Settings:
@@ -8574,6 +9358,14 @@ paths:
                 - Enabled: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Items:
     summary: Manage inventory items
     description: Manage inventory items.
@@ -8645,6 +9437,14 @@ paths:
                   IsPurchased: true
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -8749,6 +9549,14 @@ paths:
                   - Message: Price List Item with Code ''abc'' already exists
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Items with an array of Item objects in body of request
@@ -8839,6 +9647,14 @@ paths:
                   - Message: Price List Item with Code ''abc'' already exists
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -8905,6 +9721,14 @@ paths:
                   ValidationErrors: []
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -8974,6 +9798,14 @@ paths:
                   ValidationErrors: []
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -9002,6 +9834,14 @@ paths:
           x-isEmpty: true
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Items/{ItemID}/History:
     summary: Manage history records for a specific inventory item
     description: Manage history records for a specific inventory item.
@@ -9025,6 +9865,14 @@ paths:
           $ref: "#/components/responses/HistoryRetrieved"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -9071,6 +9919,14 @@ paths:
           $ref: "#/components/responses/HistoryRecordCreated"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /Journals:
@@ -9247,6 +10103,14 @@ paths:
                     TrackingCategories: []
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Journals/{JournalID}:
     summary: Retrieve a specific journal by ID
     description: Retrieve a specific journal by ID.
@@ -9308,6 +10172,14 @@ paths:
                     TrackingCategories: []
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Journals/{JournalNumber}:
     summary: Retrieve a specific journal by journal number
     description: Retrieve a specific journal by journal number.
@@ -9369,6 +10241,14 @@ paths:
                     TrackingCategories: []
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /LinkedTransactions:
     summary: Manage linked transactions between purchase orders and bills
     description: Manage linked transactions between purchase orders and bills.
@@ -9462,6 +10342,14 @@ paths:
                   SourceTransactionTypeCode: ACCPAY
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -9520,6 +10408,14 @@ paths:
                   - Message: The SourceLineItemID and SourceTransactionID do not match
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: LinkedTransaction object in body of request
@@ -9574,6 +10470,14 @@ paths:
                   SourceTransactionTypeCode: ACCPAY
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -9667,6 +10571,14 @@ paths:
                   SourceTransactionTypeCode: ACCPAY
                   ValidationErrors:
                   - Message: The ContactID and the TargetTransaction ContactID do not match
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -9695,6 +10607,14 @@ paths:
           x-isEmpty: true
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /ManualJournals:
     summary: Manage manual journal entries
     description: Manage manual journal entries.
@@ -9786,6 +10706,14 @@ paths:
                   HasAttachments: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -9972,6 +10900,14 @@ paths:
                   - Message: The total debits (100.00) must equal total credits (-10.00)
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: ManualJournals array with ManualJournal object in body of request
@@ -10179,6 +11115,14 @@ paths:
                   - Message: The total debits (100.00) must equal total credits (-10.00)
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: ManualJournals array with ManualJournal object in body of request
@@ -10269,6 +11213,14 @@ paths:
                     ContentLength: 4423
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -10451,6 +11403,14 @@ paths:
                   Attachments: []
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -10506,6 +11466,14 @@ paths:
                   ContentLength: 2878711
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /ManualJournals/{ManualJournalID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific manual journal attachment by ID
     description: Retrieve a specific manual journal attachment by ID.
@@ -10537,6 +11505,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /ManualJournals/{ManualJournalID}/Attachments/{FileName}:
     summary: Retrieve or upload a manual journal attachment by file name
     description: Retrieve or upload a manual journal attachment by file name.
@@ -10568,6 +11544,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -10604,6 +11588,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -10649,6 +11641,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -10681,6 +11681,14 @@ paths:
           $ref: "#/components/responses/HistoryRetrieved"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -10727,6 +11735,14 @@ paths:
           $ref: "#/components/responses/HistoryRecordCreated"
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /Organisation:
@@ -10790,6 +11806,14 @@ paths:
                   PaymentTerms: {}
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Organisation/Actions:
     summary: Retrieve available actions for the organisation
     description: Retrieve available actions for the organisation.
@@ -10847,6 +11871,14 @@ paths:
                   Status: ALLOWED
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Organisation/{OrganisationID}/CISSettings:
     summary: Retrieve CIS settings for a specific organisation
     description: Retrieve CIS settings for a specific organisation.
@@ -10878,6 +11910,14 @@ paths:
                   Rate: 10
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Overpayments:
     summary: Retrieve overpayments
     description: Retrieve overpayments.
@@ -11089,6 +12129,14 @@ paths:
                   CurrencyCode: NZD
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Overpayments/{OverpaymentID}:
     summary: Retrieve a specific overpayment
     description: Retrieve a specific overpayment.
@@ -11211,6 +12259,14 @@ paths:
                   CurrencyCode: NZD
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Overpayments/{OverpaymentID}/Allocations:
     summary: Manage allocations on a specific overpayment
     description: Manage allocations on a specific overpayment.
@@ -11329,6 +12385,14 @@ paths:
                   ValidationErrors: []
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Allocations array with Allocation object in body of request
@@ -11378,6 +12442,14 @@ paths:
                 IsDeleted: true
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Overpayments/{OverpaymentID}/History:
     summary: Manage history records for a specific overpayment
     description: Manage history records for a specific overpayment.
@@ -11401,6 +12473,14 @@ paths:
           $ref: "#/components/responses/HistoryRetrieved"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -11461,6 +12541,14 @@ paths:
                   Details: Hello World
                   ValidationErrors:
                   - Message: The document with the supplied id was not found for this endpoint.
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /Payments:
@@ -11610,6 +12698,14 @@ paths:
                   HasValidationErrors: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -11781,6 +12877,14 @@ paths:
                   - Message: Payment amount exceeds the amount outstanding on this document
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Payments array with Payment object in body of request
@@ -11967,6 +13071,14 @@ paths:
                   - Message: Payment amount exceeds the amount outstanding on this document
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Request body with a single Payment object
@@ -12090,6 +13202,14 @@ paths:
                   HasValidationErrors: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -12183,6 +13303,14 @@ paths:
                   HasValidationErrors: false
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -12215,6 +13343,14 @@ paths:
           $ref: "#/components/responses/HistoryRetrieved"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -12275,6 +13411,14 @@ paths:
                   Details: Hello World
                   ValidationErrors:
                   - Message: The document with the supplied id was not found for this endpoint.
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /PaymentServices:
@@ -12313,6 +13457,14 @@ paths:
                   PayNowText: Time To Pay
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -12386,6 +13538,14 @@ paths:
                   - Message: Payment service could not be found
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: PaymentServices array with PaymentService object in body of request
@@ -12506,6 +13666,14 @@ paths:
                   CurrencyCode: NZD
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Prepayments/{PrepaymentID}:
     summary: Retrieve a specific prepayment
     description: Retrieve a specific prepayment.
@@ -12626,6 +13794,14 @@ paths:
                   CurrencyCode: NZD
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Prepayments/{PrepaymentID}/Allocations:
     summary: Manage allocations on a specific prepayment
     description: Manage allocations on a specific prepayment.
@@ -12744,6 +13920,14 @@ paths:
                   ValidationErrors: []
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Allocations with an array of Allocation object in body of request
@@ -12791,6 +13975,14 @@ paths:
                 IsDeleted: true
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Prepayments/{PrepaymentID}/History:
     summary: Manage history records for a specific prepayment
     description: Manage history records for a specific prepayment.
@@ -12814,6 +14006,14 @@ paths:
           $ref: "#/components/responses/HistoryRetrieved"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -12865,6 +14065,14 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
               example: ' { "ErrorNumber": 10, "Type": "ValidationException", "Message": "A validation exception occurred", "Elements": [ { "DateUTCString": "2019-03-14T00:15:35", "DateUTC": "/Date(1552522535440)/", "Details": "Hello World", "ValidationErrors": [ { "Message": "The document with the supplied id was not found for this endpoint." } ] } ] }'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /PurchaseOrders:
@@ -13060,6 +14268,14 @@ paths:
                   HasAttachments: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -13287,6 +14503,14 @@ paths:
                   - Message: Order number must be unique
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: PurchaseOrders with an array of PurchaseOrder object in body of request
@@ -13531,6 +14755,14 @@ paths:
                   - Message: Order number must be unique
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -13577,6 +14809,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /PurchaseOrders/{PurchaseOrderID}:
     summary: Retrieve or update a specific purchase order
     description: Retrieve or update a specific purchase order.
@@ -13707,6 +14947,14 @@ paths:
                     ContentLength: 76091
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -13834,6 +15082,14 @@ paths:
                   UpdatedDateUTC: /Date(1552523976853+0000)/
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -13983,6 +15239,14 @@ paths:
                     ContentLength: 76091
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /PurchaseOrders/{PurchaseOrderID}/History:
     summary: Manage history records for a specific purchase order
     description: Manage history records for a specific purchase order.
@@ -14006,6 +15270,14 @@ paths:
           $ref: "#/components/responses/HistoryRetrieved"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -14052,6 +15324,14 @@ paths:
           $ref: "#/components/responses/HistoryRecordCreated"
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /PurchaseOrders/{PurchaseOrderID}/Attachments:
@@ -14103,6 +15383,14 @@ paths:
                   ContentLength: 146384
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /PurchaseOrders/{PurchaseOrderID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific purchase order attachment by ID
     description: Retrieve a specific purchase order attachment by ID.
@@ -14134,6 +15422,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /PurchaseOrders/{PurchaseOrderID}/Attachments/{FileName}:
     summary: Retrieve or upload a purchase order attachment by file name
     description: Retrieve or upload a purchase order attachment by file name.
@@ -14165,6 +15461,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -14205,6 +15509,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -14250,6 +15562,14 @@ paths:
                   ContentLength: 82529
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -14406,6 +15726,14 @@ paths:
                   LineAmountTypes: EXCLUSIVE
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -14583,6 +15911,14 @@ paths:
                   StatusAttributeString: OK
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Quotes with an array of Quote object in body of request
@@ -14777,6 +16113,14 @@ paths:
                   StatusAttributeString: OK
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -14868,6 +16212,14 @@ paths:
                   LineAmountTypes: EXCLUSIVE
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -14990,6 +16342,14 @@ paths:
                   LineAmountTypes: EXCLUSIVE
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -15025,6 +16385,14 @@ paths:
           $ref: "#/components/responses/HistoryRetrieved"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -15071,6 +16439,14 @@ paths:
           $ref: "#/components/responses/HistoryRecordCreated"
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /Quotes/{QuoteID}/pdf:
@@ -15103,6 +16479,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Quotes/{QuoteID}/Attachments:
     summary: List attachments on a specific quote
     description: List attachments on a specific quote.
@@ -15142,6 +16526,14 @@ paths:
                   ContentLength: 2878711
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Quotes/{QuoteID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific quote attachment by ID
     description: Retrieve a specific quote attachment by ID.
@@ -15173,6 +16565,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Quotes/{QuoteID}/Attachments/{FileName}:
     summary: Retrieve or upload a quote attachment by file name
     description: Retrieve or upload a quote attachment by file name.
@@ -15204,6 +16604,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -15244,6 +16652,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -15289,6 +16705,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -15390,6 +16814,14 @@ paths:
                   CurrencyCode: NZD
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -15461,6 +16893,14 @@ paths:
                   CurrencyCode: NZD
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: RepeatingInvoices with an array of repeating invoice objects in body of request
@@ -15570,6 +17010,14 @@ paths:
                   CurrencyCode: NZD
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: RepeatingInvoices with an array of repeating invoice objects in body of request
@@ -15695,6 +17143,14 @@ paths:
                   CurrencyCode: NZD
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -15766,6 +17222,14 @@ paths:
                   CurrencyCode: NZD
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -15864,6 +17328,14 @@ paths:
                   ContentLength: 2878711
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{AttachmentID}:
     summary: Retrieve a specific repeating invoice attachment by ID
     description: Retrieve a specific repeating invoice attachment by ID.
@@ -15895,6 +17367,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}:
     summary: Retrieve or upload a repeating invoice attachment by file name
     description: Retrieve or upload a repeating invoice attachment by file name.
@@ -15926,6 +17406,14 @@ paths:
                 example: ZXhhbXBsZQ==
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -15962,6 +17450,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -16007,6 +17503,14 @@ paths:
                   ContentLength: 2878711
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Byte array of file in body of request
@@ -16039,6 +17543,14 @@ paths:
           $ref: "#/components/responses/HistoryRetrieved"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -16085,6 +17597,14 @@ paths:
           $ref: "#/components/responses/HistoryRecordCreated"
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: "#/components/requestBodies/historyRecords"
   /Reports/TenNinetyNine:
@@ -16222,6 +17742,14 @@ paths:
                     FederalTaxClassification: C_CORP
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Reports/AgedPayablesByContact:
     summary: Retrieve aged payables report by contact
     description: Retrieve aged payables report by contact.
@@ -16367,6 +17895,14 @@ paths:
                       - Value: "250.00"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Reports/AgedReceivablesByContact:
     summary: Retrieve aged receivables report by contact
     description: Retrieve aged receivables report by contact.
@@ -16546,6 +18082,14 @@ paths:
                       - Value: "150.00"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Reports/BalanceSheet:
     summary: Retrieve balance sheet report
     description: Retrieve balance sheet report.
@@ -16953,6 +18497,14 @@ paths:
                       - Value: "464.00"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Reports/BankSummary:
     summary: Retrieve bank summary report
     description: Retrieve bank summary report.
@@ -17029,6 +18581,14 @@ paths:
                       - Value: "10.00"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Reports/{ReportID}:
     summary: Retrieve a specific custom report by ID
     description: Retrieve a specific custom report by ID.
@@ -17063,6 +18623,14 @@ paths:
                 $ref: "#/components/schemas/ReportWithRows"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Reports/BudgetSummary:
     summary: Retrieve budget summary report
     description: Retrieve budget summary report.
@@ -17196,6 +18764,14 @@ paths:
                       - Value: "0.00"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Reports/ExecutiveSummary:
     summary: Retrieve executive summary report
     description: Retrieve executive summary report.
@@ -17407,6 +18983,14 @@ paths:
                       - Value: 0.0%
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Reports:
     summary: List organisation-specific reports requiring a unique ID
     description: List organisation-specific reports requiring a unique ID.
@@ -17431,6 +19015,14 @@ paths:
                 $ref: "#/components/schemas/ReportWithRows"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Reports/ProfitAndLoss:
     summary: Retrieve profit and loss report
     description: Retrieve profit and loss report.
@@ -17526,6 +19118,14 @@ paths:
                 $ref: "#/components/schemas/ReportWithRows"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Reports/TrialBalance:
     summary: Retrieve trial balance report
     description: Retrieve trial balance report.
@@ -18050,6 +19650,14 @@ paths:
                       - Value: "46019.00"
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Setup:
     summary: Configure chart of accounts, conversion date and opening balances
     description: Configure chart of accounts, conversion date and opening balances.
@@ -18187,6 +19795,14 @@ paths:
                     Present: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: Object including an accounts array, a conversion balances array and a conversion date object in body of request
@@ -18346,6 +19962,14 @@ paths:
                     IsNonRecoverable: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -18457,6 +20081,14 @@ paths:
                     IsNonRecoverable: false
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: TaxRates array with TaxRate object in body of request
@@ -18581,6 +20213,14 @@ paths:
                     IsNonRecoverable: false
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -18644,6 +20284,14 @@ paths:
                     IsNonRecoverable: false
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /TrackingCategories:
     summary: Manage tracking categories and options
     description: Manage tracking categories and options.
@@ -18711,6 +20359,14 @@ paths:
                   Options: []
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       security:
       - OAuth2:
@@ -18754,6 +20410,14 @@ paths:
                   Options: []
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: TrackingCategory object in body of request
@@ -18800,6 +20464,14 @@ paths:
                   Options: []
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       security:
       - OAuth2:
@@ -18844,6 +20516,14 @@ paths:
                   Options: []
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -18883,6 +20563,14 @@ paths:
                   Options: []
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /TrackingCategories/{TrackingCategoryID}/Options:
     summary: Manage options for a specific tracking category
     description: Manage options for a specific tracking category.
@@ -18935,6 +20623,14 @@ paths:
                   IsActive: true
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         description: TrackingOption object in body of request
@@ -18997,6 +20693,14 @@ paths:
                   IsActive: true
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         required: true
         content:
@@ -19040,6 +20744,14 @@ paths:
                   IsActive: false
         "400":
           $ref: "#/components/responses/400Error"
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Users:
     summary: Retrieve users associated with the organisation
     description: Retrieve users associated with the organisation.
@@ -19101,6 +20813,14 @@ paths:
                   OrganisationRole: FINANCIALADVISER
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /Users/{UserID}:
     summary: Retrieve a specific user
     description: Retrieve a specific user.
@@ -19141,6 +20861,14 @@ paths:
                   OrganisationRole: FINANCIALADVISER
         '400':
           $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   securitySchemes:
     OAuth2:
@@ -19646,6 +21374,12 @@ components:
         type: string
         example: INPUT2
   responses:
+    500Error:
+      description: An error occurred in Xero
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
     400Error:
       description: A failed request due to validation error
       content:
