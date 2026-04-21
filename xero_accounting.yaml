@@ -39,8 +39,8 @@ paths:
       - Accounting
       - Settings
       operationId: getAccounts
-      summary: Retrieves the full chart of accounts
-      description: Retrieves the full chart of accounts.
+      summary: List chart of accounts for the organisation
+      description: Returns the organisation's chart of accounts in a Accounts response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -104,8 +104,8 @@ paths:
       - Accounting
       - Settings
       operationId: createAccount
-      summary: Creates a new chart of accounts
-      description: Creates a new chart of accounts.
+      summary: Create accounts from request data
+      description: Creates one or more accounts from the supplied request body and returns the created resources in a Accounts response payload.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       x-hasAccountingValidationError: true
@@ -220,8 +220,8 @@ paths:
       - Accounting
       - Settings
       operationId: getAccount
-      summary: Retrieves a single chart of accounts by using a unique account Id
-      description: Retrieves a single chart of accounts by using a unique account Id.
+      summary: Get an account by account ID
+      description: Returns the account identified by the supplied account ID in a Accounts response payload.
       parameters:
       - $ref: "#/components/parameters/AccountID"
       responses:
@@ -268,8 +268,8 @@ paths:
       - Accounting
       - Settings
       operationId: updateAccount
-      summary: Updates a chart of accounts
-      description: Updates a chart of accounts.
+      summary: Update the specified account record
+      description: Updates the specified account with the supplied fields and returns the persisted resource in a Accounts response payload.
       x-hasAccountingValidationError: true
       x-example:
       - account:
@@ -407,8 +407,8 @@ paths:
       - Settings
       operationId: deleteAccount
       x-hasAccountingValidationError: true
-      summary: Deletes a chart of accounts
-      description: Deletes a chart of accounts.
+      summary: Delete the specified account record
+      description: Deletes the specified account and returns the resulting resource state or confirmation payload in a Accounts response payload.
       parameters:
       - $ref: "#/components/parameters/AccountID"
       responses:
@@ -477,8 +477,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getAccountAttachments
-      summary: Retrieves attachments for a specific accounts by using a unique account Id
-      description: Retrieves attachments for a specific accounts by using a unique account Id.
+      summary: List attachments for an account
+      description: Returns attachment metadata for the specified account, including file names, content types, and download links, in a Attachments response payload.
       parameters:
       - $ref: "#/components/parameters/AccountID"
       responses:
@@ -524,8 +524,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getAccountAttachmentById
-      summary: Retrieves a specific attachment from a specific account using a unique attachment Id
-      description: Retrieves a specific attachment from a specific account using a unique attachment Id.
+      summary: Download a account attachment by attachment ID
+      description: Downloads the requested attachment for the specified account as binary file content, using the supplied attachment ID to select the file.
       parameters:
       - $ref: "#/components/parameters/AccountID"
       - $ref: "#/components/parameters/AttachmentID"
@@ -563,8 +563,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getAccountAttachmentByFileName
-      summary: Retrieves an attachment for a specific account by filename
-      description: Retrieves an attachment for a specific account by filename.
+      summary: Download a account attachment by file name
+      description: Downloads the requested attachment for the specified account as binary file content, using the supplied file name to select the file.
       parameters:
       - $ref: "#/components/parameters/AccountID"
       - $ref: "#/components/parameters/FileName"
@@ -597,8 +597,8 @@ paths:
       - Attachments
       operationId: updateAccountAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Updates attachment on a specific account by filename
-      description: Updates attachment on a specific account by filename.
+      summary: Update a account attachment by file name
+      description: Writes the attachment content for the specified account and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/AccountID"
       - $ref: "#/components/parameters/FileName"
@@ -654,8 +654,8 @@ paths:
       - Attachments
       operationId: createAccountAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Creates an attachment on a specific account
-      description: Creates an attachment on a specific account.
+      summary: Upload a account attachment by file name
+      description: Writes the attachment content for the specified account and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/AccountID"
       - $ref: "#/components/parameters/FileName"
@@ -712,8 +712,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getBatchPayments
-      summary: Retrieves either one or many batch payments for invoices
-      description: Retrieves either one or many batch payments for invoices.
+      summary: List batch payments for the organisation
+      description: Returns the organisation's batch payments in a Batch Payments response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -843,8 +843,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createBatchPayment
-      summary: Creates one or many batch payments for invoices
-      description: Creates one or many batch payments for invoices.
+      summary: Create batch payments from request data
+      description: Creates one or more batch payments from the supplied request body and returns the created resources in a Batch Payments response payload.
       x-hasAccountingValidationError: true
       x-example:
       - currDate:
@@ -1105,8 +1105,8 @@ paths:
       - Accounting
       - Transactions
       operationId: deleteBatchPayment
-      summary: Updates a specific batch payment for invoices and credit notes
-      description: Updates a specific batch payment for invoices and credit notes.
+      summary: Update batch payments in bulk
+      description: Updates the supplied batch payments and returns the persisted resources in a Batch Payments response payload.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       x-hasAccountingValidationError: true
@@ -1187,8 +1187,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getBatchPayment
-      summary: Retrieves a specific batch payment using a unique batch payment Id
-      description: Retrieves a specific batch payment using a unique batch payment Id.
+      summary: Get a batch payment by batch payment ID
+      description: Returns the batch payment identified by the supplied batch payment ID in a Batch Payments response payload.
       parameters:
       - $ref: "#/components/parameters/BatchPaymentID"
       responses:
@@ -1275,8 +1275,8 @@ paths:
       - Accounting
       - Transactions
       operationId: deleteBatchPaymentByUrlParam
-      summary: Updates a specific batch payment for invoices and credit notes
-      description: Updates a specific batch payment for invoices and credit notes.
+      summary: Update a batch payment record
+      description: Updates the specified batch payment with the supplied fields and returns the persisted resource in a Batch Payments response payload.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       - $ref: "#/components/parameters/BatchPaymentID"
@@ -1337,8 +1337,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getBatchPaymentHistory
-      summary: Retrieves history from a specific batch payment
-      description: Retrieves history from a specific batch payment.
+      summary: Get a batch payment by batch payment ID
+      description: Returns the batch payment and its nested details identified by the supplied batch payment ID in a History Records response payload.
       parameters:
       - $ref: "#/components/parameters/BatchPaymentID"
       responses:
@@ -1377,8 +1377,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createBatchPaymentHistoryRecord
-      summary: Creates a history record for a specific batch payment
-      description: Creates a history record for a specific batch payment.
+      summary: Create a history record for a batch payment
+      description: Appends a history note to the specified batch payment and returns the resulting history response in a History Records response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -1453,8 +1453,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getBankTransactions
-      summary: Retrieves any spent or received money transactions
-      description: Retrieves any spent or received money transactions.
+      summary: List spent and received money transactions
+      description: Returns the spent and received money transactions available to the organisation in a Bank Transactions response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -1611,8 +1611,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createBankTransactions
-      summary: Creates one or more spent or received money transaction
-      description: Creates one or more spent or received money transaction.
+      summary: Create bank transactions from request data
+      description: Creates one or more bank transactions from the supplied request body and returns the created resources in a Bank Transactions response payload.
       x-hasAccountingValidationError: true
       x-example:
       - contact:
@@ -1878,8 +1878,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateOrCreateBankTransactions
-      summary: Updates or creates one or more spent or received money transaction
-      description: Updates or creates one or more spent or received money transaction.
+      summary: Create or update bank transactions
+      description: Creates new bank transactions or updates existing ones from the supplied request body and returns the stored resources in a Bank Transactions response payload.
       x-hasAccountingValidationError: true
       x-example:
       - contact:
@@ -2150,8 +2150,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getBankTransaction
-      summary: Retrieves a single spent or received money transaction by using a unique bank transaction Id
-      description: Retrieves a single spent or received money transaction by using a unique bank transaction Id.
+      summary: Get a bank transaction by bank transaction ID
+      description: Returns the bank transaction identified by the supplied bank transaction ID in a Bank Transactions response payload.
       parameters:
       - $ref: "#/components/parameters/BankTransactionID"
       - $ref: "#/components/parameters/unitdp"
@@ -2272,8 +2272,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateBankTransaction
-      summary: Updates a single spent or received money transaction
-      description: Updates a single spent or received money transaction.
+      summary: Update a bank transaction record
+      description: Updates the specified bank transaction with the supplied fields and returns the persisted resource in a Bank Transactions response payload.
       x-hasAccountingValidationError: true
       x-example:
       - contact:
@@ -2597,8 +2597,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getBankTransactionAttachments
-      summary: Retrieves any attachments from a specific bank transactions
-      description: Retrieves any attachments from a specific bank transactions.
+      summary: List bank transaction attachments
+      description: Returns attachment metadata for the specified bank transaction, including file names, content types, and download links, in a Attachments response payload.
       parameters:
       - $ref: "#/components/parameters/BankTransactionID"
       responses:
@@ -2649,8 +2649,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getBankTransactionAttachmentById
-      summary: Retrieves specific attachments from a specific BankTransaction using a unique attachment Id
-      description: Retrieves specific attachments from a specific BankTransaction using a unique attachment Id.
+      summary: Download a bank transaction attachment by attachment ID
+      description: Downloads the requested attachment for the specified bank transaction as binary file content, using the supplied attachment ID to select the file.
       parameters:
       - $ref: "#/components/parameters/BankTransactionID"
       - $ref: "#/components/parameters/AttachmentID"
@@ -2688,8 +2688,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getBankTransactionAttachmentByFileName
-      summary: Retrieves a specific attachment from a specific bank transaction by filename
-      description: Retrieves a specific attachment from a specific bank transaction by filename.
+      summary: Download a bank transaction attachment by file name
+      description: Downloads the requested attachment for the specified bank transaction as binary file content, using the supplied file name to select the file.
       parameters:
       - $ref: "#/components/parameters/BankTransactionID"
       - $ref: "#/components/parameters/FileName"
@@ -2722,8 +2722,8 @@ paths:
       - Attachments
       operationId: updateBankTransactionAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Updates a specific attachment from a specific bank transaction by filename
-      description: Updates a specific attachment from a specific bank transaction by filename.
+      summary: Update a bank transaction attachment by file name
+      description: Writes the attachment content for the specified bank transaction and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       - $ref: "#/components/parameters/BankTransactionID"
@@ -2775,8 +2775,8 @@ paths:
       - Attachments
       operationId: createBankTransactionAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Creates an attachment for a specific bank transaction by filename
-      description: Creates an attachment for a specific bank transaction by filename.
+      summary: Upload a bank transaction attachment by file name
+      description: Writes the attachment content for the specified bank transaction and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       - $ref: "#/components/parameters/BankTransactionID"
@@ -2833,8 +2833,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getBankTransactionsHistory
-      summary: Retrieves history from a specific bank transaction using a unique bank transaction Id
-      description: Retrieves history from a specific bank transaction using a unique bank transaction Id.
+      summary: Get a bank transaction by bank transaction ID
+      description: Returns the bank transaction and its nested details identified by the supplied bank transaction ID in a Error response payload.
       parameters:
       - $ref: "#/components/parameters/BankTransactionID"
       responses:
@@ -2858,8 +2858,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createBankTransactionHistoryRecord
-      summary: Creates a history record for a specific bank transactions
-      description: Creates a history record for a specific bank transactions.
+      summary: Create a history record for a bank transaction
+      description: Appends a history note to the specified bank transaction and returns the resulting history response in the history response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -2920,8 +2920,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getBankTransfers
-      summary: Retrieves all bank transfers
-      description: Retrieves all bank transfers.
+      summary: List bank transfers for the organisation
+      description: Returns the organisation's bank transfers in a Bank Transfers response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -3005,8 +3005,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createBankTransfer
-      summary: Creates a bank transfer
-      description: Creates a bank transfer.
+      summary: Create a bank transfer record
+      description: Creates a new bank transfer from the supplied request body and returns the created resource in a Bank Transfers response payload.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       x-hasAccountingValidationError: true
@@ -3182,8 +3182,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getBankTransfer
-      summary: Retrieves specific bank transfers by using a unique bank transfer Id
-      description: Retrieves specific bank transfers by using a unique bank transfer Id.
+      summary: Get a bank transfer by bank transfer ID
+      description: Returns the bank transfer identified by the supplied bank transfer ID in a Bank Transfers response payload.
       parameters:
       - $ref: "#/components/parameters/BankTransferID"
       responses:
@@ -3250,8 +3250,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getBankTransferAttachments
-      summary: Retrieves attachments from a specific bank transfer
-      description: Retrieves attachments from a specific bank transfer.
+      summary: List bank transfer attachments
+      description: Returns attachment metadata for the specified bank transfer, including file names, content types, and download links, in a Attachments response payload.
       parameters:
       - $ref: "#/components/parameters/BankTransferID"
       responses:
@@ -3297,8 +3297,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getBankTransferAttachmentById
-      summary: Retrieves a specific attachment from a specific bank transfer using a unique attachment ID
-      description: Retrieves a specific attachment from a specific bank transfer using a unique attachment ID.
+      summary: Download a bank transfer attachment by attachment ID
+      description: Downloads the requested attachment for the specified bank transfer as binary file content, using the supplied attachment ID to select the file.
       parameters:
       - $ref: "#/components/parameters/BankTransferID"
       - $ref: "#/components/parameters/AttachmentID"
@@ -3336,8 +3336,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getBankTransferAttachmentByFileName
-      summary: Retrieves a specific attachment on a specific bank transfer by file name
-      description: Retrieves a specific attachment on a specific bank transfer by file name.
+      summary: Download a bank transfer attachment by file name
+      description: Downloads the requested attachment for the specified bank transfer as binary file content, using the supplied file name to select the file.
       parameters:
       - $ref: "#/components/parameters/BankTransferID"
       - $ref: "#/components/parameters/FileName"
@@ -3368,9 +3368,9 @@ paths:
       tags:
       - Accounting
       - Attachments
-      summary: Updates a specific attachment on a specific bank transfer by file name
+      summary: Update a bank transfer attachment by file name
       operationId: updateBankTransferAttachmentByFileName
-      description: Updates a specific attachment on a specific bank transfer by file name.
+      description: Writes the attachment content for the specified bank transfer and returns the stored attachment metadata in binary file content.
       x-hasAccountingValidationError: true
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
@@ -3421,9 +3421,9 @@ paths:
       tags:
       - Accounting
       - Attachments
-      summary: Creates an attachment on a specific bank transfer by file name
+      summary: Upload a bank transfer attachment by file name
       operationId: createBankTransferAttachmentByFileName
-      description: Creates an attachment on a specific bank transfer by file name.
+      description: Writes the attachment content for the specified bank transfer and returns the stored attachment metadata in binary file content.
       x-hasAccountingValidationError: true
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
@@ -3481,8 +3481,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getBankTransferHistory
-      summary: Retrieves history from a specific bank transfer using a unique bank transfer Id
-      description: Retrieves history from a specific bank transfer using a unique bank transfer Id.
+      summary: Get a bank transfer by bank transfer ID
+      description: Returns the bank transfer and its nested details identified by the supplied bank transfer ID in a Error response payload.
       parameters:
       - $ref: "#/components/parameters/BankTransferID"
       responses:
@@ -3506,8 +3506,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createBankTransferHistoryRecord
-      summary: Creates a history record for a specific bank transfer
-      description: Creates a history record for a specific bank transfer.
+      summary: Create a history record for a bank transfer
+      description: Appends a history note to the specified bank transfer and returns the resulting history response in the history response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -3568,8 +3568,8 @@ paths:
       - Accounting
       - Settings
       operationId: getBrandingThemes
-      summary: Retrieves all the branding themes
-      description: Retrieves all the branding themes.
+      summary: List branding themes for the organisation
+      description: Returns the organisation's branding themes in a Branding Themes response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       responses:
         "200":
           description: Success - return response of type BrandingThemes
@@ -3611,8 +3611,8 @@ paths:
       - Accounting
       - Settings
       operationId: getBrandingTheme
-      summary: Retrieves a specific branding theme using a unique branding theme Id
-      description: Retrieves a specific branding theme using a unique branding theme Id.
+      summary: Get a branding theme by branding theme ID
+      description: Returns the branding theme identified by the supplied branding theme ID in a Branding Themes response payload.
       parameters:
       - $ref: "#/components/parameters/BrandingThemeID"
       responses:
@@ -3655,8 +3655,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getBrandingThemePaymentServices
-      summary: Retrieves the payment services for a specific branding theme
-      description: Retrieves the payment services for a specific branding theme.
+      summary: List payment services for a branding theme
+      description: Returns the payment service configurations linked to the specified branding theme in a Payment Services response payload.
       x-excludeFromPreview: true
       parameters:
       - $ref: "#/components/parameters/BrandingThemeID"
@@ -3699,8 +3699,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createBrandingThemePaymentServices
-      summary: Creates a new custom payment service for a specific branding theme
-      description: Creates a new custom payment service for a specific branding theme.
+      summary: Create a payment service for a branding theme
+      description: Creates a payment service for the specified branding theme and returns the resulting configuration in a Payment Services response payload.
       x-excludeFromPreview: true
       x-hasAccountingValidationError: true
       x-example:
@@ -3804,8 +3804,8 @@ paths:
       tags:
       - Accounting
       operationId: getBudgets
-      summary: Retrieve a list of budgets
-      description: Retrieve a list of budgets.
+      summary: List budget records for the organisation
+      description: Returns the organisation's budget-record collection in the budget-list response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - in: query
         name: IDs
@@ -3891,8 +3891,8 @@ paths:
       tags:
       - Accounting
       operationId: getBudget
-      summary: Retrieves a specific budget, which includes budget lines
-      description: Retrieves a specific budget, which includes budget lines.
+      summary: Get the budget identified by budget ID
+      description: Returns the requested budget record, identified by the supplied budget ID, in the budget response payload.
       parameters:
       - $ref: "#/components/parameters/BudgetID"
       - in: query
@@ -3988,8 +3988,8 @@ paths:
       - Accounting
       - Contacts
       operationId: getContacts
-      summary: Retrieves all contacts in a Xero organisation
-      description: Retrieves all contacts in a Xero organisation.
+      summary: List contacts for the organisation
+      description: Returns the organisation's contacts in a Contacts response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -4195,8 +4195,8 @@ paths:
       - Accounting
       - Contacts
       operationId: createContacts
-      summary: Creates multiple contacts (bulk) in a Xero organisation
-      description: Creates multiple contacts (bulk) in a Xero organisation.
+      summary: Create contacts from request data
+      description: Creates one or more contacts from the supplied request body and returns the created resources in a Contacts response payload.
       x-hasAccountingValidationError: true
       x-example:
       - phone:
@@ -4453,8 +4453,8 @@ paths:
       - Accounting
       - Contacts
       operationId: updateOrCreateContacts
-      summary: Updates or creates one or more contacts in a Xero organisation
-      description: Updates or creates one or more contacts in a Xero organisation.
+      summary: Create or update contacts in bulk
+      description: Creates new contacts or updates existing ones from the supplied request body and returns the stored resources in a Contacts response payload.
       x-hasAccountingValidationError: true
       x-example:
       - phone:
@@ -4682,8 +4682,8 @@ paths:
       - Accounting
       - Contacts
       operationId: getContactByContactNumber
-      summary: Retrieves a specific contact by contact number in a Xero organisation
-      description: Retrieves a specific contact by contact number in a Xero organisation.
+      summary: Get a contact by contact number
+      description: Returns the contact identified by the supplied contact number in a Contacts response payload.
       parameters:
       - required: true
         in: path
@@ -4823,8 +4823,8 @@ paths:
       - Accounting
       - Contacts
       operationId: getContact
-      summary: Retrieves a specific contacts in a Xero organisation using a unique contact Id
-      description: Retrieves a specific contacts in a Xero organisation using a unique contact Id.
+      summary: Get the contact identified by contact ID
+      description: Returns the contact identified by the supplied contact ID in a Contacts response payload.
       parameters:
       - $ref: "#/components/parameters/ContactID"
       responses:
@@ -4950,8 +4950,8 @@ paths:
       - Accounting
       - Contacts
       operationId: updateContact
-      summary: Updates a specific contact in a Xero organisation
-      description: Updates a specific contact in a Xero organisation.
+      summary: Update the specified contact record
+      description: Updates the specified contact with the supplied fields and returns the persisted resource in a Contacts response payload.
       x-hasAccountingValidationError: true
       x-example:
       - contact:
@@ -5084,8 +5084,8 @@ paths:
       - Attachments
       operationId: getContactAttachments
       x-hasAccountingValidationError: true
-      summary: Retrieves attachments for a specific contact in a Xero organisation
-      description: Retrieves attachments for a specific contact in a Xero organisation.
+      summary: List attachments for a contact
+      description: Returns attachment metadata for the specified contact, including file names, content types, and download links, in a Attachments response payload.
       responses:
         "200":
           description: Success - return response of type Attachments array with 0 to N Attachment
@@ -5131,8 +5131,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getContactAttachmentById
-      summary: Retrieves a specific attachment from a specific contact using a unique attachment Id
-      description: Retrieves a specific attachment from a specific contact using a unique attachment Id.
+      summary: Download a contact attachment by attachment ID
+      description: Downloads the requested attachment for the specified contact as binary file content, using the supplied attachment ID to select the file.
       parameters:
       - $ref: "#/components/parameters/ContactID"
       - $ref: "#/components/parameters/AttachmentID"
@@ -5170,8 +5170,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getContactAttachmentByFileName
-      summary: Retrieves a specific attachment from a specific contact by file name
-      description: Retrieves a specific attachment from a specific contact by file name.
+      summary: Download a contact attachment by file name
+      description: Downloads the requested attachment for the specified contact as binary file content, using the supplied file name to select the file.
       parameters:
       - $ref: "#/components/parameters/ContactID"
       - $ref: "#/components/parameters/FileName"
@@ -5202,9 +5202,9 @@ paths:
       tags:
       - Accounting
       - Attachments
-      summary: Updates a specific attachment from a specific contact by file name
+      summary: Update a contact attachment by file name
       operationId: updateContactAttachmentByFileName
-      description: Updates a specific attachment from a specific contact by file name.
+      description: Writes the attachment content for the specified contact and returns the stored attachment metadata in binary file content.
       x-hasAccountingValidationError: true
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
@@ -5255,9 +5255,9 @@ paths:
       tags:
       - Accounting
       - Attachments
-      summary: Creates an attachment from a specific contact by file name
+      summary: Upload a contact attachment by file name
       operationId: createContactAttachmentByFileName
-      description: Creates an attachment from a specific contact by file name.
+      description: Writes the attachment content for the specified contact and returns the stored attachment metadata in binary file content.
       x-hasAccountingValidationError: true
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
@@ -5316,8 +5316,8 @@ paths:
       - Settings
       - Contacts
       operationId: getContactCISSettings
-      summary: Retrieves CIS settings for a specific contact in a Xero organisation
-      description: Retrieves CIS settings for a specific contact in a Xero organisation.
+      summary: Get CIS settings for a contact
+      description: Returns Construction Industry Scheme settings for the specified contact, including the configured tax treatment fields, in a CISSettings response payload.
       parameters:
       - $ref: "#/components/parameters/ContactID"
       responses:
@@ -5356,8 +5356,8 @@ paths:
       - Accounting
       - Contacts
       operationId: getContactHistory
-      summary: Retrieves history records for a specific contact
-      description: Retrieves history records for a specific contact.
+      summary: List history records for a contact
+      description: Returns the audit and history records captured for the specified contact, including system and user-generated events, in the history response payload.
       parameters:
       - $ref: "#/components/parameters/ContactID"
       responses:
@@ -5381,8 +5381,8 @@ paths:
       - Accounting
       - Contacts
       operationId: createContactHistory
-      summary: Creates a new history record for a specific contact
-      description: Creates a new history record for a specific contact.
+      summary: Create a history record for a contact
+      description: Appends a history note to the specified contact and returns the resulting history response in the history response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -5443,8 +5443,8 @@ paths:
       - Accounting
       - Contacts
       operationId: getContactGroups
-      summary: Retrieves the contact Id and name of each contact group
-      description: Retrieves the contact Id and name of each contact group.
+      summary: List contact groups for the organisation
+      description: Returns the organisation's contact groups in a Contact Groups response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - in: query
         name: where
@@ -5505,8 +5505,8 @@ paths:
       - Accounting
       - Contacts
       operationId: createContactGroup
-      summary: Creates a contact group
-      description: Creates a contact group.
+      summary: Create a contact group record
+      description: Creates a new contact group from the supplied request body and returns the created resource in a Contact Groups response payload.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       x-hasAccountingValidationError: true
@@ -5604,8 +5604,8 @@ paths:
       - Accounting
       - Contacts
       operationId: getContactGroup
-      summary: Retrieves a specific contact group by using a unique contact group Id
-      description: Retrieves a specific contact group by using a unique contact group Id.
+      summary: Get a contact group by contact group ID
+      description: Returns the contact group identified by the supplied contact group ID in a Contact Groups response payload.
       parameters:
       - $ref: "#/components/parameters/ContactGroupID"
       responses:
@@ -5658,8 +5658,8 @@ paths:
       - Accounting
       - Contacts
       operationId: updateContactGroup
-      summary: Updates a specific contact group
-      description: Updates a specific contact group.
+      summary: Update a contact group record
+      description: Updates the specified contact group with the supplied fields and returns the persisted resource in a Contact Groups response payload.
       x-hasAccountingValidationError: true
       x-example:
       - contact:
@@ -5742,8 +5742,8 @@ paths:
       - Accounting
       - Contacts
       operationId: createContactGroupContacts
-      summary: Creates contacts to a specific contact group
-      description: Creates contacts to a specific contact group.
+      summary: Add contacts to a contact group
+      description: Adds the supplied contacts to the specified contact group and returns the updated group membership in a Contacts response payload.
       x-hasAccountingValidationError: true
       x-example:
       - contact:
@@ -5829,8 +5829,8 @@ paths:
       - Accounting
       - Contacts
       operationId: deleteContactGroupContacts
-      summary: Deletes all contacts from a specific contact group
-      description: Deletes all contacts from a specific contact group.
+      summary: Remove all contacts from a contact group
+      description: Removes all contacts from the specified contact group and returns the updated group state in a Error response payload.
       parameters:
       - $ref: "#/components/parameters/ContactGroupID"
       responses:
@@ -5860,8 +5860,8 @@ paths:
       - Accounting
       - Contacts
       operationId: deleteContactGroupContact
-      summary: Deletes a specific contact from a contact group using a unique contact Id
-      description: Deletes a specific contact from a contact group using a unique contact Id.
+      summary: Remove a contact from a contact group
+      description: Removes the specified contact from the contact group and returns the updated group membership in a Error response payload.
       parameters:
       - $ref: "#/components/parameters/ContactGroupID"
       - $ref: "#/components/parameters/ContactID"
@@ -5893,8 +5893,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getCreditNotes
-      summary: Retrieves any credit notes
-      description: Retrieves any credit notes.
+      summary: List credit notes for the organisation
+      description: Returns the organisation's credit notes in a Credit Notes response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -6023,8 +6023,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createCreditNotes
-      summary: Creates a new credit note
-      description: Creates a new credit note.
+      summary: Create a new credit note record
+      description: Creates a new credit note from the supplied request body and returns the created resource in a Credit Notes response payload.
       x-hasAccountingValidationError: true
       x-example:
       - currDate:
@@ -6287,8 +6287,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateOrCreateCreditNotes
-      summary: Updates or creates one or more credit notes
-      description: Updates or creates one or more credit notes.
+      summary: Create or update credit notes
+      description: Creates new credit notes or updates existing ones from the supplied request body and returns the stored resources in a Credit Notes response payload.
       x-hasAccountingValidationError: true
       x-example:
       - currDate:
@@ -6560,8 +6560,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getCreditNote
-      summary: Retrieves a specific credit note using a unique credit note Id
-      description: Retrieves a specific credit note using a unique credit note Id.
+      summary: Get a credit note by credit note ID
+      description: Returns the credit note identified by the supplied credit note ID in a Credit Notes response payload.
       parameters:
       - $ref: "#/components/parameters/CreditNoteID"
       - $ref: "#/components/parameters/unitdp"
@@ -6680,8 +6680,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateCreditNote
-      summary: Updates a specific credit note
-      description: Updates a specific credit note.
+      summary: Update the specified credit note record
+      description: Updates the specified credit note with the supplied fields and returns the persisted resource in a Credit Notes response payload.
       x-hasAccountingValidationError: true
       x-example:
       - currDate:
@@ -6967,8 +6967,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getCreditNoteAttachments
-      summary: Retrieves attachments for a specific credit notes
-      description: Retrieves attachments for a specific credit notes.
+      summary: List credit note attachments
+      description: Returns attachment metadata for the specified credit note, including file names, content types, and download links, in a Attachments response payload.
       parameters:
       - $ref: "#/components/parameters/CreditNoteID"
       responses:
@@ -7014,8 +7014,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getCreditNoteAttachmentById
-      summary: Retrieves a specific attachment from a specific credit note using a unique attachment Id
-      description: Retrieves a specific attachment from a specific credit note using a unique attachment Id.
+      summary: Download a credit note attachment by attachment ID
+      description: Downloads the requested attachment for the specified credit note as binary file content, using the supplied attachment ID to select the file.
       parameters:
       - $ref: "#/components/parameters/CreditNoteID"
       - $ref: "#/components/parameters/AttachmentID"
@@ -7053,8 +7053,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getCreditNoteAttachmentByFileName
-      summary: Retrieves a specific attachment on a specific credit note by file name
-      description: Retrieves a specific attachment on a specific credit note by file name.
+      summary: Download a credit note attachment by file name
+      description: Downloads the requested attachment for the specified credit note as binary file content, using the supplied file name to select the file.
       parameters:
       - $ref: "#/components/parameters/CreditNoteID"
       - $ref: "#/components/parameters/FileName"
@@ -7087,8 +7087,8 @@ paths:
       - Attachments
       operationId: updateCreditNoteAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Updates attachments on a specific credit note by file name
-      description: Updates attachments on a specific credit note by file name.
+      summary: Update a credit note attachment by file name
+      description: Writes the attachment content for the specified credit note and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       - $ref: "#/components/parameters/CreditNoteID"
@@ -7140,8 +7140,8 @@ paths:
       - Attachments
       operationId: createCreditNoteAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Creates an attachment for a specific credit note
-      description: Creates an attachment for a specific credit note.
+      summary: Upload a credit note attachment by file name
+      description: Writes the attachment content for the specified credit note and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/CreditNoteID"
       - $ref: "#/components/parameters/FileName"
@@ -7200,8 +7200,8 @@ paths:
       - Transactions
       operationId: getCreditNoteAsPdf
       x-path: /CreditNotes/{CreditNoteID}
-      summary: Retrieves credit notes as PDF files
-      description: Retrieves credit notes as PDF files.
+      summary: Download the credit note PDF document
+      description: Streams a PDF rendition of the specified credit note and returns the document as the standard success payload for this endpoint.
       parameters:
       - $ref: "#/components/parameters/CreditNoteID"
       responses:
@@ -7236,8 +7236,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createCreditNoteAllocation
-      summary: Creates allocation for a specific credit note
-      description: Creates allocation for a specific credit note.
+      summary: Create an allocation for a credit note
+      description: Creates an allocation against the specified credit note and returns the updated allocation data in a Allocations response payload.
       x-hasAccountingValidationError: true
       x-example:
       - currDate:
@@ -7376,8 +7376,8 @@ paths:
       - Accounting
       - Transactions
       operationId: deleteCreditNoteAllocations
-      summary: Deletes an Allocation from a Credit Note
-      description: Deletes an Allocation from a Credit Note.
+      summary: Delete an allocation from a credit note
+      description: Deletes the specified allocation from the credit note and returns the resulting resource state in a Allocation response payload.
       parameters:
       - $ref: "#/components/parameters/CreditNoteID"
       - $ref: "#/components/parameters/AllocationID"
@@ -7418,8 +7418,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getCreditNoteHistory
-      summary: Retrieves history records of a specific credit note
-      description: Retrieves history records of a specific credit note.
+      summary: Get a credit note by credit note ID
+      description: Returns the credit note and its nested details identified by the supplied credit note ID in a Error response payload.
       parameters:
       - $ref: "#/components/parameters/CreditNoteID"
       responses:
@@ -7443,8 +7443,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createCreditNoteHistory
-      summary: Retrieves history records of a specific credit note
-      description: Retrieves history records of a specific credit note.
+      summary: Create a history record for a credit note
+      description: Appends a history note to the specified credit note and returns the resulting history response in the history response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -7505,8 +7505,8 @@ paths:
       - Accounting
       - Settings
       operationId: getCurrencies
-      summary: Retrieves currencies for your Xero organisation
-      description: Retrieves currencies for your Xero organisation.
+      summary: List currencies for the organisation
+      description: Returns the organisation's currencies in a Currencies response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - in: query
         name: where
@@ -7558,8 +7558,8 @@ paths:
       - Accounting
       - Settings
       operationId: createCurrency
-      summary: Create a new currency for a Xero organisation
-      description: Create a new currency for a Xero organisation.
+      summary: Create a new currency record
+      description: Creates a new currency from the supplied request body and returns the created resource in a Currencies response payload.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       x-hasAccountingValidationError: true
@@ -7631,8 +7631,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getInvoices
-      summary: Retrieves sales invoices or purchase bills
-      description: Retrieves sales invoices or purchase bills.
+      summary: List sales invoices and purchase bills
+      description: Returns the sales invoices and purchase bills available to the organisation in a Invoices response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -7898,8 +7898,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createInvoices
-      summary: Creates one or more sales invoices or purchase bills
-      description: Creates one or more sales invoices or purchase bills.
+      summary: Create invoices from request data
+      description: Creates one or more invoices from the supplied request body and returns the created resources in a Invoices response payload.
       x-hasAccountingValidationError: true
       x-example:
       - dateValue:
@@ -8261,8 +8261,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateOrCreateInvoices
-      summary: Updates or creates one or more sales invoices or purchase bills
-      description: Updates or creates one or more sales invoices or purchase bills.
+      summary: Create or update invoices in bulk
+      description: Creates new invoices or updates existing ones from the supplied request body and returns the stored resources in a Invoices response payload.
       x-hasAccountingValidationError: true
       x-example:
       - dateValue:
@@ -8588,8 +8588,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getInvoice
-      summary: Retrieves a specific sales invoice or purchase bill using a unique invoice Id
-      description: Retrieves a specific sales invoice or purchase bill using a unique invoice Id.
+      summary: Get an invoice by invoice ID
+      description: Returns the invoice identified by the supplied invoice ID in a Invoices response payload.
       parameters:
       - $ref: "#/components/parameters/InvoiceID"
       - $ref: "#/components/parameters/unitdp"
@@ -8733,8 +8733,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateInvoice
-      summary: Updates a specific sales invoices or purchase bills
-      description: Updates a specific sales invoices or purchase bills.
+      summary: Update the specified invoice record
+      description: Updates the specified invoice with the supplied fields and returns the persisted resource in a Invoices response payload.
       x-hasAccountingValidationError: true
       x-example:
       - invoice:
@@ -8891,8 +8891,8 @@ paths:
       - Transactions
       operationId: getInvoiceAsPdf
       x-path: /Invoices/{InvoiceID}
-      summary: Retrieves invoices or purchase bills as PDF files
-      description: Retrieves invoices or purchase bills as PDF files.
+      summary: Download the invoice PDF document
+      description: Streams a PDF rendition of the specified invoice and returns the document as the standard success payload for this endpoint.
       parameters:
       - $ref: "#/components/parameters/InvoiceID"
       responses:
@@ -8928,8 +8928,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getInvoiceAttachments
-      summary: Retrieves attachments for a specific invoice or purchase bill
-      description: Retrieves attachments for a specific invoice or purchase bill.
+      summary: List attachments for an invoice
+      description: Returns attachment metadata for the specified invoice, including file names, content types, and download links, in a Attachments response payload.
       parameters:
       - $ref: "#/components/parameters/InvoiceID"
       responses:
@@ -8980,8 +8980,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getInvoiceAttachmentById
-      summary: Retrieves a specific attachment from a specific invoices or purchase bills by using a unique attachment Id
-      description: Retrieves a specific attachment from a specific invoices or purchase bills by using a unique attachment Id.
+      summary: Download a invoice attachment by attachment ID
+      description: Downloads the requested attachment for the specified invoice as binary file content, using the supplied attachment ID to select the file.
       parameters:
       - $ref: "#/components/parameters/InvoiceID"
       - $ref: "#/components/parameters/AttachmentID"
@@ -9019,8 +9019,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getInvoiceAttachmentByFileName
-      summary: Retrieves an attachment from a specific invoice or purchase bill by filename
-      description: Retrieves an attachment from a specific invoice or purchase bill by filename.
+      summary: Download a invoice attachment by file name
+      description: Downloads the requested attachment for the specified invoice as binary file content, using the supplied file name to select the file.
       parameters:
       - $ref: "#/components/parameters/InvoiceID"
       - $ref: "#/components/parameters/FileName"
@@ -9053,8 +9053,8 @@ paths:
       - Attachments
       operationId: updateInvoiceAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Updates an attachment from a specific invoices or purchase bill by filename
-      description: Updates an attachment from a specific invoices or purchase bill by filename.
+      summary: Update a invoice attachment by file name
+      description: Writes the attachment content for the specified invoice and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       - $ref: "#/components/parameters/InvoiceID"
@@ -9106,8 +9106,8 @@ paths:
       - Attachments
       operationId: createInvoiceAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Creates an attachment for a specific invoice or purchase bill by filename
-      description: Creates an attachment for a specific invoice or purchase bill by filename.
+      summary: Upload a invoice attachment by file name
+      description: Writes the attachment content for the specified invoice and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/InvoiceID"
       - $ref: "#/components/parameters/FileName"
@@ -9165,8 +9165,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getOnlineInvoice
-      summary: Retrieves a URL to an online invoice
-      description: Retrieves a URL to an online invoice.
+      summary: Get online invoice sharing details
+      description: Returns the hosted online invoice details for the specified invoice, including the shareable URL, in a Online Invoices response payload.
       parameters:
       - $ref: "#/components/parameters/InvoiceID"
       responses:
@@ -9206,8 +9206,8 @@ paths:
       - Accounting
       - Transactions
       operationId: emailInvoice
-      summary: Sends a copy of a specific invoice to related contact via email
-      description: Sends a copy of a specific invoice to related contact via email.
+      summary: Send the specified invoice by email
+      description: Sends the specified invoice to the contact email address associated with the invoice and returns the resulting API status payload.
       x-hasAccountingValidationError: true
       x-example:
       - requestEmpty:
@@ -9253,8 +9253,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getInvoiceHistory
-      summary: Retrieves history records for a specific invoice
-      description: Retrieves history records for a specific invoice.
+      summary: Get an invoice by invoice ID
+      description: Returns the invoice and its nested details identified by the supplied invoice ID in a Error response payload.
       parameters:
       - $ref: "#/components/parameters/InvoiceID"
       responses:
@@ -9278,8 +9278,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createInvoiceHistory
-      summary: Creates a history record for a specific invoice
-      description: Creates a history record for a specific invoice.
+      summary: Create a history record for an invoice
+      description: Appends a history note to the specified invoice and returns the resulting history response in the history response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -9340,8 +9340,8 @@ paths:
       - Accounting
       - Settings
       operationId: getInvoiceReminders
-      summary: Retrieves invoice reminder settings
-      description: Retrieves invoice reminder settings.
+      summary: Get invoice reminder settings
+      description: Returns the organisation invoice reminder settings in a Invoice Reminders response payload, including reminder timing and delivery configuration.
       responses:
         "200":
           description: Success - return response of Invoice Reminders
@@ -9380,8 +9380,8 @@ paths:
       - Accounting
       - Settings
       operationId: getItems
-      summary: Retrieves items
-      description: Retrieves items.
+      summary: List items for the organisation
+      description: Returns the organisation's items in a Items response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -9453,8 +9453,8 @@ paths:
       - Accounting
       - Settings
       operationId: createItems
-      summary: Creates one or more items
-      description: Creates one or more items.
+      summary: Create items from request data
+      description: Creates one or more items from the supplied request body and returns the created resources in a Items response payload.
       x-hasAccountingValidationError: true
       x-example:
       - purchaseDetails:
@@ -9580,8 +9580,8 @@ paths:
       - Accounting
       - Settings
       operationId: updateOrCreateItems
-      summary: Updates or creates one or more items
-      description: Updates or creates one or more items.
+      summary: Create or update items in bulk
+      description: Creates new items or updates existing ones from the supplied request body and returns the stored resources in a Items response payload.
       x-hasAccountingValidationError: true
       x-example:
       - item:
@@ -9680,8 +9680,8 @@ paths:
       - Accounting
       - Settings
       operationId: getItem
-      summary: Retrieves a specific item using a unique item Id
-      description: Retrieves a specific item using a unique item Id.
+      summary: Get the item identified by item ID
+      description: Returns the item identified by the supplied item ID in a Items response payload.
       parameters:
       - $ref: "#/components/parameters/ItemID"
       - $ref: "#/components/parameters/unitdp"
@@ -9737,8 +9737,8 @@ paths:
       - Accounting
       - Settings
       operationId: updateItem
-      summary: Updates a specific item
-      description: Updates a specific item.
+      summary: Update the specified item record
+      description: Updates the specified item with the supplied fields and returns the persisted resource in a Items response payload.
       x-hasAccountingValidationError: true
       x-example:
       - item:
@@ -9824,8 +9824,8 @@ paths:
       - Accounting
       - Settings
       operationId: deleteItem
-      summary: Deletes a specific item
-      description: Deletes a specific item.
+      summary: Delete the specified item record
+      description: Deletes the specified item and returns the resulting resource state or confirmation payload in the standard success payload for this endpoint.
       parameters:
       - $ref: "#/components/parameters/ItemID"
       responses:
@@ -9856,8 +9856,8 @@ paths:
       - Accounting
       - Settings
       operationId: getItemHistory
-      summary: Retrieves history for a specific item
-      description: Retrieves history for a specific item.
+      summary: List history records for an item
+      description: Returns the audit and history records captured for the specified item, including system and user-generated events, in the history response payload.
       parameters:
       - $ref: "#/components/parameters/ItemID"
       responses:
@@ -9881,8 +9881,8 @@ paths:
       - Accounting
       - Settings
       operationId: createItemHistory
-      summary: Creates a history record for a specific item
-      description: Creates a history record for a specific item.
+      summary: Create a history record for an item
+      description: Appends a history note to the specified item and returns the resulting history response in the history response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -9941,8 +9941,8 @@ paths:
       tags:
       - Accounting
       operationId: getJournals
-      summary: Retrieves journals
-      description: Retrieves journals.
+      summary: List journals for the organisation
+      description: Returns the organisation's journals in a Journals response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -10123,8 +10123,8 @@ paths:
       tags:
       - Accounting
       operationId: getJournal
-      summary: Retrieves a specific journal using a unique journal Id.
-      description: Retrieves a specific journal using a unique journal Id.
+      summary: Get the journal identified by journal ID
+      description: Returns the journal identified by the supplied journal ID in a Journals response payload.
       parameters:
       - $ref: "#/components/parameters/JournalID"
       responses:
@@ -10192,8 +10192,8 @@ paths:
       tags:
       - Accounting
       operationId: getJournalByNumber
-      summary: Retrieves a specific journal using a unique journal number.
-      description: Retrieves a specific journal using a unique journal number.
+      summary: Get a journal by journal number
+      description: Returns the journal identified by the supplied journal number in a Journals response payload.
       parameters:
       - $ref: "#/components/parameters/JournalNumber"
       responses:
@@ -10263,8 +10263,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getLinkedTransactions
-      summary: Retrieves linked transactions (billable expenses)
-      description: Retrieves linked transactions (billable expenses).
+      summary: List linked billable expense records
+      description: Returns the linked billable expense records available to the organisation in a Linked Transactions response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - in: query
         name: page
@@ -10358,8 +10358,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createLinkedTransaction
-      summary: Creates linked transactions (billable expenses)
-      description: Creates linked transactions (billable expenses).
+      summary: Create linked transactions from request data
+      description: Creates one or more linked transactions from the supplied request body and returns the created resources in a Linked Transactions response payload.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       x-hasAccountingValidationError: true
@@ -10441,8 +10441,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getLinkedTransaction
-      summary: Retrieves a specific linked transaction (billable expenses) using a unique linked transaction Id
-      description: Retrieves a specific linked transaction (billable expenses) using a unique linked transaction Id.
+      summary: Get a linked transaction by linked transaction ID
+      description: Returns the linked transaction identified by the supplied linked transaction ID in a Linked Transactions response payload.
       parameters:
       - $ref: "#/components/parameters/LinkedTransactionID"
       responses:
@@ -10486,8 +10486,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateLinkedTransaction
-      summary: Updates a specific linked transactions (billable expenses)
-      description: Updates a specific linked transactions (billable expenses).
+      summary: Update a linked transaction record
+      description: Updates the specified linked transaction with the supplied fields and returns the persisted resource in a Linked Transactions response payload.
       x-hasAccountingValidationError: true
       x-example:
       - linkedTransaction:
@@ -10597,8 +10597,8 @@ paths:
       - Accounting
       - Transactions
       operationId: deleteLinkedTransaction
-      summary: Deletes a specific linked transactions (billable expenses)
-      description: Deletes a specific linked transactions (billable expenses).
+      summary: Delete a linked transaction record
+      description: Deletes the specified linked transaction and returns the resulting resource state or confirmation payload in the standard success payload for this endpoint.
       parameters:
       - $ref: "#/components/parameters/LinkedTransactionID"
       responses:
@@ -10629,8 +10629,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getManualJournals
-      summary: Retrieves manual journals
-      description: Retrieves manual journals.
+      summary: List manual journals for the organisation
+      description: Returns the organisation's manual journals in a Manual Journals response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -10722,8 +10722,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createManualJournals
-      summary: Creates one or more manual journals
-      description: Creates one or more manual journals.
+      summary: Create manual journals from request data
+      description: Creates one or more manual journals from the supplied request body and returns the created resources in a Manual Journals response payload.
       x-hasAccountingValidationError: true
       x-example:
       - dateValue:
@@ -10937,8 +10937,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateOrCreateManualJournals
-      summary: Updates or creates a single manual journal
-      description: Updates or creates a single manual journal.
+      summary: Create or update manual journals
+      description: Creates new manual journals or updates existing ones from the supplied request body and returns the stored resources in a Manual Journals response payload.
       x-hasAccountingValidationError: true
       x-example:
       - dateValue:
@@ -11158,8 +11158,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getManualJournal
-      summary: Retrieves a specific manual journal
-      description: Retrieves a specific manual journal.
+      summary: Get a manual journal by manual journal ID
+      description: Returns the manual journal identified by the supplied manual journal ID in a Manual Journals response payload.
       parameters:
       - $ref: "#/components/parameters/ManualJournalID"
       responses:
@@ -11229,8 +11229,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateManualJournal
-      summary: Updates a specific manual journal
-      description: Updates a specific manual journal.
+      summary: Update a manual journal record
+      description: Updates the specified manual journal with the supplied fields and returns the persisted resource in a Manual Journals response payload.
       x-hasAccountingValidationError: true
       x-example:
       - dateValue:
@@ -11436,8 +11436,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getManualJournalAttachments
-      summary: Retrieves attachment for a specific manual journal
-      description: Retrieves attachment for a specific manual journal.
+      summary: List manual journal attachments
+      description: Returns attachment metadata for the specified manual journal, including file names, content types, and download links, in a Attachments response payload.
       parameters:
       - $ref: "#/components/parameters/ManualJournalID"
       responses:
@@ -11488,8 +11488,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getManualJournalAttachmentById
-      summary: Allows you to retrieve a specific attachment from a specific manual journal using a unique attachment Id
-      description: Allows you to retrieve a specific attachment from a specific manual journal using a unique attachment Id.
+      summary: Download a manual journal attachment by attachment ID
+      description: Downloads the requested attachment for the specified manual journal as binary file content, using the supplied attachment ID to select the file.
       parameters:
       - $ref: "#/components/parameters/ManualJournalID"
       - $ref: "#/components/parameters/AttachmentID"
@@ -11527,8 +11527,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getManualJournalAttachmentByFileName
-      summary: Retrieves a specific attachment from a specific manual journal by file name
-      description: Retrieves a specific attachment from a specific manual journal by file name.
+      summary: Download a manual journal attachment by file name
+      description: Downloads the requested attachment for the specified manual journal as binary file content, using the supplied file name to select the file.
       parameters:
       - $ref: "#/components/parameters/ManualJournalID"
       - $ref: "#/components/parameters/FileName"
@@ -11561,8 +11561,8 @@ paths:
       - Attachments
       operationId: updateManualJournalAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Updates a specific attachment from a specific manual journal by file name
-      description: Updates a specific attachment from a specific manual journal by file name.
+      summary: Update a manual journal attachment by file name
+      description: Writes the attachment content for the specified manual journal and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       - $ref: "#/components/parameters/ManualJournalID"
@@ -11614,8 +11614,8 @@ paths:
       - Attachments
       operationId: createManualJournalAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Creates a specific attachment for a specific manual journal by file name
-      description: Creates a specific attachment for a specific manual journal by file name.
+      summary: Upload a manual journal attachment by file name
+      description: Writes the attachment content for the specified manual journal and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       - $ref: "#/components/parameters/ManualJournalID"
@@ -11672,8 +11672,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getManualJournalsHistory
-      summary: Retrieves history for a specific manual journal
-      description: Retrieves history for a specific manual journal.
+      summary: Get a manual journal by manual journal ID
+      description: Returns the manual journal and its nested details identified by the supplied manual journal ID in a Error response payload.
       parameters:
       - $ref: "#/components/parameters/ManualJournalID"
       responses:
@@ -11697,8 +11697,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createManualJournalHistoryRecord
-      summary: Creates a history record for a specific manual journal
-      description: Creates a history record for a specific manual journal.
+      summary: Create a history record for a manual journal
+      description: Appends a history note to the specified manual journal and returns the resulting history response in the history response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -11759,8 +11759,8 @@ paths:
       - Accounting
       - Settings
       operationId: getOrganisations
-      summary: Retrieves Xero organisation details
-      description: Retrieves Xero organisation details.
+      summary: Get organisation settings and profile
+      description: Returns organisation profile, base-currency, and subscription settings in a Organisations response payload.
       responses:
         "200":
           description: Success - return response of type Organisation array with all Organisation
@@ -11828,8 +11828,8 @@ paths:
       - Accounting
       - Settings
       operationId: getOrganisationActions
-      summary: Retrieves a list of the key actions your app has permission to perform in the connected Xero organisation.
-      description: Retrieves a list of the key actions your app has permission to perform in the connected Xero organisation.
+      summary: List available organisation actions
+      description: Returns the organisation actions currently available to the authenticated tenant in a Actions response payload.
       responses:
         "200":
           description: Success - return response of type Actions array with all key actions
@@ -11893,8 +11893,8 @@ paths:
       - Accounting
       - Settings
       operationId: getOrganisationCISSettings
-      summary: Retrieves the CIS settings for the Xero organistaion.
-      description: Retrieves the CIS settings for the Xero organistaion.
+      summary: Get CIS settings for a contact
+      description: Returns Construction Industry Scheme settings for the specified contact, including the configured tax treatment fields, in a CISOrg Settings response payload.
       parameters:
       - $ref: "#/components/parameters/OrganisationID"
       responses:
@@ -11932,8 +11932,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getOverpayments
-      summary: Retrieves overpayments
-      description: Retrieves overpayments.
+      summary: List overpayments for the organisation
+      description: Returns the organisation's overpayments in a Overpayments response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -12151,8 +12151,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getOverpayment
-      summary: Retrieves a specific overpayment using a unique overpayment Id
-      description: Retrieves a specific overpayment using a unique overpayment Id.
+      summary: Get an overpayment by overpayment ID
+      description: Returns the overpayment identified by the supplied overpayment ID in a Overpayments response payload.
       parameters:
       - $ref: "#/components/parameters/OverpaymentID"
       responses:
@@ -12280,8 +12280,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createOverpaymentAllocations
-      summary: Creates a single allocation for a specific overpayment
-      description: Creates a single allocation for a specific overpayment.
+      summary: Create an allocation for an overpayment
+      description: Creates an allocation against the specified overpayment and returns the updated allocation data in a Allocations response payload.
       x-hasAccountingValidationError: true
       x-example:
       - currDate:
@@ -12422,8 +12422,8 @@ paths:
       - Accounting
       - Transactions
       operationId: deleteOverpaymentAllocations
-      summary: Deletes an Allocation from an overpayment
-      description: Deletes an Allocation from an overpayment.
+      summary: Delete an allocation from an overpayment
+      description: Deletes the specified allocation from the overpayment and returns the resulting resource state in a Allocation response payload.
       parameters:
       - $ref: "#/components/parameters/OverpaymentID"
       - $ref: "#/components/parameters/AllocationID"
@@ -12464,8 +12464,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getOverpaymentHistory
-      summary: Retrieves history records of a specific overpayment
-      description: Retrieves history records of a specific overpayment.
+      summary: Get an overpayment by overpayment ID
+      description: Returns the overpayment and its nested details identified by the supplied overpayment ID in a Error response payload.
       parameters:
       - $ref: "#/components/parameters/OverpaymentID"
       responses:
@@ -12489,8 +12489,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createOverpaymentHistory
-      summary: Creates a history record for a specific overpayment
-      description: Creates a history record for a specific overpayment.
+      summary: Create a history record for an overpayment
+      description: Appends a history note to the specified overpayment and returns the resulting history response in the history response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -12565,8 +12565,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getPayments
-      summary: Retrieves payments for invoices and credit notes
-      description: Retrieves payments for invoices and credit notes.
+      summary: List payments for the organisation
+      description: Returns the organisation's payments in a Payments response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -12714,8 +12714,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createPayments
-      summary: Creates multiple payments for invoices or credit notes
-      description: Creates multiple payments for invoices or credit notes.
+      summary: Create payments from request data
+      description: Creates one or more payments from the supplied request body and returns the created resources in a Payments response payload.
       x-hasAccountingValidationError: true
       x-example:
       - dateValue:
@@ -12909,8 +12909,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createPayment
-      summary: Creates a single payment for invoice or credit notes
-      description: Creates a single payment for invoice or credit notes.
+      summary: Update payment records in bulk
+      description: Updates the supplied payments and returns the persisted resources in a Payments response payload.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       x-hasAccountingValidationError: true
@@ -13109,8 +13109,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getPayment
-      summary: Retrieves a specific payment for invoices and credit notes using a unique payment Id
-      description: Retrieves a specific payment for invoices and credit notes using a unique payment Id.
+      summary: Get the payment identified by payment ID
+      description: Returns the payment identified by the supplied payment ID in a Payments response payload.
       parameters:
       - $ref: "#/components/parameters/PaymentID"
       responses:
@@ -13218,8 +13218,8 @@ paths:
       - Accounting
       - Transactions
       operationId: deletePayment
-      summary: Updates a specific payment for invoices and credit notes
-      description: Updates a specific payment for invoices and credit notes.
+      summary: Update the specified payment record
+      description: Updates the specified payment with the supplied fields and returns the persisted resource in a Payments response payload.
       x-hasAccountingValidationError: true
       x-example:
       - paymentDelete:
@@ -13334,8 +13334,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getPaymentHistory
-      summary: Retrieves history records of a specific payment
-      description: Retrieves history records of a specific payment.
+      summary: List history records for a payment
+      description: Returns the audit and history records captured for the specified payment, including system and user-generated events, in the history response payload.
       parameters:
       - $ref: "#/components/parameters/PaymentID"
       responses:
@@ -13359,8 +13359,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createPaymentHistory
-      summary: Creates a history record for a specific payment
-      description: Creates a history record for a specific payment.
+      summary: Create a history record for a payment
+      description: Appends a history note to the specified payment and returns the resulting history response in the history response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -13434,8 +13434,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getPaymentServices
-      summary: Retrieves payment services
-      description: Retrieves payment services.
+      summary: List payment services for a branding theme
+      description: Returns the payment service configurations linked to the specified branding theme in a Payment Services response payload.
       x-excludeFromPreview: true
       responses:
         "200":
@@ -13473,8 +13473,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createPaymentService
-      summary: Creates a payment service
-      description: Creates a payment service.
+      summary: Create a payment service for a branding theme
+      description: Creates a payment service for the specified branding theme and returns the resulting configuration in a Payment Services response payload.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       x-excludeFromPreview: true
@@ -13572,8 +13572,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getPrepayments
-      summary: Retrieves prepayments
-      description: Retrieves prepayments.
+      summary: List prepayments for the organisation
+      description: Returns the organisation's prepayments in a Prepayments response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -13688,8 +13688,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getPrepayment
-      summary: Allows you to retrieve a specified prepayments
-      description: Allows you to retrieve a specified prepayments.
+      summary: Get a prepayment by prepayment ID
+      description: Returns the prepayment identified by the supplied prepayment ID in a Prepayments response payload.
       parameters:
       - $ref: "#/components/parameters/PrepaymentID"
       responses:
@@ -13815,8 +13815,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createPrepaymentAllocations
-      summary: Allows you to create an Allocation for prepayments
-      description: Allows you to create an Allocation for prepayments.
+      summary: Create an allocation for a prepayment
+      description: Creates an allocation against the specified prepayment and returns the updated allocation data in a Allocations response payload.
       x-hasAccountingValidationError: true
       x-example:
       - currDate:
@@ -13955,8 +13955,8 @@ paths:
       - Accounting
       - Transactions
       operationId: deletePrepaymentAllocations
-      summary: Deletes an Allocation from a Prepayment
-      description: Deletes an Allocation from a Prepayment.
+      summary: Delete an allocation from a prepayment
+      description: Deletes the specified allocation from the prepayment and returns the resulting resource state in a Allocation response payload.
       parameters:
       - $ref: "#/components/parameters/PrepaymentID"
       - $ref: "#/components/parameters/AllocationID"
@@ -13997,8 +13997,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getPrepaymentHistory
-      summary: Retrieves history record for a specific prepayment
-      description: Retrieves history record for a specific prepayment.
+      summary: Get a prepayment by prepayment ID
+      description: Returns the prepayment and its nested details identified by the supplied prepayment ID in a Error response payload.
       parameters:
       - $ref: "#/components/parameters/PrepaymentID"
       responses:
@@ -14022,8 +14022,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createPrepaymentHistory
-      summary: Creates a history record for a specific prepayment
-      description: Creates a history record for a specific prepayment.
+      summary: Create a history record for a prepayment
+      description: Appends a history note to the specified prepayment and returns the resulting history response in the history response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -14089,8 +14089,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getPurchaseOrders
-      summary: Retrieves purchase orders
-      description: Retrieves purchase orders.
+      summary: List purchase orders for the organisation
+      description: Returns the organisation's purchase orders in a Purchase Orders response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -14284,8 +14284,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createPurchaseOrders
-      summary: Creates one or more purchase orders
-      description: Creates one or more purchase orders.
+      summary: Create purchase orders from request data
+      description: Creates one or more purchase orders from the supplied request body and returns the created resources in a Purchase Orders response payload.
       x-hasAccountingValidationError: true
       x-example:
       - dateValue:
@@ -14536,8 +14536,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateOrCreatePurchaseOrders
-      summary: Updates or creates one or more purchase orders
-      description: Updates or creates one or more purchase orders.
+      summary: Create or update purchase orders
+      description: Creates new purchase orders or updates existing ones from the supplied request body and returns the stored resources in a Purchase Orders response payload.
       x-hasAccountingValidationError: true
       x-example:
       - dateValue:
@@ -14794,8 +14794,8 @@ paths:
       - Transactions
       operationId: getPurchaseOrderAsPdf
       x-path: /PurchaseOrders/{PurchaseOrderID}
-      summary: Retrieves specific purchase order as PDF files using a unique purchase order Id
-      description: Retrieves specific purchase order as PDF files using a unique purchase order Id.
+      summary: Download a purchase order PDF
+      description: Streams a PDF rendition of the specified purchase order and returns the document as a Error response payload.
       parameters:
       - $ref: "#/components/parameters/PurchaseOrderID"
       responses:
@@ -14831,8 +14831,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getPurchaseOrder
-      summary: Retrieves a specific purchase order using a unique purchase order Id
-      description: Retrieves a specific purchase order using a unique purchase order Id.
+      summary: Get a purchase order by purchase order ID
+      description: Returns the purchase order identified by the supplied purchase order ID in a Purchase Orders response payload.
       parameters:
       - $ref: "#/components/parameters/PurchaseOrderID"
       responses:
@@ -14963,8 +14963,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updatePurchaseOrder
-      summary: Updates a specific purchase order
-      description: Updates a specific purchase order.
+      summary: Update a purchase order record
+      description: Updates the specified purchase order with the supplied fields and returns the persisted resource in a Purchase Orders response payload.
       x-hasAccountingValidationError: true
       x-example:
       - purchaseOrder:
@@ -15115,8 +15115,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getPurchaseOrderByNumber
-      summary: Retrieves a specific purchase order using purchase order number
-      description: Retrieves a specific purchase order using purchase order number.
+      summary: Get a purchase order by PurchaseOrderNumber
+      description: Returns the purchase order identified by the supplied PurchaseOrderNumber in a Purchase Orders response payload.
       parameters:
       - required: true
         in: path
@@ -15261,8 +15261,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getPurchaseOrderHistory
-      summary: Retrieves history for a specific purchase order
-      description: Retrieves history for a specific purchase order.
+      summary: Get a purchase order by purchase order ID
+      description: Returns the purchase order and its nested details identified by the supplied purchase order ID in a Error response payload.
       parameters:
       - $ref: "#/components/parameters/PurchaseOrderID"
       responses:
@@ -15286,8 +15286,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createPurchaseOrderHistory
-      summary: Creates a history record for a specific purchase orders
-      description: Creates a history record for a specific purchase orders.
+      summary: Create a history record for a purchase order
+      description: Appends a history note to the specified purchase order and returns the resulting history response in the history response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -15348,8 +15348,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getPurchaseOrderAttachments
-      summary: Retrieves attachments for a specific purchase order
-      description: Retrieves attachments for a specific purchase order.
+      summary: List purchase order attachments
+      description: Returns attachment metadata for the specified purchase order, including file names, content types, and download links, in a Attachments response payload.
       parameters:
       - $ref: "#/components/parameters/PurchaseOrderID"
       responses:
@@ -15405,8 +15405,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getPurchaseOrderAttachmentById
-      summary: Retrieves specific attachment for a specific purchase order using a unique attachment Id
-      description: Retrieves specific attachment for a specific purchase order using a unique attachment Id.
+      summary: Download a purchase order attachment by attachment ID
+      description: Downloads the requested attachment for the specified purchase order as binary file content, using the supplied attachment ID to select the file.
       parameters:
       - $ref: "#/components/parameters/PurchaseOrderID"
       - $ref: "#/components/parameters/AttachmentID"
@@ -15444,8 +15444,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getPurchaseOrderAttachmentByFileName
-      summary: Retrieves a specific attachment for a specific purchase order by filename
-      description: Retrieves a specific attachment for a specific purchase order by filename.
+      summary: Download a purchase order attachment by file name
+      description: Downloads the requested attachment for the specified purchase order as binary file content, using the supplied file name to select the file.
       parameters:
       - $ref: "#/components/parameters/PurchaseOrderID"
       - $ref: "#/components/parameters/FileName"
@@ -15478,8 +15478,8 @@ paths:
       - Attachments
       operationId: updatePurchaseOrderAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Updates a specific attachment for a specific purchase order by filename
-      description: Updates a specific attachment for a specific purchase order by filename.
+      summary: Update a purchase order attachment by file name
+      description: Writes the attachment content for the specified purchase order and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       - $ref: "#/components/parameters/PurchaseOrderID"
@@ -15535,8 +15535,8 @@ paths:
       - Attachments
       operationId: createPurchaseOrderAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Creates attachment for a specific purchase order
-      description: Creates attachment for a specific purchase order.
+      summary: Upload a purchase order attachment by file name
+      description: Writes the attachment content for the specified purchase order and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       - $ref: "#/components/parameters/PurchaseOrderID"
@@ -15593,8 +15593,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getQuotes
-      summary: Retrieves sales quotes
-      description: Retrieves sales quotes.
+      summary: List quotes for the organisation
+      description: Returns the organisation's quotes in a Quotes response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -15742,8 +15742,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createQuotes
-      summary: Create one or more quotes
-      description: Create one or more quotes.
+      summary: Create quotes from request data
+      description: Creates one or more quotes from the supplied request body and returns the created resources in a Quotes response payload.
       x-hasAccountingValidationError: true
       x-example:
       - dateValue:
@@ -15944,8 +15944,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateOrCreateQuotes
-      summary: Updates or creates one or more quotes
-      description: Updates or creates one or more quotes.
+      summary: Create or update quotes in bulk
+      description: Creates new quotes or updates existing ones from the supplied request body and returns the stored resources in a Quotes response payload.
       x-hasAccountingValidationError: true
       x-example:
       - dateValue:
@@ -16151,8 +16151,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getQuote
-      summary: Retrieves a specific quote using a unique quote Id
-      description: Retrieves a specific quote using a unique quote Id.
+      summary: Get the quote identified by quote ID
+      description: Returns the quote identified by the supplied quote ID in a Quotes response payload.
       parameters:
       - $ref: "#/components/parameters/QuoteID"
       responses:
@@ -16228,8 +16228,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateQuote
-      summary: Updates a specific quote
-      description: Updates a specific quote.
+      summary: Update the specified quote record
+      description: Updates the specified quote with the supplied fields and returns the persisted resource in a Quotes response payload.
       x-hasAccountingValidationError: true
       x-example:
       - dateValue:
@@ -16376,8 +16376,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getQuoteHistory
-      summary: Retrieves history records of a specific quote
-      description: Retrieves history records of a specific quote.
+      summary: List history records for a quote
+      description: Returns the audit and history records captured for the specified quote, including system and user-generated events, in the history response payload.
       parameters:
       - $ref: "#/components/parameters/QuoteID"
       responses:
@@ -16401,8 +16401,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createQuoteHistory
-      summary: Creates a history record for a specific quote
-      description: Creates a history record for a specific quote.
+      summary: Create a history record for a quote
+      description: Appends a history note to the specified quote and returns the resulting history response in the history response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -16464,8 +16464,8 @@ paths:
       - Transactions
       operationId: getQuoteAsPdf
       x-path: /Quotes/{QuoteID}
-      summary: Retrieves a specific quote as a PDF file using a unique quote Id
-      description: Retrieves a specific quote as a PDF file using a unique quote Id.
+      summary: Download the quote PDF document
+      description: Streams a PDF rendition of the specified quote and returns the document as the standard success payload for this endpoint.
       parameters:
       - $ref: "#/components/parameters/QuoteID"
       responses:
@@ -16501,8 +16501,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getQuoteAttachments
-      summary: Retrieves attachments for a specific quote
-      description: Retrieves attachments for a specific quote.
+      summary: List attachments for a quote
+      description: Returns attachment metadata for the specified quote, including file names, content types, and download links, in a Attachments response payload.
       parameters:
       - $ref: "#/components/parameters/QuoteID"
       responses:
@@ -16548,8 +16548,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getQuoteAttachmentById
-      summary: Retrieves a specific attachment from a specific quote using a unique attachment Id
-      description: Retrieves a specific attachment from a specific quote using a unique attachment Id.
+      summary: Download a quote attachment by attachment ID
+      description: Downloads the requested attachment for the specified quote as binary file content, using the supplied attachment ID to select the file.
       parameters:
       - $ref: "#/components/parameters/QuoteID"
       - $ref: "#/components/parameters/AttachmentID"
@@ -16587,8 +16587,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getQuoteAttachmentByFileName
-      summary: Retrieves a specific attachment from a specific quote by filename
-      description: Retrieves a specific attachment from a specific quote by filename.
+      summary: Download a quote attachment by file name
+      description: Downloads the requested attachment for the specified quote as binary file content, using the supplied file name to select the file.
       parameters:
       - $ref: "#/components/parameters/QuoteID"
       - $ref: "#/components/parameters/FileName"
@@ -16621,8 +16621,8 @@ paths:
       - Attachments
       operationId: updateQuoteAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Updates a specific attachment from a specific quote by filename
-      description: Updates a specific attachment from a specific quote by filename.
+      summary: Update a quote attachment by file name
+      description: Writes the attachment content for the specified quote and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       - $ref: "#/components/parameters/QuoteID"
@@ -16678,8 +16678,8 @@ paths:
       - Attachments
       operationId: createQuoteAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Creates attachment for a specific quote
-      description: Creates attachment for a specific quote.
+      summary: Upload a quote attachment by file name
+      description: Writes the attachment content for the specified quote and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       - $ref: "#/components/parameters/QuoteID"
@@ -16736,9 +16736,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getRepeatingInvoices
-      summary: Retrieves repeating invoices
-      description: Retrieves repeating invoices.
-      parameters:
+      summary: List repeating invoices for the organisation
+      description: Returns the organisation's repeating invoices in a Repeating Invoices response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       - in: query
         name: where
         description: Filter by an any element
@@ -16831,7 +16830,7 @@ paths:
       - Transactions
       operationId: createRepeatingInvoices
       summary: Creates one or more repeating invoice templates
-      description: Creates one or more repeating invoice templates.
+      description: Repeating invoices should be used when you need to create invoices on a regular basis. For example, billing a subscription to a customer with a constant price every month.
       x-hasAccountingValidationError: true
       parameters:
       - $ref: "#/components/parameters/summarizeErrors"
@@ -16947,8 +16946,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateOrCreateRepeatingInvoices
-      summary: Creates or deletes one or more repeating invoice templates
-      description: Creates or deletes one or more repeating invoice templates.
+      summary: Creates or deletes, by updating the status, one or more repeating invoice templates
+      description: Repeating invoices should be used when you need to create invoices on a regular basis. For example, billing a subscription to a customer with a constant price every month. To delete a repeating invoice, update the Status to DELETED.
       x-hasAccountingValidationError: true
       parameters:
       - $ref: "#/components/parameters/summarizeErrors"
@@ -17070,8 +17069,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getRepeatingInvoice
-      summary: Retrieves a specific repeating invoice by using a unique repeating invoice Id
-      description: Retrieves a specific repeating invoice by using a unique repeating invoice Id.
+      summary: Get a repeating invoice by repeating invoice ID
+      description: Returns the repeating invoice identified by the supplied repeating invoice ID in a Repeating Invoices response payload.
       parameters:
       - $ref: "#/components/parameters/RepeatingInvoiceID"
       responses:
@@ -17159,8 +17158,8 @@ paths:
       - Accounting
       - Transactions
       operationId: updateRepeatingInvoice
-      summary: Deletes a specific repeating invoice template
-      description: Deletes a specific repeating invoice template.
+      summary: Update a repeating invoice record
+      description: Updates the specified repeating invoice with the supplied fields and returns the persisted resource in a Repeating Invoices response payload.
       x-hasAccountingValidationError: true
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
@@ -17293,8 +17292,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getRepeatingInvoiceAttachments
-      summary: Retrieves attachments from a specific repeating invoice
-      description: Retrieves attachments from a specific repeating invoice.
+      summary: List repeating invoice attachments
+      description: Returns attachment metadata for the specified repeating invoice, including file names, content types, and download links, in a Attachments response payload.
       parameters:
       - $ref: "#/components/parameters/RepeatingInvoiceID"
       responses:
@@ -17350,8 +17349,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getRepeatingInvoiceAttachmentById
-      summary: Retrieves a specific attachment from a specific repeating invoice
-      description: Retrieves a specific attachment from a specific repeating invoice.
+      summary: Download a repeating invoice attachment by attachment ID
+      description: Downloads the requested attachment for the specified repeating invoice as binary file content, using the supplied attachment ID to select the file.
       parameters:
       - $ref: "#/components/parameters/RepeatingInvoiceID"
       - $ref: "#/components/parameters/AttachmentID"
@@ -17389,8 +17388,8 @@ paths:
       - Accounting
       - Attachments
       operationId: getRepeatingInvoiceAttachmentByFileName
-      summary: Retrieves a specific attachment from a specific repeating invoices by file name
-      description: Retrieves a specific attachment from a specific repeating invoices by file name.
+      summary: Download a repeating invoice attachment by file name
+      description: Downloads the requested attachment for the specified repeating invoice as binary file content, using the supplied file name to select the file.
       parameters:
       - $ref: "#/components/parameters/RepeatingInvoiceID"
       - $ref: "#/components/parameters/FileName"
@@ -17423,8 +17422,8 @@ paths:
       - Attachments
       operationId: updateRepeatingInvoiceAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Updates a specific attachment from a specific repeating invoices by file name
-      description: Updates a specific attachment from a specific repeating invoices by file name.
+      summary: Update a repeating invoice attachment by file name
+      description: Writes the attachment content for the specified repeating invoice and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       - $ref: "#/components/parameters/RepeatingInvoiceID"
@@ -17476,8 +17475,8 @@ paths:
       - Attachments
       operationId: createRepeatingInvoiceAttachmentByFileName
       x-hasAccountingValidationError: true
-      summary: Creates an attachment from a specific repeating invoices by file name
-      description: Creates an attachment from a specific repeating invoices by file name.
+      summary: Upload a repeating invoice attachment by file name
+      description: Writes the attachment content for the specified repeating invoice and returns the stored attachment metadata in binary file content.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       - $ref: "#/components/parameters/RepeatingInvoiceID"
@@ -17534,8 +17533,8 @@ paths:
       - Accounting
       - Transactions
       operationId: getRepeatingInvoiceHistory
-      summary: Retrieves history record for a specific repeating invoice
-      description: Retrieves history record for a specific repeating invoice.
+      summary: Get a repeating invoice by repeating invoice ID
+      description: Returns the repeating invoice and its nested details identified by the supplied repeating invoice ID in a Error response payload.
       parameters:
       - $ref: "#/components/parameters/RepeatingInvoiceID"
       responses:
@@ -17559,8 +17558,8 @@ paths:
       - Accounting
       - Transactions
       operationId: createRepeatingInvoiceHistory
-      summary: Creates a  history record for a specific repeating invoice
-      description: Creates a  history record for a specific repeating invoice.
+      summary: Create a history record for a repeating invoice
+      description: Appends a history note to the specified repeating invoice and returns the resulting history response in the history response payload.
       x-hasAccountingValidationError: true
       x-example:
       - historyRecord:
@@ -17621,8 +17620,8 @@ paths:
       - Accounting
       - Reports
       operationId: getReportTenNinetyNine
-      summary: Retrieve reports for 1099
-      description: Retrieve reports for 1099.
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Reports response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - in: query
         name: reportYear
@@ -17763,8 +17762,8 @@ paths:
       - Accounting
       - Reports
       operationId: getReportAgedPayablesByContact
-      summary: Retrieves report for aged payables by contact
-      description: Retrieves report for aged payables by contact.
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - in: query
         required: true
@@ -17916,8 +17915,8 @@ paths:
       - Accounting
       - Reports
       operationId: getReportAgedReceivablesByContact
-      summary: Retrieves report for aged receivables by contact
-      description: Retrieves report for aged receivables by contact.
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - in: query
         required: true
@@ -18103,8 +18102,8 @@ paths:
       - Accounting
       - Reports
       operationId: getReportBalanceSheet
-      summary: Retrieves report for balancesheet
-      description: Retrieves report for balancesheet.
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - in: query
         name: date
@@ -18518,8 +18517,8 @@ paths:
       - Accounting
       - Reports
       operationId: getReportBankSummary
-      summary: Retrieves report for bank summary
-      description: Retrieves report for bank summary.
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/FromDate"
       - $ref: "#/components/parameters/ToDate"
@@ -18602,8 +18601,8 @@ paths:
       - Accounting
       - Reports
       operationId: getReportFromId
-      summary: Retrieves a specific report using a unique ReportID
-      description: Retrieves a specific report using a unique ReportID.
+      summary: Get the report identified by ReportID
+      description: Returns the report identified by the supplied ReportID in a Report With Rows response payload.
       parameters:
       - in: path
         required: true
@@ -18644,8 +18643,8 @@ paths:
       - Accounting
       - Reports
       operationId: getReportBudgetSummary
-      summary: Retrieves report for budget summary
-      description: Retrieves report for budget summary.
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - in: query
         name: date
@@ -18785,8 +18784,8 @@ paths:
       - Accounting
       - Reports
       operationId: getReportExecutiveSummary
-      summary: Retrieves report for executive summary
-      description: Retrieves report for executive summary.
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - in: query
         name: date
@@ -19004,8 +19003,8 @@ paths:
       - Accounting
       - Reports
       operationId: getReportsList
-      summary: Retrieves a list of the organistaions unique reports that require a uuid to fetch
-      description: Retrieves a list of the organistaions unique reports that require a uuid to fetch.
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       responses:
         "200":
           description: Success - return response of type ReportWithRows
@@ -19036,8 +19035,8 @@ paths:
       - Accounting
       - Reports
       operationId: getReportProfitAndLoss
-      summary: Retrieves report for profit and loss
-      description: Retrieves report for profit and loss.
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/FromDate"
       - $ref: "#/components/parameters/ToDate"
@@ -19139,8 +19138,8 @@ paths:
       - Accounting
       - Reports
       operationId: getReportTrialBalance
-      summary: Retrieves report for trial balance
-      description: Retrieves report for trial balance.
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - in: query
         name: date
@@ -19671,8 +19670,8 @@ paths:
       - Accounting
       - Settings
       operationId: postSetup
-      summary: Sets the chart of accounts, the conversion date and conversion balances
-      description: Sets the chart of accounts, the conversion date and conversion balances.
+      summary: Update accounting setup items in bulk
+      description: Updates the supplied setup items and returns the persisted resources in a Import Summary Object response payload.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       x-example:
@@ -19846,8 +19845,8 @@ paths:
       - Accounting
       - Settings
       operationId: getTaxRates
-      summary: Retrieves tax rates
-      description: Retrieves tax rates.
+      summary: List tax rates for the organisation
+      description: Returns the organisation's tax rates in a Tax Rates response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - in: query
         name: where
@@ -19978,8 +19977,8 @@ paths:
       - Accounting
       - Settings
       operationId: createTaxRates
-      summary: Creates one or more tax rates
-      description: Creates one or more tax rates.
+      summary: Create tax rates from request data
+      description: Creates one or more tax rates from the supplied request body and returns the created resources in a Tax Rates response payload.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       x-hasAccountingValidationError: true
@@ -20110,8 +20109,8 @@ paths:
       - Accounting
       - Settings
       operationId: updateTaxRate
-      summary: Updates tax rates
-      description: Updates tax rates.
+      summary: Update tax rate records in bulk
+      description: Updates the supplied tax rates and returns the persisted resources in a Tax Rates response payload.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       x-hasAccountingValidationError: true
@@ -20249,8 +20248,8 @@ paths:
       - Accounting
       - Settings
       operationId: getTaxRateByTaxType
-      summary: Retrieves a specific tax rate according to given TaxType code
-      description: Retrieves a specific tax rate according to given TaxType code.
+      summary: Get the tax rate identified by TaxType
+      description: Returns the tax rate identified by the supplied TaxType in a Tax Rates response payload.
       parameters:
       - $ref: "#/components/parameters/TaxType"
       responses:
@@ -20306,8 +20305,8 @@ paths:
       - Accounting
       - Settings
       operationId: getTrackingCategories
-      summary: Retrieves tracking categories and options
-      description: Retrieves tracking categories and options.
+      summary: List tracking categories for the organisation
+      description: Returns the organisation's tracking categories in a Tracking Categories response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - in: query
         name: where
@@ -20375,8 +20374,8 @@ paths:
       - Accounting
       - Settings
       operationId: createTrackingCategory
-      summary: Create tracking categories
-      description: Create tracking categories.
+      summary: Create tracking categories from request data
+      description: Creates one or more tracking categories from the supplied request body and returns the created resources in a Tracking Categories response payload.
       parameters:
       - $ref: "#/components/parameters/idempotencyKey"
       x-hasAccountingValidationError: true
@@ -20441,8 +20440,8 @@ paths:
       - Accounting
       - Settings
       operationId: getTrackingCategory
-      summary: Retrieves specific tracking categories and options using a unique tracking category Id
-      description: Retrieves specific tracking categories and options using a unique tracking category Id.
+      summary: Get a tracking category by tracking category ID
+      description: Returns the tracking category identified by the supplied tracking category ID in a Tracking Categories response payload.
       parameters:
       - $ref: "#/components/parameters/TrackingCategoryID"
       responses:
@@ -20480,8 +20479,8 @@ paths:
       - Accounting
       - Settings
       operationId: updateTrackingCategory
-      summary: Updates a specific tracking category
-      description: Updates a specific tracking category.
+      summary: Update a tracking category record
+      description: Updates the specified tracking category with the supplied fields and returns the persisted resource in a Tracking Categories response payload.
       x-hasAccountingValidationError: true
       x-example:
       - trackingCategory:
@@ -20540,8 +20539,8 @@ paths:
       - Accounting
       - Settings
       operationId: deleteTrackingCategory
-      summary: Deletes a specific tracking category
-      description: Deletes a specific tracking category.
+      summary: Delete a tracking category record
+      description: Deletes the specified tracking category and returns the resulting resource state or confirmation payload in a Tracking Categories response payload.
       parameters:
       - $ref: "#/components/parameters/TrackingCategoryID"
       responses:
@@ -20584,8 +20583,8 @@ paths:
       - Accounting
       - Settings
       operationId: createTrackingOptions
-      summary: Creates options for a specific tracking category
-      description: Creates options for a specific tracking category.
+      summary: Create a tracking category record
+      description: Creates a new tracking category from the supplied request body and returns the created resource in a Tracking Options response payload.
       x-hasAccountingValidationError: true
       x-example:
       - trackingOption:
@@ -20653,8 +20652,8 @@ paths:
       - Accounting
       - Settings
       operationId: updateTrackingOptions
-      summary: Updates a specific option for a specific tracking category
-      description: Updates a specific option for a specific tracking category.
+      summary: Update a tracking category record
+      description: Updates the specified tracking category with the supplied fields and returns the persisted resource in a Tracking Options response payload.
       x-hasAccountingValidationError: true
       x-example:
       - trackingOption:
@@ -20717,8 +20716,8 @@ paths:
       - Accounting
       - Settings
       operationId: deleteTrackingOptions
-      summary: Deletes a specific option for a specific tracking category
-      description: Deletes a specific option for a specific tracking category.
+      summary: Delete a tracking category record
+      description: Deletes the specified tracking category and returns the resulting resource state or confirmation payload in a Tracking Options response payload.
       parameters:
       - $ref: "#/components/parameters/TrackingCategoryID"
       - $ref: "#/components/parameters/TrackingOptionID"
@@ -20766,8 +20765,8 @@ paths:
       - Accounting
       - Settings
       operationId: getUsers
-      summary: Retrieves users
-      description: Retrieves users.
+      summary: List users for the organisation
+      description: Returns the organisation's users in a Users response payload. Use the available filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
       parameters:
       - $ref: "#/components/parameters/ifModifiedSince"
       - in: query
@@ -20835,7 +20834,7 @@ paths:
       - Accounting
       - Settings
       operationId: getUser
-      summary: Retrieves a specific user
+      summary: Get the user identified by user ID
       description: Retrieves a specific user.
       parameters:
       - $ref: "#/components/parameters/UserID"
@@ -29343,7 +29342,7 @@ components:
         AddressLine1: example
         AddressLine2: example
     TaxBreakdownComponent:
-      description: Represents the TaxBreakdownComponent schema used by the Accounting API.
+      description: Returns the user identified by the supplied user ID in a Users response payload.
       properties:
         TaxComponentId:
           description: The unique ID number of this component
