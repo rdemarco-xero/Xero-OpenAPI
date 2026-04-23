@@ -1,0 +1,2958 @@
+openapi: 3.0.0
+info:
+  title: Xero Accounting API
+  description: The Xero Accounting API exposes accounting resources for working with contacts, transactions, reports, settings,
+    and related organisation data.
+  version: 12.0.0
+  termsOfService: https://developer.xero.com/xero-developer-platform-terms-conditions/
+  contact:
+    name: Xero Platform Team
+    email: api@xero.com
+    url: https://developer.xero.com
+servers:
+- description: The Xero Accounting API exposes accounting and related functions of the main Xero application and can be used
+    for a variety of purposes such as creating transactions like invoices and credit notes, right through to extracting accounting
+    data via our reports endpoint.
+  url: https://api.xero.com/api.xro/2.0
+tags:
+- name: Accounting
+  description: Core accounting resources including accounts, invoices, contacts, payments, and reports.
+- name: Attachments
+  description: Binary/file attachment resources across accounting entities.
+paths:
+  /Accounts/{AccountID}/Attachments:
+    summary: List attachments on a specific account
+    description: List attachments on a specific account.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getAccountAttachments
+      summary: List attachments for an account
+      description: Returns attachment metadata for the specified account, including file names, content types, and download
+        links, in a Attachments response payload.
+      parameters:
+      - $ref: '#/components/parameters/AccountID'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array of Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 439c1573-3cd8-4697-a9f6-81fa651ee8f3
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1550852630329)/
+                Attachments:
+                - AttachmentID: 52a643be-cd5c-489f-9778-53a9fd337756
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Accounts/{AccountID}/Attachments/{AttachmentID}:
+    summary: Retrieve a specific account attachment by ID
+    description: Retrieve a specific account attachment by ID.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getAccountAttachmentById
+      summary: Download a account attachment by attachment ID
+      description: Downloads the requested attachment for the specified account as binary file content, using the supplied
+        attachment ID to select the file.
+      parameters:
+      - $ref: '#/components/parameters/AccountID'
+      - $ref: '#/components/parameters/AttachmentID'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Account as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Accounts/{AccountID}/Attachments/{FileName}:
+    summary: Retrieve or upload an account attachment by file name
+    description: Retrieve or upload an account attachment by file name.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    post:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: updateAccountAttachmentByFileName
+      summary: Update a account attachment by file name
+      description: Writes the attachment content for the specified account and returns the stored attachment metadata in binary
+        file content.
+      parameters:
+      - $ref: '#/components/parameters/AccountID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/idempotencyKey'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array of Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: c8d6413a-1da2-4faa-9848-21f60443e906
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1550859714477)/
+                Attachments:
+                - AttachmentID: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          description: Validation Error - some data was incorrect returns response of type Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getAccountAttachmentByFileName
+      summary: Download a account attachment by file name
+      description: Downloads the requested attachment for the specified account as binary file content, using the supplied
+        file name to select the file.
+      parameters:
+      - $ref: '#/components/parameters/AccountID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Account as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+    put:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: createAccountAttachmentByFileName
+      summary: Upload a account attachment by file name
+      description: Writes the attachment content for the specified account and returns the stored attachment metadata in binary
+        file content.
+      parameters:
+      - $ref: '#/components/parameters/AccountID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/idempotencyKey'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array of Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 724cdff5-bcd1-4c5c-977e-e864c24258e0
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1550856817769)/
+                Attachments:
+                - AttachmentID: ab95b276-9dce-4925-9077-439818ba270f
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+  /BankTransactions/{BankTransactionID}/Attachments:
+    summary: List attachments on a specific bank transaction
+    description: List attachments on a specific bank transaction.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getBankTransactionAttachments
+      summary: List bank transaction attachments
+      description: Returns attachment metadata for the specified bank transaction, including file names, content types, and
+        download links, in a Attachments response payload.
+      parameters:
+      - $ref: '#/components/parameters/BankTransactionID'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with 0 to n Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: c50798e1-29e9-4a30-a452-bb6e42e400c8
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1551303999577)/
+                Attachments:
+                - AttachmentID: 4508a692-e52c-4ad8-a138-2f13e22bf57b
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/BankTransactions/db54aab0-ad40-4ced-bcff-0940ba20db2c/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+                - AttachmentID: 45dd3143-9856-42d2-9a6c-53814f67a33e
+                  FileName: sample2.jpg
+                  Url: https://api.xero.com/api.xro/2.0/BankTransactions/db54aab0-ad40-4ced-bcff-0940ba20db2c/Attachments/sample2.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /BankTransactions/{BankTransactionID}/Attachments/{AttachmentID}:
+    summary: Retrieve a specific bank transaction attachment by ID
+    description: Retrieve a specific bank transaction attachment by ID.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getBankTransactionAttachmentById
+      summary: Download a bank transaction attachment by attachment ID
+      description: Downloads the requested attachment for the specified bank transaction as binary file content, using the
+        supplied attachment ID to select the file.
+      parameters:
+      - $ref: '#/components/parameters/BankTransactionID'
+      - $ref: '#/components/parameters/AttachmentID'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for BankTransaction as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /BankTransactions/{BankTransactionID}/Attachments/{FileName}:
+    summary: Retrieve or upload a bank transaction attachment by file name
+    description: Retrieve or upload a bank transaction attachment by file name.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    post:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: updateBankTransactionAttachmentByFileName
+      summary: Update a bank transaction attachment by file name
+      description: Writes the attachment content for the specified bank transaction and returns the stored attachment metadata
+        in binary file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/BankTransactionID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of Attachments array of Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 572ad2fe-8c23-45aa-82f9-864485327685
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1551286166630)/
+                Attachments:
+                - AttachmentID: 4508a692-e52c-4ad8-a138-2f13e22bf57b
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/BankTransactions/db54aab0-ad40-4ced-bcff-0940ba20db2c/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getBankTransactionAttachmentByFileName
+      summary: Download a bank transaction attachment by file name
+      description: Downloads the requested attachment for the specified bank transaction as binary file content, using the
+        supplied file name to select the file.
+      parameters:
+      - $ref: '#/components/parameters/BankTransactionID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for BankTransaction as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+    put:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: createBankTransactionAttachmentByFileName
+      summary: Upload a bank transaction attachment by file name
+      description: Writes the attachment content for the specified bank transaction and returns the stored attachment metadata
+        in binary file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/BankTransactionID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of Attachments array of Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 572ad2fe-8c23-45aa-82f9-864485327685
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1551286166630)/
+                Attachments:
+                - AttachmentID: 4508a692-e52c-4ad8-a138-2f13e22bf57b
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/BankTransactions/db54aab0-ad40-4ced-bcff-0940ba20db2c/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+  /BankTransfers/{BankTransferID}/Attachments:
+    summary: List attachments on a specific bank transfer
+    description: List attachments on a specific bank transfer.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getBankTransferAttachments
+      summary: List bank transfer attachments
+      description: Returns attachment metadata for the specified bank transfer, including file names, content types, and download
+        links, in a Attachments response payload.
+      parameters:
+      - $ref: '#/components/parameters/BankTransferID'
+      responses:
+        '200':
+          description: Success - return response of Attachments array of 0 to N Attachment for a Bank Transfer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 5cb6b587-7b02-46b6-97fe-d8ad8f20321b
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1551397557272)/
+                Attachments:
+                - AttachmentID: e05a6fd8-0e47-47a9-9799-b809c8267260
+                  FileName: HelloWorld.jpg
+                  Url: https://api.xero.com/api.xro/2.0/BankTransfers/6221458a-ef7a-4d5f-9b1c-1b96ce03833c/Attachments/HelloWorld.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /BankTransfers/{BankTransferID}/Attachments/{AttachmentID}:
+    summary: Retrieve a specific bank transfer attachment by ID
+    description: Retrieve a specific bank transfer attachment by ID.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getBankTransferAttachmentById
+      summary: Download a bank transfer attachment by attachment ID
+      description: Downloads the requested attachment for the specified bank transfer as binary file content, using the supplied
+        attachment ID to select the file.
+      parameters:
+      - $ref: '#/components/parameters/BankTransferID'
+      - $ref: '#/components/parameters/AttachmentID'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of binary data from the Attachment to a Bank Transfer
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /BankTransfers/{BankTransferID}/Attachments/{FileName}:
+    summary: Retrieve or upload a bank transfer attachment by file name
+    description: Retrieve or upload a bank transfer attachment by file name.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    post:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      summary: Update a bank transfer attachment by file name
+      operationId: updateBankTransferAttachmentByFileName
+      description: Writes the attachment content for the specified bank transfer and returns the stored attachment metadata
+        in binary file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/BankTransferID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of Attachments array of 0 to N Attachment for a Bank Transfer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: c7810140-19c2-4ff7-b3ec-b7e95ce7becf
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1551398138226)/
+                Attachments:
+                - AttachmentID: 0851935c-c4c5-4de8-9247-ce22efde6f82
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/BankTransfers/6221458a-ef7a-4d5f-9b1c-1b96ce03833c/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getBankTransferAttachmentByFileName
+      summary: Download a bank transfer attachment by file name
+      description: Downloads the requested attachment for the specified bank transfer as binary file content, using the supplied
+        file name to select the file.
+      parameters:
+      - $ref: '#/components/parameters/BankTransferID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of binary data from the Attachment to a Bank Transfer
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+    put:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      summary: Upload a bank transfer attachment by file name
+      operationId: createBankTransferAttachmentByFileName
+      description: Writes the attachment content for the specified bank transfer and returns the stored attachment metadata
+        in binary file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/BankTransferID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of Attachments array of 0 to N Attachment for a Bank Transfer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: b73ba149-76a9-4e7c-a5c6-b9230022f416
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1551397998372)/
+                Attachments:
+                - AttachmentID: 9478be4c-c707-48c1-b4a7-83d8eaf442b5
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/BankTransfers/6221458a-ef7a-4d5f-9b1c-1b96ce03833c/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+  /Contacts/{ContactID}/Attachments:
+    summary: List attachments on a specific contact
+    description: List attachments on a specific contact.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getContactAttachments
+      summary: List attachments for a contact
+      description: Returns attachment metadata for the specified contact, including file names, content types, and download
+        links, in a Attachments response payload.
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with 0 to N Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 0f63b631-a205-496d-b1d2-e6b13a9b497b
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1551483890413)/
+                Attachments:
+                - AttachmentID: 04e0a3e3-b116-456a-9f32-9706f0d33afa
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/Contacts/8138a266-fb42-49b2-a104-014b7045753d/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      parameters:
+      - $ref: '#/components/parameters/ContactID'
+  /Contacts/{ContactID}/Attachments/{AttachmentID}:
+    summary: Retrieve a specific contact attachment by ID
+    description: Retrieve a specific contact attachment by ID.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getContactAttachmentById
+      summary: Download a contact attachment by attachment ID
+      description: Downloads the requested attachment for the specified contact as binary file content, using the supplied
+        attachment ID to select the file.
+      parameters:
+      - $ref: '#/components/parameters/ContactID'
+      - $ref: '#/components/parameters/AttachmentID'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Contact as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Contacts/{ContactID}/Attachments/{FileName}:
+    summary: Retrieve or upload a contact attachment by file name
+    description: Retrieve or upload a contact attachment by file name.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    post:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      summary: Update a contact attachment by file name
+      operationId: updateContactAttachmentByFileName
+      description: Writes the attachment content for the specified contact and returns the stored attachment metadata in binary
+        file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/ContactID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with an updated Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 8543ae1a-297c-49b8-bf91-47decac452d5
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1551485146555)/
+                Attachments:
+                - AttachmentID: 8b537c1b-bbb5-47fd-857e-370c369dda7c
+                  FileName: HelloWorld.jpg
+                  Url: https://api.xero.com/api.xro/2.0/Contacts/8138a266-fb42-49b2-a104-014b7045753d/Attachments/HelloWorld.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getContactAttachmentByFileName
+      summary: Download a contact attachment by file name
+      description: Downloads the requested attachment for the specified contact as binary file content, using the supplied
+        file name to select the file.
+      parameters:
+      - $ref: '#/components/parameters/ContactID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Contact as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+    put:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      summary: Upload a contact attachment by file name
+      operationId: createContactAttachmentByFileName
+      description: Writes the attachment content for the specified contact and returns the stored attachment metadata in binary
+        file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/ContactID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with an newly created Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: a5eddf71-86aa-42f5-99e2-0aaf9caf96b6
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1551484292734)/
+                Attachments:
+                - AttachmentID: 27e37b01-6996-4ebe-836c-95fd472ad674
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/Contacts/8138a266-fb42-49b2-a104-014b7045753d/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+  /CreditNotes/{CreditNoteID}/Attachments:
+    summary: List attachments on a specific credit note
+    description: List attachments on a specific credit note.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getCreditNoteAttachments
+      summary: List credit note attachments
+      description: Returns attachment metadata for the specified credit note, including file names, content types, and download
+        links, in a Attachments response payload.
+      parameters:
+      - $ref: '#/components/parameters/CreditNoteID'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with all Attachment for specific Credit Note
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 2bb15054-3868-4f85-a9c6-0402ec8c1201
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1551822670731)/
+                Attachments:
+                - AttachmentID: b7eb1fc9-a0f9-4e8e-9373-6689f5350832
+                  FileName: HelloWorld.png
+                  Url: https://api.xero.com/api.xro/2.0/CreditNotes/249f15fa-f2a7-4acc-8769-0984103f2225/Attachments/HelloWorld.png
+                  MimeType: image/png
+                  ContentLength: 76091
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /CreditNotes/{CreditNoteID}/Attachments/{AttachmentID}:
+    summary: Retrieve a specific credit note attachment by ID
+    description: Retrieve a specific credit note attachment by ID.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getCreditNoteAttachmentById
+      summary: Download a credit note attachment by attachment ID
+      description: Downloads the requested attachment for the specified credit note as binary file content, using the supplied
+        attachment ID to select the file.
+      parameters:
+      - $ref: '#/components/parameters/CreditNoteID'
+      - $ref: '#/components/parameters/AttachmentID'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Credit Note as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /CreditNotes/{CreditNoteID}/Attachments/{FileName}:
+    summary: Retrieve or upload a credit note attachment by file name
+    description: Retrieve or upload a credit note attachment by file name.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    post:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: updateCreditNoteAttachmentByFileName
+      summary: Update a credit note attachment by file name
+      description: Writes the attachment content for the specified credit note and returns the stored attachment metadata
+        in binary file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/CreditNoteID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with updated Attachment for specific Credit Note
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 27253066-8c4d-4e34-a251-7a749b72de40
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1551828247939)/
+                Attachments:
+                - AttachmentID: 103e49f1-e47c-4b4d-b5e8-77d9d00fa70a
+                  FileName: HelloWorld.jpg
+                  Url: https://api.xero.com/api.xro/2.0/CreditNotes/249f15fa-f2a7-4acc-8769-0984103f2225/Attachments/HelloWorld.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getCreditNoteAttachmentByFileName
+      summary: Download a credit note attachment by file name
+      description: Downloads the requested attachment for the specified credit note as binary file content, using the supplied
+        file name to select the file.
+      parameters:
+      - $ref: '#/components/parameters/CreditNoteID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Credit Note as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+    put:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: createCreditNoteAttachmentByFileName
+      summary: Upload a credit note attachment by file name
+      description: Writes the attachment content for the specified credit note and returns the stored attachment metadata
+        in binary file content.
+      parameters:
+      - $ref: '#/components/parameters/CreditNoteID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/includeOnline'
+      - $ref: '#/components/parameters/idempotencyKey'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with newly created Attachment for specific Credit
+            Note
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 22a8d402-5dea-40ed-9d01-26896429f649
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1551822953320)/
+                Attachments:
+                - AttachmentID: 91bbae3f-5de5-4e3d-875f-8662f25897bd
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/CreditNotes/249f15fa-f2a7-4acc-8769-0984103f2225/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+  /Invoices/{InvoiceID}/Attachments:
+    summary: List attachments on a specific invoice
+    description: List attachments on a specific invoice.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getInvoiceAttachments
+      summary: List attachments for an invoice
+      description: Returns attachment metadata for the specified invoice, including file names, content types, and download
+        links, in a Attachments response payload.
+      parameters:
+      - $ref: '#/components/parameters/InvoiceID'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array of Attachments for specified Invoices
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 7e357a45-69f5-4e8f-8d7b-15da8ef50aab
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1552330258523)/
+                Attachments:
+                - AttachmentID: 9808ad7f-c8d4-41cf-995e-bc29cb76fd2c
+                  FileName: foobar.jpg
+                  Url: https://api.xero.com/api.xro/2.0/Invoices/4074292c-09b3-456d-84e7-add864c6c39b/Attachments/foobar.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+                - AttachmentID: 5a500c1a-5a02-48de-939e-1d234fd170d4
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/Invoices/4074292c-09b3-456d-84e7-add864c6c39b/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Invoices/{InvoiceID}/Attachments/{AttachmentID}:
+    summary: Retrieve a specific invoice attachment by ID
+    description: Retrieve a specific invoice attachment by ID.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getInvoiceAttachmentById
+      summary: Download a invoice attachment by attachment ID
+      description: Downloads the requested attachment for the specified invoice as binary file content, using the supplied
+        attachment ID to select the file.
+      parameters:
+      - $ref: '#/components/parameters/InvoiceID'
+      - $ref: '#/components/parameters/AttachmentID'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Invoice as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Invoices/{InvoiceID}/Attachments/{FileName}:
+    summary: Retrieve or upload an invoice attachment by file name
+    description: Retrieve or upload an invoice attachment by file name.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    post:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: updateInvoiceAttachmentByFileName
+      summary: Update a invoice attachment by file name
+      description: Writes the attachment content for the specified invoice and returns the stored attachment metadata in binary
+        file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/InvoiceID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with updated Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: acd7d618-5fef-4d45-849c-a339ea31a973
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1552330524005)/
+                Attachments:
+                - AttachmentID: 08085449-fda3-45f4-a685-ff44c8a29ee3
+                  FileName: HelloWorld.jpg
+                  Url: https://api.xero.com/api.xro/2.0/Invoices/4074292c-09b3-456d-84e7-add864c6c39b/Attachments/HelloWorld.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getInvoiceAttachmentByFileName
+      summary: Download a invoice attachment by file name
+      description: Downloads the requested attachment for the specified invoice as binary file content, using the supplied
+        file name to select the file.
+      parameters:
+      - $ref: '#/components/parameters/InvoiceID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Invoice as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+    put:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: createInvoiceAttachmentByFileName
+      summary: Upload a invoice attachment by file name
+      description: Writes the attachment content for the specified invoice and returns the stored attachment metadata in binary
+        file content.
+      parameters:
+      - $ref: '#/components/parameters/InvoiceID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/includeOnline'
+      - $ref: '#/components/parameters/idempotencyKey'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with newly created Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 971fbd18-c850-453a-825f-63f2fee096ee
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1552330001318)/
+                Attachments:
+                - AttachmentID: 5a500c1a-5a02-48de-939e-1d234fd170d4
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/Invoices/4074292c-09b3-456d-84e7-add864c6c39b/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+  /ManualJournals/{ManualJournalID}/Attachments:
+    summary: List attachments on a specific manual journal
+    description: List attachments on a specific manual journal.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getManualJournalAttachments
+      summary: List manual journal attachments
+      description: Returns attachment metadata for the specified manual journal, including file names, content types, and
+        download links, in a Attachments response payload.
+      parameters:
+      - $ref: '#/components/parameters/ManualJournalID'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with all Attachments for a ManualJournals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 5fa4b3ef-7945-45a7-9bab-10e830673dfb
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1552404121471)/
+                Attachments:
+                - AttachmentID: 16e86f32-3e25-4209-8662-c0dfd91b654c
+                  FileName: HelloWorld.jpg
+                  Url: https://api.xero.com/api.xro/2.0/ManualJournals/0b159335-606b-485f-b51b-97b3b32bad32/Attachments/HelloWorld.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+                - AttachmentID: ff7c439e-a057-4807-ac2c-b558d7df7511
+                  FileName: foobar.jpg
+                  Url: https://api.xero.com/api.xro/2.0/ManualJournals/0b159335-606b-485f-b51b-97b3b32bad32/Attachments/foobar.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /ManualJournals/{ManualJournalID}/Attachments/{AttachmentID}:
+    summary: Retrieve a specific manual journal attachment by ID
+    description: Retrieve a specific manual journal attachment by ID.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getManualJournalAttachmentById
+      summary: Download a manual journal attachment by attachment ID
+      description: Downloads the requested attachment for the specified manual journal as binary file content, using the supplied
+        attachment ID to select the file.
+      parameters:
+      - $ref: '#/components/parameters/ManualJournalID'
+      - $ref: '#/components/parameters/AttachmentID'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Manual Journal as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /ManualJournals/{ManualJournalID}/Attachments/{FileName}:
+    summary: Retrieve or upload a manual journal attachment by file name
+    description: Retrieve or upload a manual journal attachment by file name.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    post:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: updateManualJournalAttachmentByFileName
+      summary: Update a manual journal attachment by file name
+      description: Writes the attachment content for the specified manual journal and returns the stored attachment metadata
+        in binary file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/ManualJournalID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with an update Attachment for a ManualJournals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: e1cb9deb-a8f0-477f-b4d1-cf0c6c39e080
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1552401039306)/
+                Attachments:
+                - AttachmentID: 16e86f32-3e25-4209-8662-c0dfd91b654c
+                  FileName: HelloWorld.jpg
+                  Url: https://api.xero.com/api.xro/2.0/ManualJournals/0b159335-606b-485f-b51b-97b3b32bad32/Attachments/HelloWorld.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getManualJournalAttachmentByFileName
+      summary: Download a manual journal attachment by file name
+      description: Downloads the requested attachment for the specified manual journal as binary file content, using the supplied
+        file name to select the file.
+      parameters:
+      - $ref: '#/components/parameters/ManualJournalID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Manual Journal as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+    put:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: createManualJournalAttachmentByFileName
+      summary: Upload a manual journal attachment by file name
+      description: Writes the attachment content for the specified manual journal and returns the stored attachment metadata
+        in binary file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/ManualJournalID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with a newly created Attachment for a ManualJournals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: a864994c-e7d7-4dee-b5ca-0a729fde2f39
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1552400898428)/
+                Attachments:
+                - AttachmentID: 47ac97ff-d4f9-48a0-8a8e-49fae29129e7
+                  FileName: foobar.jpg
+                  Url: https://api.xero.com/api.xro/2.0/ManualJournals/0b159335-606b-485f-b51b-97b3b32bad32/Attachments/foobar.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+  /PurchaseOrders/{PurchaseOrderID}/Attachments:
+    summary: List attachments on a specific purchase order
+    description: List attachments on a specific purchase order.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getPurchaseOrderAttachments
+      summary: List purchase order attachments
+      description: Returns attachment metadata for the specified purchase order, including file names, content types, and
+        download links, in a Attachments response payload.
+      parameters:
+      - $ref: '#/components/parameters/PurchaseOrderID'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array of Purchase Orders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: dfc29f55-8ddd-4921-a82c-bcc0798d207f
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1602100184437)/
+                Attachments:
+                - AttachmentID: dce4eaa7-c8a9-4867-9434-95832b427d3b
+                  FileName: xero-dev1.png
+                  Url: https://api.xero.com/api.xro/2.0/PurchaseOrders/93369c9b-c481-4e21-aaab-bb19e9a26efe/Attachments/2D_2.png
+                  MimeType: image/png
+                  ContentLength: 98715
+                - AttachmentID: e58bd37b-e47f-451a-a42c-f946ef229c3e
+                  FileName: xero-dev2.png
+                  Url: https://api.xero.com/api.xro/2.0/PurchaseOrders/93369c9b-c481-4e21-aaab-bb19e9a26efe/Attachments/2D.png
+                  MimeType: image/png
+                  ContentLength: 82529
+                - AttachmentID: c8faa564-223f-45e4-a5a1-94430a5b52c1
+                  FileName: xero-dev3.png
+                  Url: https://api.xero.com/api.xro/2.0/PurchaseOrders/93369c9b-c481-4e21-aaab-bb19e9a26efe/Attachments/Screen%20Shot%202020-09-12%20at%204.31.14%20pm.png
+                  MimeType: image/png
+                  ContentLength: 146384
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /PurchaseOrders/{PurchaseOrderID}/Attachments/{AttachmentID}:
+    summary: Retrieve a specific purchase order attachment by ID
+    description: Retrieve a specific purchase order attachment by ID.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getPurchaseOrderAttachmentById
+      summary: Download a purchase order attachment by attachment ID
+      description: Downloads the requested attachment for the specified purchase order as binary file content, using the supplied
+        attachment ID to select the file.
+      parameters:
+      - $ref: '#/components/parameters/PurchaseOrderID'
+      - $ref: '#/components/parameters/AttachmentID'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Account as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /PurchaseOrders/{PurchaseOrderID}/Attachments/{FileName}:
+    summary: Retrieve or upload a purchase order attachment by file name
+    description: Retrieve or upload a purchase order attachment by file name.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    post:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: updatePurchaseOrderAttachmentByFileName
+      summary: Update a purchase order attachment by file name
+      description: Writes the attachment content for the specified purchase order and returns the stored attachment metadata
+        in binary file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/PurchaseOrderID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array of Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: aeff9be0-54c2-45dd-8e3d-aa4f8af0fbd7
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1602100086197)/
+                Attachments:
+                - AttachmentID: dce4eaa7-c8a9-4867-9434-95832b427d3b
+                  FileName: xero-dev.png
+                  Url: https://api.xero.com/api.xro/2.0/PurchaseOrders/93369c9b-c481-4e21-aaab-bb19e9a26efe/Attachments/2D_2.png
+                  MimeType: image/png
+                  ContentLength: 98715
+        '400':
+          description: Validation Error - some data was incorrect returns response of type Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getPurchaseOrderAttachmentByFileName
+      summary: Download a purchase order attachment by file name
+      description: Downloads the requested attachment for the specified purchase order as binary file content, using the supplied
+        file name to select the file.
+      parameters:
+      - $ref: '#/components/parameters/PurchaseOrderID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Purchase Order as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+    put:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: createPurchaseOrderAttachmentByFileName
+      summary: Upload a purchase order attachment by file name
+      description: Writes the attachment content for the specified purchase order and returns the stored attachment metadata
+        in binary file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/PurchaseOrderID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array of Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: c728a4a4-179e-4bbd-a2d5-63e7f9ceba92
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1602099934723)/
+                Attachments:
+                - AttachmentID: e58bd37b-e47f-451a-a42c-f946ef229c3e
+                  FileName: xero-dev.png
+                  Url: https://api.xero.com/api.xro/2.0/PurchaseOrders/93369c9b-c481-4e21-aaab-bb19e9a26efe/Attachments/2D.png
+                  MimeType: image/png
+                  ContentLength: 82529
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+  /Quotes/{QuoteID}/Attachments:
+    summary: List attachments on a specific quote
+    description: List attachments on a specific quote.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getQuoteAttachments
+      summary: List attachments for a quote
+      description: Returns attachment metadata for the specified quote, including file names, content types, and download
+        links, in a Attachments response payload.
+      parameters:
+      - $ref: '#/components/parameters/QuoteID'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array of Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 439c1573-3cd8-4697-a9f6-81fa651ee8f3
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1550852630329)/
+                Attachments:
+                - AttachmentID: 52a643be-cd5c-489f-9778-53a9fd337756
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/Quotes/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Quotes/{QuoteID}/Attachments/{AttachmentID}:
+    summary: Retrieve a specific quote attachment by ID
+    description: Retrieve a specific quote attachment by ID.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getQuoteAttachmentById
+      summary: Download a quote attachment by attachment ID
+      description: Downloads the requested attachment for the specified quote as binary file content, using the supplied attachment
+        ID to select the file.
+      parameters:
+      - $ref: '#/components/parameters/QuoteID'
+      - $ref: '#/components/parameters/AttachmentID'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Quote as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Quotes/{QuoteID}/Attachments/{FileName}:
+    summary: Retrieve or upload a quote attachment by file name
+    description: Retrieve or upload a quote attachment by file name.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    post:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: updateQuoteAttachmentByFileName
+      summary: Update a quote attachment by file name
+      description: Writes the attachment content for the specified quote and returns the stored attachment metadata in binary
+        file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/QuoteID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array of Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: c8d6413a-1da2-4faa-9848-21f60443e906
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1550859714477)/
+                Attachments:
+                - AttachmentID: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/Quotes/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          description: Validation Error - some data was incorrect returns response of type Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getQuoteAttachmentByFileName
+      summary: Download a quote attachment by file name
+      description: Downloads the requested attachment for the specified quote as binary file content, using the supplied file
+        name to select the file.
+      parameters:
+      - $ref: '#/components/parameters/QuoteID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Quote as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+    put:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: createQuoteAttachmentByFileName
+      summary: Upload a quote attachment by file name
+      description: Writes the attachment content for the specified quote and returns the stored attachment metadata in binary
+        file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/QuoteID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array of Attachment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 724cdff5-bcd1-4c5c-977e-e864c24258e0
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1550856817769)/
+                Attachments:
+                - AttachmentID: ab95b276-9dce-4925-9077-439818ba270f
+                  FileName: sample5.jpg
+                  Url: https://api.xero.com/api.xro/2.0/Quotes/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+  /RepeatingInvoices/{RepeatingInvoiceID}/Attachments:
+    summary: List attachments on a specific repeating invoice
+    description: List attachments on a specific repeating invoice.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getRepeatingInvoiceAttachments
+      summary: List repeating invoice attachments
+      description: Returns attachment metadata for the specified repeating invoice, including file names, content types, and
+        download links, in a Attachments response payload.
+      parameters:
+      - $ref: '#/components/parameters/RepeatingInvoiceID'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with all Attachments for a specified Repeating
+            Invoice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: b88b807b-3087-474b-a4f9-d8f1b4f5a899
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1553805762049)/
+                Attachments:
+                - AttachmentID: 2a488b0f-3966-4b6e-a7e1-b6d3286351f2
+                  FileName: HelloWorld.jpg
+                  Url: https://api.xero.com/api.xro/2.0/RepeatingInvoices/428c0d75-909f-4b04-8403-a48dc27283b0/Attachments/HelloWorld.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+                - AttachmentID: 48294e40-bfd2-4027-a365-f034383cb7aa
+                  FileName: foobar.jpg
+                  Url: https://api.xero.com/api.xro/2.0/RepeatingInvoices/428c0d75-909f-4b04-8403-a48dc27283b0/Attachments/foobar.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+                - AttachmentID: 528e978a-87b8-44c4-9465-9456ec2f7ee6
+                  FileName: helo-heros.jpg
+                  Url: https://api.xero.com/api.xro/2.0/RepeatingInvoices/428c0d75-909f-4b04-8403-a48dc27283b0/Attachments/helo-heros.jpg
+                  MimeType: image/jpeg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{AttachmentID}:
+    summary: Retrieve a specific repeating invoice attachment by ID
+    description: Retrieve a specific repeating invoice attachment by ID.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getRepeatingInvoiceAttachmentById
+      summary: Download a repeating invoice attachment by attachment ID
+      description: Downloads the requested attachment for the specified repeating invoice as binary file content, using the
+        supplied attachment ID to select the file.
+      parameters:
+      - $ref: '#/components/parameters/RepeatingInvoiceID'
+      - $ref: '#/components/parameters/AttachmentID'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Repeating Invoice as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}:
+    summary: Retrieve or upload a repeating invoice attachment by file name
+    description: Retrieve or upload a repeating invoice attachment by file name.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    post:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: updateRepeatingInvoiceAttachmentByFileName
+      summary: Update a repeating invoice attachment by file name
+      description: Writes the attachment content for the specified repeating invoice and returns the stored attachment metadata
+        in binary file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/RepeatingInvoiceID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with specified Attachment for a specified Repeating
+            Invoice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 61b24d5c-4d6e-468f-9de1-abbc234b239a
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1553805873362)/
+                Attachments:
+                - AttachmentID: d086d5f4-9c3d-4edc-a87e-906248eeb652
+                  FileName: HelloWorld.jpg
+                  Url: https://api.xero.com/api.xro/2.0/RepeatingInvoices/428c0d75-909f-4b04-8403-a48dc27283b0/Attachments/HelloWorld.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+    get:
+      security:
+      - OAuth2:
+        - accounting.attachments
+        - accounting.attachments.read
+      tags:
+      - Accounting
+      - Attachments
+      operationId: getRepeatingInvoiceAttachmentByFileName
+      summary: Download a repeating invoice attachment by file name
+      description: Downloads the requested attachment for the specified repeating invoice as binary file content, using the
+        supplied file name to select the file.
+      parameters:
+      - $ref: '#/components/parameters/RepeatingInvoiceID'
+      - $ref: '#/components/parameters/FileName'
+      - $ref: '#/components/parameters/ContentType'
+      responses:
+        '200':
+          description: Success - return response of attachment for Repeating Invoice as binary data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: ZXhhbXBsZQ==
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+    put:
+      security:
+      - OAuth2:
+        - accounting.attachments
+      tags:
+      - Accounting
+      - Attachments
+      operationId: createRepeatingInvoiceAttachmentByFileName
+      summary: Upload a repeating invoice attachment by file name
+      description: Writes the attachment content for the specified repeating invoice and returns the stored attachment metadata
+        in binary file content.
+      parameters:
+      - $ref: '#/components/parameters/idempotencyKey'
+      - $ref: '#/components/parameters/RepeatingInvoiceID'
+      - $ref: '#/components/parameters/FileName'
+      responses:
+        '200':
+          description: Success - return response of type Attachments array with updated Attachment for a specified Repeating
+            Invoice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachments'
+              example:
+                Id: 219de8c0-ee70-48af-a000-594eba14b417
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1553805866696)/
+                Attachments:
+                - AttachmentID: e078e56c-9a2b-4f6c-a1fa-5d19b0dab611
+                  FileName: foobar.jpg
+                  Url: https://api.xero.com/api.xro/2.0/RepeatingInvoices/428c0d75-909f-4b04-8403-a48dc27283b0/Attachments/foobar.jpg
+                  MimeType: image/jpg
+                  ContentLength: 2878711
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+      requestBody:
+        required: true
+        description: Byte array of file in body of request
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: byte
+              example: ZXhhbXBsZQ==
+components:
+  parameters:
+    AccountID:
+      required: true
+      in: path
+      name: AccountID
+      description: Unique identifier for Account object
+      example: 00000000-0000-0000-0000-000000000000
+      schema:
+        type: string
+        format: uuid
+        example: 00000000-0000-0000-0000-000000000000
+    AttachmentID:
+      required: true
+      in: path
+      name: AttachmentID
+      description: Unique identifier for Attachment object
+      example: 00000000-0000-0000-0000-000000000000
+      schema:
+        type: string
+        format: uuid
+        example: 00000000-0000-0000-0000-000000000000
+    BankTransactionID:
+      required: true
+      in: path
+      name: BankTransactionID
+      description: Xero generated unique identifier for a bank transaction
+      example: 00000000-0000-0000-0000-000000000000
+      schema:
+        type: string
+        format: uuid
+        example: 00000000-0000-0000-0000-000000000000
+    BankTransferID:
+      required: true
+      in: path
+      name: BankTransferID
+      description: Xero generated unique identifier for a bank transfer
+      example: 00000000-0000-0000-0000-000000000000
+      schema:
+        type: string
+        format: uuid
+        example: 00000000-0000-0000-0000-000000000000
+    ContactID:
+      required: true
+      in: path
+      name: ContactID
+      description: Unique identifier for a Contact
+      example: 00000000-0000-0000-0000-000000000000
+      schema:
+        type: string
+        format: uuid
+        example: 00000000-0000-0000-0000-000000000000
+    ContentType:
+      required: true
+      in: header
+      name: contentType
+      description: The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
+      example: image/jpg
+      schema:
+        type: string
+        example: image/jpg
+    CreditNoteID:
+      required: true
+      in: path
+      name: CreditNoteID
+      description: Unique identifier for a Credit Note
+      example: 00000000-0000-0000-0000-000000000000
+      schema:
+        type: string
+        format: uuid
+        example: 00000000-0000-0000-0000-000000000000
+    FileName:
+      required: true
+      in: path
+      name: FileName
+      description: Name of the attachment
+      example: xero-dev.jpg
+      schema:
+        type: string
+        example: xero-dev.jpg
+    InvoiceID:
+      required: true
+      in: path
+      name: InvoiceID
+      description: Unique identifier for an Invoice
+      example: 00000000-0000-0000-0000-000000000000
+      schema:
+        type: string
+        format: uuid
+        example: 00000000-0000-0000-0000-000000000000
+    ManualJournalID:
+      required: true
+      in: path
+      name: ManualJournalID
+      description: Unique identifier for a ManualJournal
+      example: 00000000-0000-0000-0000-000000000000
+      schema:
+        type: string
+        format: uuid
+        example: 00000000-0000-0000-0000-000000000000
+    PurchaseOrderID:
+      required: true
+      in: path
+      name: PurchaseOrderID
+      description: Unique identifier for an Purchase Order
+      example: 00000000-0000-0000-0000-000000000000
+      schema:
+        type: string
+        format: uuid
+        example: 00000000-0000-0000-0000-000000000000
+    QuoteID:
+      required: true
+      in: path
+      name: QuoteID
+      description: Unique identifier for an Quote
+      example: 00000000-0000-0000-0000-000000000000
+      schema:
+        type: string
+        format: uuid
+        example: 00000000-0000-0000-0000-000000000000
+    RepeatingInvoiceID:
+      required: true
+      in: path
+      name: RepeatingInvoiceID
+      description: Unique identifier for a Repeating Invoice
+      example: 00000000-0000-0000-0000-000000000000
+      schema:
+        type: string
+        format: uuid
+        example: 00000000-0000-0000-0000-000000000000
+    idempotencyKey:
+      in: header
+      name: Idempotency-Key
+      description: This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+      example: KEY_VALUE
+      schema:
+        type: string
+        example: KEY_VALUE
+    includeOnline:
+      in: query
+      name: IncludeOnline
+      description: Allows an attachment to be seen by the end customer within their online invoice
+      example: true
+      schema:
+        type: boolean
+        default: false
+        example: true
+    requiredHeader:
+      in: header
+      name: xero-tenant-id
+      description: Xero identifier for Tenant
+      example: YOUR_XERO_TENANT_ID
+      schema:
+        type: string
+        example: YOUR_XERO_TENANT_ID
+      required: true
+  responses:
+    400Error:
+      description: A failed request due to validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    429Error:
+      description: Too Many Requests - The rate limit has been exceeded.
+      headers:
+        Retry-After:
+          description: The number of seconds to wait before retrying the request.
+          schema:
+            type: integer
+            example: 5
+        xero-correlation-id:
+          description: A unique identifier for the request, useful for troubleshooting with support.
+          schema:
+            type: string
+            format: uuid
+            example: 00000000-0000-0000-0000-000000000000
+      content: {}
+    500Error:
+      description: Internal Server Error - An unexpected error occurred on the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            Title: An error occurred
+            Detail: An error occurred in Xero. Check the API Status page http://status.developer.xero.com for current service
+              status.
+            Status: 500
+            Instance: 6964b201-1442-41f2-b22f-1e34f5baab08
+  schemas:
+    Attachment:
+      description: Represents the Attachment schema used by the Accounting API.
+      type: object
+      externalDocs:
+        url: http://developer.xero.com/documentation/api/attachments/
+      properties:
+        AttachmentID:
+          description: Unique ID for the file
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        FileName:
+          description: Name of the file
+          type: string
+          example: xero-dev.jpg
+        Url:
+          description: URL to the file on xero.com
+          type: string
+          example: https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg
+        MimeType:
+          description: Type of file
+          type: string
+          example: image/jpg
+        ContentLength:
+          description: Length of the file content
+          type: integer
+          example: 1
+        IncludeOnline:
+          description: Include the file with the online invoice
+          type: boolean
+          example: false
+      example:
+        AttachmentID: 00000000-0000-0000-0000-000000000000
+        FileName: xero-dev.jpg
+        Url: https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg
+    Attachments:
+      description: Represents the Attachments schema used by the Accounting API.
+      type: object
+      properties:
+        Attachments:
+          description: The Attachments value.
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+          example:
+          - AttachmentID: 00000000-0000-0000-0000-000000000000
+            FileName: xero-dev.jpg
+            Url: https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg
+      example:
+        Attachments:
+        - AttachmentID: 00000000-0000-0000-0000-000000000000
+          FileName: xero-dev.jpg
+          Url: https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg
+    Element:
+      description: Represents the Element schema used by the Accounting API.
+      externalDocs:
+        url: https://developer.xero.com/documentation/api/http-response-codes
+      properties:
+        ValidationErrors:
+          description: Array of Validation Error message
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          example:
+          - Message: One or more validation errors occurred.
+        BatchPaymentID:
+          description: Unique ID for batch payment object with validation error
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        BankTransactionID:
+          description: The BankTransactionID value.
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        CreditNoteID:
+          description: The CreditNoteID value.
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        ContactID:
+          description: The ContactID value.
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        InvoiceID:
+          description: The InvoiceID value.
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        ItemID:
+          description: The ItemID value.
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        PurchaseOrderID:
+          description: The PurchaseOrderID value.
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      type: object
+      example:
+        ValidationErrors:
+        - Message: One or more validation errors occurred.
+        BatchPaymentID: 00000000-0000-0000-0000-000000000000
+        BankTransactionID: 00000000-0000-0000-0000-000000000000
+    Error:
+      description: Represents the Error schema used by the Accounting API.
+      externalDocs:
+        url: https://developer.xero.com/documentation/api/http-response-codes
+      properties:
+        ErrorNumber:
+          description: Exception number
+          type: integer
+          example: 10
+        Type:
+          description: Exception type
+          type: string
+          example: ValidationException
+        Message:
+          description: Exception message
+          type: string
+          example: One or more validation errors occurred.
+        Elements:
+          description: Array of Elements of validation Errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Element'
+          example:
+          - ValidationErrors:
+            - Message: One or more validation errors occurred.
+            BatchPaymentID: 00000000-0000-0000-0000-000000000000
+            BankTransactionID: 00000000-0000-0000-0000-000000000000
+      type: object
+      example:
+        ErrorNumber: 10
+        Type: ValidationException
+        Message: One or more validation errors occurred.
+    ErrorResponse:
+      type: object
+      properties:
+        Title:
+          type: string
+          description: A short, human-readable summary of the problem type.
+          example: An error occurred
+        Detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+          example: An error occurred in Xero. Check the API Status page...
+        Status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the problem.
+          example: 500
+        Instance:
+          type: string
+          format: uuid
+          description: A URI reference that identifies the specific occurrence of the problem (often used as a Correlation
+            ID).
+          example: 00000000-0000-0000-0000-000000000000
+    ValidationError:
+      description: Represents the ValidationError schema used by the Accounting API.
+      externalDocs:
+        url: https://developer.xero.com/documentation/api/http-response-codes
+      properties:
+        Message:
+          description: Validation error message
+          type: string
+          example: One or more validation errors occurred.
+      type: object
+      example:
+        Message: One or more validation errors occurred.
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: For more information
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.xero.com/identity/connect/authorize
+          tokenUrl: https://identity.xero.com/connect/token
+          scopes:
+            accounting.attachments: Grant read-write access to attachments
+            accounting.attachments.read: Grant read-only access to attachments

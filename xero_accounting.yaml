@@ -22245,15 +22245,15 @@ components:
   responses:
     500Error:
       description: Internal Server Error - An unexpected error occurred on the server.
-    content:
-      application/json:
-        schema:
-          $ref: '#/components/schemas/ErrorResponse'
-        example:
-          Title: "An error occurred"
-          Detail: "An error occurred in Xero. Check the API Status page http://status.developer.xero.com for current service status."
-          Status: 500
-          Instance: "6964b201-1442-41f2-b22f-1e34f5baab08"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            Title: "An error occurred"
+            Detail: "An error occurred in Xero. Check the API Status page http://status.developer.xero.com for current service status."
+            Status: 500
+            Instance: "6964b201-1442-41f2-b22f-1e34f5baab08"
     400Error:
       description: A failed request due to validation error
       content:
@@ -22261,40 +22261,40 @@ components:
           schema:
             $ref: "#/components/schemas/Error"
     429Error:
-    description: Too Many Requests - The rate limit has been exceeded.
-    headers:
-      Retry-After:
-        description: The number of seconds to wait before retrying the request.
-        schema:
-          type: integer
-          example: 5
-      xero-correlation-id:
-        description: A unique identifier for the request, useful for troubleshooting with support.
-        schema:
-          type: string
-          format: uuid
-          example: "00000000-0000-0000-0000-000000000000"
-      x-appminlimit-remaining:
-        description: The remaining number of calls allowed for the application within the current minute.
-        schema:
-          type: integer
-          example: 9938
-      x-minlimit-remaining:
-        description: The remaining number of calls allowed for this specific connection within the current minute.
-        schema:
-          type: integer
-          example: 0
-      x-daylimit-remaining:
-        description: The remaining number of calls allowed for the day.
-        schema:
-          type: integer
-          example: 4929
-      x-rate-limit-problem:
-        description: Indicates which specific limit was breached (e.g., minute or daily).
-        schema:
-          type: string
-          example: "minute"
-    content: {}
+      description: Too Many Requests - The rate limit has been exceeded.
+      headers:
+        Retry-After:
+          description: The number of seconds to wait before retrying the request.
+          schema:
+            type: integer
+            example: 5
+        xero-correlation-id:
+          description: A unique identifier for the request, useful for troubleshooting with support.
+          schema:
+            type: string
+            format: uuid
+            example: "00000000-0000-0000-0000-000000000000"
+        x-appminlimit-remaining:
+          description: The remaining number of calls allowed for the application within the current minute.
+          schema:
+            type: integer
+            example: 9938
+        x-minlimit-remaining:
+          description: The remaining number of calls allowed for this specific connection within the current minute.
+          schema:
+            type: integer
+            example: 0
+        x-daylimit-remaining:
+          description: The remaining number of calls allowed for the day.
+          schema:
+            type: integer
+            example: 4929
+        x-rate-limit-problem:
+          description: Indicates which specific limit was breached (e.g., minute or daily).
+          schema:
+            type: string
+            example: "minute"
+      content: {}
     HistoryRecordCreated:
       description: Success - return response of type HistoryRecords array of HistoryRecord objects
       content:

@@ -1,0 +1,3678 @@
+openapi: 3.0.0
+info:
+  title: Xero Accounting API
+  description: The Xero Accounting API exposes accounting resources for working with contacts, transactions, reports, settings,
+    and related organisation data.
+  version: 12.0.0
+  termsOfService: https://developer.xero.com/xero-developer-platform-terms-conditions/
+  contact:
+    name: Xero Platform Team
+    email: api@xero.com
+    url: https://developer.xero.com
+servers:
+- description: The Xero Accounting API exposes accounting and related functions of the main Xero application and can be used
+    for a variety of purposes such as creating transactions like invoices and credit notes, right through to extracting accounting
+    data via our reports endpoint.
+  url: https://api.xero.com/api.xro/2.0
+tags:
+- name: Accounting
+  description: Core accounting resources including accounts, invoices, contacts, payments, and reports.
+- name: Reports
+  description: Reporting resources for financial statements and analysis endpoints.
+paths:
+  /Budgets:
+    summary: Retrieve budgets
+    description: Retrieve budgets.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.budgets.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getBudgets
+      summary: List budget records for the organisation
+      description: Returns the organisation's budget-record collection in the budget-list response payload. Use the available
+        filtering, ordering, paging, or modified-since parameters when the endpoint exposes them.
+      parameters:
+      - in: query
+        name: IDs
+        description: Filter by BudgetID. Allows you to retrieve a specific individual budget.
+        style: form
+        explode: false
+        example: '&quot;00000000-0000-0000-0000-000000000000&quot;'
+        schema:
+          type: string
+          items:
+            type: string
+            format: uuid
+          example:
+          - 00000000-0000-0000-0000-000000000000
+      - in: query
+        name: DateTo
+        description: Filter by start date
+        example: '2019-10-31'
+        schema:
+          type: string
+          format: date
+          example: '2020-01-01'
+      - in: query
+        name: DateFrom
+        description: Filter by end date
+        example: '2019-10-31'
+        schema:
+          type: string
+          format: date
+          example: '2020-01-01'
+      responses:
+        '200':
+          description: Success - return response of type Budgets array with 0 to N Budgets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budgets'
+              example:
+                Id: 04e93d48-e72f-4775-b7dd-15a041fab972
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1551399323399)/
+                Budgets:
+                - BudgetID: 847da917-9565-466c-a9cd-3ecf7eb9d094
+                  Status: APPROVED
+                  Description: FY2021 budget
+                  Type: TRACKING
+                  UpdatedDateUTC: /Date(1622138002077+0000)/
+                  BudgetLines: []
+                  Tracking: []
+                - BudgetID: 93a4bab1-0021-4320-a2ec-c250528b4bc5
+                  Status: APPROVED
+                  Description: Overall Budget
+                  Type: OVERALL
+                  UpdatedDateUTC: /Date(1622137786913+0000)/
+                  BudgetLines: []
+                  Tracking: []
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Budgets/{BudgetID}:
+    summary: Retrieve a specific budget
+    description: Retrieve a specific budget.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.budgets.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getBudget
+      summary: Get the budget identified by budget ID
+      description: Returns the requested budget record, identified by the supplied budget ID, in the budget response payload.
+      parameters:
+      - $ref: '#/components/parameters/BudgetID'
+      - in: query
+        name: DateTo
+        description: Filter by start date
+        example: '2019-10-31'
+        schema:
+          type: string
+          format: date
+          example: '2020-01-01'
+      - in: query
+        name: DateFrom
+        description: Filter by end date
+        example: '2019-10-31'
+        schema:
+          type: string
+          format: date
+          example: '2020-01-01'
+      responses:
+        '200':
+          description: Success - return response of type Invoices array with specified Invoices
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budgets'
+              example:
+                Id: 04e93d48-e72f-4775-b7dd-15a041fab972
+                Status: OK
+                ProviderName: Xero API Partner
+                DateTimeUTC: /Date(1551399323399)/
+                Budgets:
+                  BudgetID: c1d195d4-92aa-4abd-867a-7ac2f9d60500
+                  Type: TRACKING
+                  Description: Daniels Northern Budget
+                  UpdatedDateUTC: 2017-08-14 01:18:26.740000
+                  Tracking:
+                  - TrackingCategoryID: e94ba240-3edf-4ef3-8317-10147b968f94
+                    Name: Region
+                    TrackingOptionID: e94ba240-3edf-4ef3-8317-10147b968f94
+                    Option: North
+                  - TrackingCategoryID: d8580491-4167-4a81-9624-ad3bdd8e46ce
+                    Name: Salesperson
+                    TrackingOptionID: 9c24de87-a2b7-439d-a216-35d1af7bdec3
+                    Option: Daniel
+                  BudgetLines:
+                  - AccountID: 9c24de87-a2b7-439d-a216-35d1af7bdec3
+                    AccountCode: '200'
+                    BudgetBalances:
+                    - Period: 2019-08
+                      Amount: '1000'
+                      Notes: Sample note
+                    - Period: 2019-09
+                      Amount: '1050'
+                      Notes: ''
+                    - Period: 2019-10
+                      Amount: '1102'
+                      Notes: ''
+                  - AccountID: 385f90ae-e798-4990-9b1c-db8eb8b735c2
+                    AccountCode: '420'
+                    BudgetBalances:
+                    - Period: 2019-08
+                      Amount: '500'
+                      Notes: ''
+                    - Period: 2019-09
+                      Amount: '505'
+                      Notes: Special Month
+                    - Period: 2019-10
+                      Amount: '510'
+                      Notes: ''
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Journals:
+    summary: Retrieve manual and system journals
+    description: Retrieve manual and system journals.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.journals.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getJournals
+      summary: List journals for the organisation
+      description: Returns the organisation's journals in a Journals response payload. Use the available filtering, ordering,
+        paging, or modified-since parameters when the endpoint exposes them.
+      parameters:
+      - $ref: '#/components/parameters/ifModifiedSince'
+      - in: query
+        name: offset
+        description: Offset by a specified journal number. e.g. journals with a JournalNumber greater than the offset will
+          be returned
+        example: 10
+        schema:
+          type: integer
+          example: 1
+      - in: query
+        name: paymentsOnly
+        description: Filter to retrieve journals on a cash basis. Journals are returned on an accrual basis by default.
+        example: true
+        schema:
+          type: boolean
+          example: false
+      responses:
+        '200':
+          description: Success - return response of type Journals array with all Journals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Journals'
+              example:
+                Id: 49a09a97-df50-4679-8043-02c86e0dcf5f
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1552335214210)/
+                Journals:
+                - JournalID: 1b31feeb-aa23-404c-8c19-24c827c53661
+                  JournalDate: /Date(1539993600000+0000)/
+                  JournalNumber: 1
+                  CreatedDateUTC: /Date(1541176243467+0000)/
+                  Reference: Red Fish, Blue Fish
+                  SourceID: d4956132-ed94-4dd7-9eaa-aa22dfdf06f2
+                  SourceType: ACCREC
+                  JournalLines:
+                  - JournalLineID: 81e6b1bf-d812-4f87-8dc4-698558ae043e
+                    AccountID: b94495d0-44ab-4199-a1d0-427a4877e100
+                    AccountCode: '610'
+                    AccountType: CURRENT
+                    AccountName: Accounts Receivable
+                    Description: ''
+                    NetAmount: 40.0
+                    GrossAmount: 40.0
+                    TaxAmount: 0.0
+                    TrackingCategories: []
+                  - JournalLineID: ad221a8c-ebee-4c1b-88ed-d574e27e8803
+                    AccountID: e0a5d892-9f9f-44f0-a153-5cb7db125170
+                    AccountCode: '200'
+                    AccountType: REVENUE
+                    AccountName: Sales
+                    Description: Acme Tires
+                    NetAmount: -40.0
+                    GrossAmount: -40.0
+                    TaxAmount: 0.0
+                    TaxType: NONE
+                    TaxName: No GST
+                    TrackingCategories: []
+                - JournalID: 2be66e45-805b-46de-921d-c67e1d3dad2a
+                  JournalDate: /Date(1539993600000+0000)/
+                  JournalNumber: 9
+                  CreatedDateUTC: /Date(1541176504083+0000)/
+                  Reference: Red Fish, Blue Fish
+                  SourceID: 046d8a6d-1ae1-4b4d-9340-5601bdf41b87
+                  SourceType: ACCREC
+                  JournalLines:
+                  - JournalLineID: ba8a5680-a753-4a35-b3dd-0bc72e5c26a1
+                    AccountID: b94495d0-44ab-4199-a1d0-427a4877e100
+                    AccountCode: '610'
+                    AccountType: CURRENT
+                    AccountName: Accounts Receivable
+                    Description: ''
+                    NetAmount: 40.0
+                    GrossAmount: 40.0
+                    TaxAmount: 0.0
+                    TrackingCategories: []
+                  - JournalLineID: 09a0b9b9-0222-4e24-8c31-efef472e22f1
+                    AccountID: e0a5d892-9f9f-44f0-a153-5cb7db125170
+                    AccountCode: '200'
+                    AccountType: REVENUE
+                    AccountName: Sales
+                    Description: Acme Tires
+                    NetAmount: -40.0
+                    GrossAmount: -40.0
+                    TaxAmount: 0.0
+                    TaxType: NONE
+                    TaxName: No GST
+                    TrackingCategories: []
+                - JournalID: d0ed2957-ebba-4d3a-8367-ae9ccd574885
+                  JournalDate: /Date(1543449600000+0000)/
+                  JournalNumber: 14
+                  CreatedDateUTC: /Date(1541176592673+0000)/
+                  SourceID: 99ea7f6b-c513-4066-bc27-b7c65dcd76c2
+                  SourceType: ACCRECPAYMENT
+                  JournalLines:
+                  - JournalLineID: 1bdae2b7-3035-40ec-b344-b12b1c23adc4
+                    AccountID: b94495d0-44ab-4199-a1d0-427a4877e100
+                    AccountCode: '610'
+                    AccountType: CURRENT
+                    AccountName: Accounts Receivable
+                    Description: ''
+                    NetAmount: -46.0
+                    GrossAmount: -46.0
+                    TaxAmount: 0.0
+                    TrackingCategories: []
+                  - JournalLineID: 353be85e-ae79-4bb3-9483-5ea7682fc0a3
+                    AccountID: 5690f1e8-1d02-4893-90c2-ee1a69eff942
+                    AccountCode: '970'
+                    AccountType: EQUITY
+                    AccountName: Owner A Funds Introduced
+                    Description: ''
+                    NetAmount: 46.0
+                    GrossAmount: 46.0
+                    TaxAmount: 0.0
+                    TrackingCategories: []
+                - JournalID: 772e8133-7f12-4edc-ab98-aa6dceb16c9d
+                  JournalDate: /Date(1552262400000+0000)/
+                  JournalNumber: 30
+                  CreatedDateUTC: /Date(1552333389227+0000)/
+                  Reference: ''
+                  SourceID: 5376633d-0456-43a3-8234-e457a3f50a12
+                  SourceType: ACCPAY
+                  JournalLines:
+                  - JournalLineID: 33469836-642f-4973-a708-0e99339dff4a
+                    AccountID: a2a4795b-a01f-40eb-afa6-a34b4514875d
+                    AccountCode: '800'
+                    AccountType: CURRLIAB
+                    AccountName: Accounts Payable
+                    Description: ''
+                    NetAmount: -28750.0
+                    GrossAmount: -28750.0
+                    TaxAmount: 0.0
+                    TrackingCategories: []
+                  - JournalLineID: 4f3b6462-5cf6-4b55-a2ae-de4039878215
+                    AccountID: 53a12a15-7e9b-4a31-85f4-a7cee6d04215
+                    AccountCode: '630'
+                    AccountType: CURRENT
+                    AccountName: Inventory
+                    Description: Brand new Fender Strats
+                    NetAmount: 25000.0
+                    GrossAmount: 28750.0
+                    TaxAmount: 3750.0
+                    TaxType: INPUT2
+                    TaxName: 15% GST on Expenses
+                    TrackingCategories: []
+                  - JournalLineID: 534e822e-d441-48a7-8e57-5ad54729e83e
+                    AccountID: 17d9a4a0-3181-4803-a96b-f0dbe589091b
+                    AccountCode: '820'
+                    AccountType: CURRLIAB
+                    AccountName: GST
+                    Description: ''
+                    NetAmount: 3750.0
+                    GrossAmount: 3750.0
+                    TaxAmount: 0.0
+                    TrackingCategories: []
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Journals/{JournalID}:
+    summary: Retrieve a specific journal by ID
+    description: Retrieve a specific journal by ID.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.journals.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getJournal
+      summary: Get the journal identified by journal ID
+      description: Returns the journal identified by the supplied journal ID in a Journals response payload.
+      parameters:
+      - $ref: '#/components/parameters/JournalID'
+      responses:
+        '200':
+          description: Success - return response of type Journals array with specified Journal
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Journals'
+              example:
+                Id: 39ab8367-eb14-420d-83a9-e01ddddd21f8
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1552335613002)/
+                Journals:
+                - JournalID: 1b31feeb-aa23-404c-8c19-24c827c53661
+                  JournalDate: /Date(1539993600000+0000)/
+                  JournalNumber: 1
+                  CreatedDateUTC: /Date(1541176243467+0000)/
+                  Reference: Red Fish, Blue Fish
+                  JournalLines:
+                  - JournalLineID: 81e6b1bf-d812-4f87-8dc4-698558ae043e
+                    AccountID: b94495d0-44ab-4199-a1d0-427a4877e100
+                    AccountCode: '610'
+                    AccountType: CURRENT
+                    AccountName: Accounts Receivable
+                    Description: ''
+                    NetAmount: 40.0
+                    GrossAmount: 40.0
+                    TaxAmount: 0.0
+                    TaxType: ''
+                    TaxName: ''
+                    TrackingCategories: []
+                  - JournalLineID: ad221a8c-ebee-4c1b-88ed-d574e27e8803
+                    AccountID: e0a5d892-9f9f-44f0-a153-5cb7db125170
+                    AccountCode: '200'
+                    AccountType: REVENUE
+                    AccountName: Sales
+                    Description: Acme Tires
+                    NetAmount: -40.0
+                    GrossAmount: -40.0
+                    TaxAmount: 0.0
+                    TaxType: NONE
+                    TaxName: No GST
+                    TrackingCategories: []
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Journals/{JournalNumber}:
+    summary: Retrieve a specific journal by journal number
+    description: Retrieve a specific journal by journal number.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.journals.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getJournalByNumber
+      summary: Get a journal by journal number
+      description: Returns the journal identified by the supplied journal number in a Journals response payload.
+      parameters:
+      - $ref: '#/components/parameters/JournalNumber'
+      responses:
+        '200':
+          description: Success - return response of type Journals array with specified Journal
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Journals'
+              example:
+                Id: 39ab8367-eb14-420d-83a9-e01ddddd21f8
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1552335613002)/
+                Journals:
+                - JournalID: 1b31feeb-aa23-404c-8c19-24c827c53661
+                  JournalDate: /Date(1539993600000+0000)/
+                  JournalNumber: 1
+                  CreatedDateUTC: /Date(1541176243467+0000)/
+                  Reference: Red Fish, Blue Fish
+                  JournalLines:
+                  - JournalLineID: 81e6b1bf-d812-4f87-8dc4-698558ae043e
+                    AccountID: b94495d0-44ab-4199-a1d0-427a4877e100
+                    AccountCode: '610'
+                    AccountType: CURRENT
+                    AccountName: Accounts Receivable
+                    Description: ''
+                    NetAmount: 40.0
+                    GrossAmount: 40.0
+                    TaxAmount: 0.0
+                    TaxType: ''
+                    TaxName: ''
+                    TrackingCategories: []
+                  - JournalLineID: ad221a8c-ebee-4c1b-88ed-d574e27e8803
+                    AccountID: e0a5d892-9f9f-44f0-a153-5cb7db125170
+                    AccountCode: '200'
+                    AccountType: REVENUE
+                    AccountName: Sales
+                    Description: Acme Tires
+                    NetAmount: -40.0
+                    GrossAmount: -40.0
+                    TaxAmount: 0.0
+                    TaxType: NONE
+                    TaxName: No GST
+                    TrackingCategories: []
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Reports/TenNinetyNine:
+    summary: Retrieve 1099 reports for US tax filing
+    description: Retrieve 1099 reports for US tax filing.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.reports.read
+        - accounting.reports.tenninetynine.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getReportTenNinetyNine
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Reports response payload. Use the available filtering, ordering,
+        paging, or modified-since parameters when the endpoint exposes them.
+      parameters:
+      - in: query
+        name: reportYear
+        description: The year of the 1099 report
+        example: '2019'
+        schema:
+          type: string
+          example: example
+      responses:
+        '200':
+          description: Success - return response of type Reports
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reports'
+              example:
+                Id: 8b474ddb-9ef4-457c-8640-1c0e3670ea0e
+                Status: OK
+                ProviderName: Java Public Example
+                DateTimeUTC: /Date(1691540171754)/
+                Reports:
+                - ReportName: 1099-NEC report
+                  ReportDate: 1 Jan 2023 to 31 Dec 2023
+                  Fields: []
+                  Contacts:
+                  - Box1: 0.0
+                    Box2: 0.0
+                    Box4: 1150.0
+                    Name: Bank West
+                    FederalTaxIDType: SSN
+                    City: Pinehaven
+                    Zip: '12345'
+                    State: CA
+                    Email: jack@bowest.com
+                    StreetAddress: "Procurement Services\r\nGPO 1234\r\n\r\n\r\n"
+                    TaxID: 234-22-2223
+                    ContactId: 81d5706a-8057-4338-8511-747cd85f4c68
+                    LegalName: Jack Sparrow
+                    BusinessName: Bank West
+                    FederalTaxClassification: PARTNERSHIP
+                - ReportName: 1099-MISC report
+                  ReportDate: 1 Jan 2023 to 31 Dec 2023
+                  Fields: []
+                  Contacts:
+                  - Box1: 0.0
+                    Box2: 0.0
+                    Box3: 1000.0
+                    Box4: 0.0
+                    Box5: 0.0
+                    Box6: 0.0
+                    Box7: 0.0
+                    Box8: 0.0
+                    Box9: 0.0
+                    Box10: 0.0
+                    Box11: 0.0
+                    Box14: 0.0
+                    Name: Bank West
+                    FederalTaxIDType: SSN
+                    City: Pinehaven
+                    Zip: '12345'
+                    State: CA
+                    Email: jack@bowest.com
+                    StreetAddress: "Procurement Services\r\nGPO 1234\r\n\r\n\r\n"
+                    TaxID: 234-22-2223
+                    ContactId: 81d5706a-8057-4338-8511-747cd85f4c68
+                    LegalName: Jack Sparrow
+                    BusinessName: Bank West
+                    FederalTaxClassification: PARTNERSHIP
+                  - Box1: 0.0
+                    Box2: 0.0
+                    Box3: 1000.0
+                    Box4: 0.0
+                    Box5: 0.0
+                    Box6: 0.0
+                    Box7: 0.0
+                    Box8: 0.0
+                    Box9: 0.0
+                    Box10: 0.0
+                    Box11: 0.0
+                    Box14: 0.0
+                    Name: Hoyt Productions
+                    FederalTaxIDType: SSN
+                    City: Oaktown
+                    Zip: '45123'
+                    State: NY
+                    Email: accounts@hoytmadeupdemo.com
+                    StreetAddress: "100 Rusty Ridge Road\r\nSuite 100\r\n\r\n\r\n"
+                    TaxID: 123-45-6780
+                    ContactId: 19732b6a-9a5c-4651-b33c-3f8f682e2a2b
+                    LegalName: Raymond Holt
+                    BusinessName: Hoyt productions
+                    FederalTaxClassification: S_CORP
+                  - Box1: 5543.75
+                    Box2: 0.0
+                    Box3: 0.0
+                    Box4: 0.0
+                    Box5: 0.0
+                    Box6: 0.0
+                    Box7: 0.0
+                    Box8: 0.0
+                    Box9: 0.0
+                    Box10: 0.0
+                    Box11: 0.0
+                    Box14: 0.0
+                    Name: Truxton Property Management
+                    FederalTaxIDType: EIN
+                    City: Coppertown
+                    Zip: '21321'
+                    State: FL
+                    Email: accounts@truxtonmadeupdemo.com
+                    StreetAddress: "1000 Copper Avenue\r\nSuite 1000\r\n\r\n\r\n"
+                    TaxID: 33-3332233
+                    ContactId: 018355fc-c67e-4352-b443-ef3873031983
+                    LegalName: Jake Peralta
+                    BusinessName: Truxton Property Management
+                    FederalTaxClassification: C_CORP
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Reports/AgedPayablesByContact:
+    summary: Retrieve aged payables report by contact
+    description: Retrieve aged payables report by contact.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.reports.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getReportAgedPayablesByContact
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering,
+        ordering, paging, or modified-since parameters when the endpoint exposes them.
+      parameters:
+      - in: query
+        required: true
+        name: contactId
+        description: Unique identifier for a Contact
+        example: 00000000-0000-0000-0000-000000000000
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - in: query
+        name: date
+        description: The date of the Aged Payables By Contact report
+        example: '2019-10-31'
+        schema:
+          type: string
+          format: date
+          example: '2020-01-01'
+      - $ref: '#/components/parameters/FromDate'
+      - $ref: '#/components/parameters/ToDate'
+      responses:
+        '200':
+          description: Success - return response of type ReportWithRows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportWithRows'
+              example:
+                Id: 5a33f9d4-44a6-4467-a812-4f025506ee35
+                Status: OK
+                ProviderName: Java Public Example
+                DateTimeUTC: /Date(1555971088085)/
+                Reports:
+                - ReportName: Aged Payables By Contact
+                  ReportType: AgedPayablesByContact
+                  ReportTitles:
+                  - Invoices
+                  - ABC
+                  - From 10 October 2017 to 22 April 2019
+                  - Showing payments to 22 April 2019
+                  ReportDate: 22 April 2019
+                  UpdatedDateUTC: /Date(1555971088085)/
+                  Fields: []
+                  Rows:
+                  - RowType: Header
+                    Cells:
+                    - Value: Date
+                    - Value: Reference
+                    - Value: Due Date
+                    - Value: ''
+                    - Value: Total
+                    - Value: Paid
+                    - Value: Credited
+                    - Value: Due
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: 2017-10-10 00:00:00
+                      - Value: Opening Balance
+                      - Value: ''
+                      - Value: ''
+                      - Value: ''
+                      - Value: ''
+                      - Value: ''
+                      - Value: '0.00'
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: 2018-10-09 00:00:00
+                        Attributes:
+                        - Value: 1f3960ae-0537-4438-a4dd-76d785e6d7d8
+                          Id: invoiceID
+                      - Value: ''
+                        Attributes:
+                        - Value: 1f3960ae-0537-4438-a4dd-76d785e6d7d8
+                          Id: invoiceID
+                      - Value: 2018-10-23 00:00:00
+                        Attributes:
+                        - Value: 1f3960ae-0537-4438-a4dd-76d785e6d7d8
+                          Id: invoiceID
+                      - Value: 181 days overdue
+                        Attributes:
+                        - Value: 1f3960ae-0537-4438-a4dd-76d785e6d7d8
+                          Id: invoiceID
+                      - Value: '250.00'
+                        Attributes:
+                        - Value: 1f3960ae-0537-4438-a4dd-76d785e6d7d8
+                          Id: invoiceID
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 1f3960ae-0537-4438-a4dd-76d785e6d7d8
+                          Id: invoiceID
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 1f3960ae-0537-4438-a4dd-76d785e6d7d8
+                          Id: invoiceID
+                      - Value: '250.00'
+                        Attributes:
+                        - Value: 1f3960ae-0537-4438-a4dd-76d785e6d7d8
+                          Id: invoiceID
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Total
+                      - Value: ''
+                      - Value: ''
+                      - Value: ''
+                      - Value: '250.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '250.00'
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Closing Balance
+                      - Value: ''
+                      - Value: ''
+                      - Value: ''
+                      - Value: '250.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '250.00'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Reports/AgedReceivablesByContact:
+    summary: Retrieve aged receivables report by contact
+    description: Retrieve aged receivables report by contact.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.reports.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getReportAgedReceivablesByContact
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering,
+        ordering, paging, or modified-since parameters when the endpoint exposes them.
+      parameters:
+      - in: query
+        required: true
+        name: contactId
+        description: Unique identifier for a Contact
+        example: 00000000-0000-0000-0000-000000000000
+        schema:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      - in: query
+        name: date
+        description: The date of the Aged Receivables By Contact report
+        example: '2019-10-31'
+        schema:
+          type: string
+          format: date
+          example: '2020-01-01'
+      - $ref: '#/components/parameters/FromDate'
+      - $ref: '#/components/parameters/ToDate'
+      responses:
+        '200':
+          description: Success - return response of type ReportWithRows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportWithRows'
+              example:
+                Id: b977b607-955d-47cb-92fd-7c29b3dd755c
+                Status: OK
+                ProviderName: Java Public Example
+                DateTimeUTC: /Date(1556032862815)/
+                Reports:
+                - ReportName: Aged Receivables By Contact
+                  ReportType: AgedReceivablesByContact
+                  ReportTitles:
+                  - Invoices
+                  - ABC
+                  - From 10 October 2017 to 23 April 2019
+                  - Showing payments to 23 April 2019
+                  ReportDate: 23 April 2019
+                  UpdatedDateUTC: /Date(1556032862815)/
+                  Fields: []
+                  Rows:
+                  - RowType: Header
+                    Cells:
+                    - Value: Date
+                    - Value: Number
+                    - Value: Due Date
+                    - Value: ''
+                    - Value: Total
+                    - Value: Paid
+                    - Value: Credited
+                    - Value: Due
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: 2017-10-10 00:00:00
+                      - Value: Opening Balance
+                      - Value: ''
+                      - Value: ''
+                      - Value: ''
+                      - Value: ''
+                      - Value: ''
+                      - Value: '0.00'
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: 2018-05-13 00:00:00
+                        Attributes:
+                        - Value: 40ebad47-24e2-4dc9-a5f5-579df427671b
+                          Id: invoiceID
+                      - Value: IV1242016
+                        Attributes:
+                        - Value: 40ebad47-24e2-4dc9-a5f5-579df427671b
+                          Id: invoiceID
+                      - Value: 2018-06-22 00:00:00
+                        Attributes:
+                        - Value: 40ebad47-24e2-4dc9-a5f5-579df427671b
+                          Id: invoiceID
+                      - Value: 305 days overdue
+                        Attributes:
+                        - Value: 40ebad47-24e2-4dc9-a5f5-579df427671b
+                          Id: invoiceID
+                      - Value: '100.00'
+                        Attributes:
+                        - Value: 40ebad47-24e2-4dc9-a5f5-579df427671b
+                          Id: invoiceID
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 40ebad47-24e2-4dc9-a5f5-579df427671b
+                          Id: invoiceID
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 40ebad47-24e2-4dc9-a5f5-579df427671b
+                          Id: invoiceID
+                      - Value: '100.00'
+                        Attributes:
+                        - Value: 40ebad47-24e2-4dc9-a5f5-579df427671b
+                          Id: invoiceID
+                    - RowType: Row
+                      Cells:
+                      - Value: 2019-04-23 00:00:00
+                        Attributes:
+                        - Value: ca0483ce-fa43-4335-8512-751e655337b8
+                          Id: invoiceID
+                      - Value: INV-0086
+                        Attributes:
+                        - Value: ca0483ce-fa43-4335-8512-751e655337b8
+                          Id: invoiceID
+                      - Value: 2019-05-07 00:00:00
+                        Attributes:
+                        - Value: ca0483ce-fa43-4335-8512-751e655337b8
+                          Id: invoiceID
+                      - Value: ''
+                        Attributes:
+                        - Value: ca0483ce-fa43-4335-8512-751e655337b8
+                          Id: invoiceID
+                      - Value: '50.00'
+                        Attributes:
+                        - Value: ca0483ce-fa43-4335-8512-751e655337b8
+                          Id: invoiceID
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: ca0483ce-fa43-4335-8512-751e655337b8
+                          Id: invoiceID
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: ca0483ce-fa43-4335-8512-751e655337b8
+                          Id: invoiceID
+                      - Value: '50.00'
+                        Attributes:
+                        - Value: ca0483ce-fa43-4335-8512-751e655337b8
+                          Id: invoiceID
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Total
+                      - Value: ''
+                      - Value: ''
+                      - Value: ''
+                      - Value: '150.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '150.00'
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Closing Balance
+                      - Value: ''
+                      - Value: ''
+                      - Value: ''
+                      - Value: '150.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '150.00'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Reports/BalanceSheet:
+    summary: Retrieve balance sheet report
+    description: Retrieve balance sheet report.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.reports.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getReportBalanceSheet
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering,
+        ordering, paging, or modified-since parameters when the endpoint exposes them.
+      parameters:
+      - in: query
+        name: date
+        description: The date of the Balance Sheet report
+        example: '2019-11-01'
+        schema:
+          type: string
+          format: date
+          example: '2020-01-01'
+      - in: query
+        name: periods
+        description: The number of periods for the Balance Sheet report
+        example: 3
+        schema:
+          type: integer
+          example: 1
+      - in: query
+        name: timeframe
+        description: The period size to compare to (MONTH, QUARTER, YEAR)
+        example: MONTH
+        schema:
+          type: string
+          enum:
+          - MONTH
+          - QUARTER
+          - YEAR
+          example: MONTH
+      - in: query
+        name: trackingOptionID1
+        description: The tracking option 1 for the Balance Sheet report
+        example: 00000000-0000-0000-0000-000000000000
+        schema:
+          type: string
+          example: example
+      - in: query
+        name: trackingOptionID2
+        description: The tracking option 2 for the Balance Sheet report
+        example: 00000000-0000-0000-0000-000000000000
+        schema:
+          type: string
+          example: example
+      - in: query
+        name: standardLayout
+        description: The standard layout boolean for the Balance Sheet report
+        example: true
+        schema:
+          type: boolean
+          example: false
+      - in: query
+        name: paymentsOnly
+        description: return a cash basis for the Balance Sheet report
+        example: false
+        schema:
+          type: boolean
+          example: false
+      responses:
+        '200':
+          description: Success - return response of type ReportWithRows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportWithRows'
+              example:
+                Id: 2ddba304-6ed3-4da4-b185-3b6289699653
+                Status: OK
+                ProviderName: Provider Name Example
+                DateTimeUTC: /Date(1555099412778)/
+                Reports:
+                - ReportName: Balance Sheet
+                  ReportType: BalanceSheet
+                  ReportTitles:
+                  - Balance Sheet
+                  - Dev Evangelist - Sid Test 3 (NZ-2016-02)
+                  - As at 30 April 2019
+                  ReportDate: 12 April 2019
+                  UpdatedDateUTC: /Date(1555099412778)/
+                  Fields: []
+                  Rows:
+                  - RowType: Header
+                    Cells:
+                    - Value: ''
+                    - Value: 30 Apr 2019
+                    - Value: 31 Mar 2019
+                    - Value: 28 Feb 2019
+                  - RowType: Section
+                    Title: Assets
+                    Rows: []
+                  - RowType: Section
+                    Title: Bank
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Country Savings
+                        Attributes:
+                        - Value: 041207d2-3d61-4e5d-8c1a-b9236955a71c
+                          Id: account
+                      - Value: '-1850.00'
+                        Attributes:
+                        - Value: 041207d2-3d61-4e5d-8c1a-b9236955a71c
+                          Id: account
+                      - Value: '-1850.00'
+                        Attributes:
+                        - Value: 041207d2-3d61-4e5d-8c1a-b9236955a71c
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 041207d2-3d61-4e5d-8c1a-b9236955a71c
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: My Big Bank
+                        Attributes:
+                        - Value: 300f3bde-3a5c-4035-9ec5-45b09777679a
+                          Id: account
+                      - Value: '2146.37'
+                        Attributes:
+                        - Value: 300f3bde-3a5c-4035-9ec5-45b09777679a
+                          Id: account
+                      - Value: '2020.00'
+                        Attributes:
+                        - Value: 300f3bde-3a5c-4035-9ec5-45b09777679a
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 300f3bde-3a5c-4035-9ec5-45b09777679a
+                          Id: account
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Total Bank
+                      - Value: '296.37'
+                      - Value: '170.00'
+                      - Value: '0.00'
+                  - RowType: Section
+                    Title: Current Assets
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Accounts Receivable
+                        Attributes:
+                        - Value: b94495d0-44ab-4199-a1d0-427a4877e100
+                          Id: account
+                      - Value: '154355.72'
+                        Attributes:
+                        - Value: b94495d0-44ab-4199-a1d0-427a4877e100
+                          Id: account
+                      - Value: '154351.78'
+                        Attributes:
+                        - Value: b94495d0-44ab-4199-a1d0-427a4877e100
+                          Id: account
+                      - Value: '356.50'
+                        Attributes:
+                        - Value: b94495d0-44ab-4199-a1d0-427a4877e100
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Inventory
+                        Attributes:
+                        - Value: 53a12a15-7e9b-4a31-85f4-a7cee6d04215
+                          Id: account
+                      - Value: '25000.00'
+                        Attributes:
+                        - Value: 53a12a15-7e9b-4a31-85f4-a7cee6d04215
+                          Id: account
+                      - Value: '25000.00'
+                        Attributes:
+                        - Value: 53a12a15-7e9b-4a31-85f4-a7cee6d04215
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 53a12a15-7e9b-4a31-85f4-a7cee6d04215
+                          Id: account
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Total Current Assets
+                      - Value: '179355.72'
+                      - Value: '179351.78'
+                      - Value: '356.50'
+                  - RowType: Section
+                    Title: Fixed Assets
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Office Equipment
+                        Attributes:
+                        - Value: 7132cab3-ce56-4389-8e47-8f60d4c137f8
+                          Id: account
+                      - Value: '-119.00'
+                        Attributes:
+                        - Value: 7132cab3-ce56-4389-8e47-8f60d4c137f8
+                          Id: account
+                      - Value: '-119.00'
+                        Attributes:
+                        - Value: 7132cab3-ce56-4389-8e47-8f60d4c137f8
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 7132cab3-ce56-4389-8e47-8f60d4c137f8
+                          Id: account
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Total Fixed Assets
+                      - Value: '-119.00'
+                      - Value: '-119.00'
+                      - Value: '0.00'
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Total Assets
+                      - Value: '179533.09'
+                      - Value: '179402.78'
+                      - Value: '356.50'
+                  - RowType: Section
+                    Title: Liabilities
+                    Rows: []
+                  - RowType: Section
+                    Title: Current Liabilities
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Accounts Payable
+                        Attributes:
+                        - Value: a2a4795b-a01f-40eb-afa6-a34b4514875d
+                          Id: account
+                      - Value: '-3469.00'
+                        Attributes:
+                        - Value: a2a4795b-a01f-40eb-afa6-a34b4514875d
+                          Id: account
+                      - Value: '-3469.00'
+                        Attributes:
+                        - Value: a2a4795b-a01f-40eb-afa6-a34b4514875d
+                          Id: account
+                      - Value: '-184.00'
+                        Attributes:
+                        - Value: a2a4795b-a01f-40eb-afa6-a34b4514875d
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: GST
+                        Attributes:
+                        - Value: 17d9a4a0-3181-4803-a96b-f0dbe589091b
+                          Id: account
+                      - Value: '-2446.21'
+                        Attributes:
+                        - Value: 17d9a4a0-3181-4803-a96b-f0dbe589091b
+                          Id: account
+                      - Value: '-2461.89'
+                        Attributes:
+                        - Value: 17d9a4a0-3181-4803-a96b-f0dbe589091b
+                          Id: account
+                      - Value: '76.50'
+                        Attributes:
+                        - Value: 17d9a4a0-3181-4803-a96b-f0dbe589091b
+                          Id: account
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Total Current Liabilities
+                      - Value: '-5915.21'
+                      - Value: '-5930.89'
+                      - Value: '-107.50'
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Total Liabilities
+                      - Value: '-5915.21'
+                      - Value: '-5930.89'
+                      - Value: '-107.50'
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Net Assets
+                      - Value: '185448.30'
+                      - Value: '185333.67'
+                      - Value: '464.00'
+                  - RowType: Section
+                    Title: Equity
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Current Year Earnings
+                        Attributes:
+                        - Value: 00000000-0000-0000-0000-000000000000
+                          Id: account
+                      - Value: '114.62'
+                        Attributes:
+                        - Value: 00000000-0000-0000-0000-000000000000
+                          Id: account
+                        - Value: 4/1/2019
+                          Id: fromDate
+                        - Value: 4/30/2019
+                          Id: toDate
+                      - Value: '156621.67'
+                        Attributes:
+                        - Value: 00000000-0000-0000-0000-000000000000
+                          Id: account
+                        - Value: 4/1/2018
+                          Id: fromDate
+                        - Value: 3/31/2019
+                          Id: toDate
+                      - Value: '500.00'
+                        Attributes:
+                        - Value: 00000000-0000-0000-0000-000000000000
+                          Id: account
+                        - Value: 4/1/2018
+                          Id: fromDate
+                        - Value: 2/28/2019
+                          Id: toDate
+                    - RowType: Row
+                      Cells:
+                      - Value: Owner A Drawings
+                        Attributes:
+                        - Value: 136ebd08-60ea-4592-8982-be92c153b53a
+                          Id: account
+                      - Value: '28752.00'
+                        Attributes:
+                        - Value: 136ebd08-60ea-4592-8982-be92c153b53a
+                          Id: account
+                      - Value: '28752.00'
+                        Attributes:
+                        - Value: 136ebd08-60ea-4592-8982-be92c153b53a
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 136ebd08-60ea-4592-8982-be92c153b53a
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Owner A Funds Introduced
+                        Attributes:
+                        - Value: 5690f1e8-1d02-4893-90c2-ee1a69eff942
+                          Id: account
+                      - Value: '-50.00'
+                        Attributes:
+                        - Value: 5690f1e8-1d02-4893-90c2-ee1a69eff942
+                          Id: account
+                      - Value: '-50.00'
+                        Attributes:
+                        - Value: 5690f1e8-1d02-4893-90c2-ee1a69eff942
+                          Id: account
+                      - Value: '-46.00'
+                        Attributes:
+                        - Value: 5690f1e8-1d02-4893-90c2-ee1a69eff942
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Retained Earnings
+                        Attributes:
+                        - Value: 7fc16c06-c342-4f32-995f-889b5f9996fd
+                          Id: account
+                      - Value: '156631.67'
+                        Attributes:
+                        - Value: 7fc16c06-c342-4f32-995f-889b5f9996fd
+                          Id: account
+                        - Value: ''
+                          Id: fromDate
+                        - Value: 4/30/2019
+                          Id: toDate
+                      - Value: '10.00'
+                        Attributes:
+                        - Value: 7fc16c06-c342-4f32-995f-889b5f9996fd
+                          Id: account
+                        - Value: ''
+                          Id: fromDate
+                        - Value: 3/31/2019
+                          Id: toDate
+                      - Value: '10.00'
+                        Attributes:
+                        - Value: 7fc16c06-c342-4f32-995f-889b5f9996fd
+                          Id: account
+                        - Value: ''
+                          Id: fromDate
+                        - Value: 2/28/2019
+                          Id: toDate
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Total Equity
+                      - Value: '185448.29'
+                      - Value: '185333.67'
+                      - Value: '464.00'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Reports/BankSummary:
+    summary: Retrieve bank summary report
+    description: Retrieve bank summary report.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.reports.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getReportBankSummary
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering,
+        ordering, paging, or modified-since parameters when the endpoint exposes them.
+      parameters:
+      - $ref: '#/components/parameters/FromDate'
+      - $ref: '#/components/parameters/ToDate'
+      responses:
+        '200':
+          description: Success - return response of type ReportWithRows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportWithRows'
+              example:
+                Id: ae58d0ec-9c5c-455f-b96e-690107579257
+                Status: OK
+                ProviderName: Java Public Example
+                DateTimeUTC: /Date(1556035526223)/
+                Reports:
+                - ReportName: Bank Summary
+                  ReportType: BankSummary
+                  ReportTitles:
+                  - Bank Summary
+                  - MindBody Test 10 (AU-2016-02)
+                  - From 1 April 2019 to 30 April 2019
+                  ReportDate: 23 April 2019
+                  UpdatedDateUTC: /Date(1556035526223)/
+                  Fields: []
+                  Rows:
+                  - RowType: Header
+                    Cells:
+                    - Value: Bank Accounts
+                    - Value: Opening Balance
+                    - Value: Cash Received
+                    - Value: Cash Spent
+                    - Value: Closing Balance
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Big City Bank
+                        Attributes:
+                        - Value: 03f9cf1e-2deb-4bf1-b0a8-b57f08672eb8
+                          Id: accountID
+                      - Value: '0.00'
+                      - Value: '110.00'
+                        Attributes:
+                        - Value: 03f9cf1e-2deb-4bf1-b0a8-b57f08672eb8
+                          Id: account
+                      - Value: '100.00'
+                        Attributes:
+                        - Value: 03f9cf1e-2deb-4bf1-b0a8-b57f08672eb8
+                          Id: account
+                      - Value: '10.00'
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Total
+                      - Value: '0.00'
+                      - Value: '110.00'
+                      - Value: '100.00'
+                      - Value: '10.00'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Reports/{ReportID}:
+    summary: Retrieve a specific custom report by ID
+    description: Retrieve a specific custom report by ID.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.reports.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getReportFromId
+      summary: Get the report identified by ReportID
+      description: Returns the report identified by the supplied ReportID in a Report With Rows response payload.
+      parameters:
+      - in: path
+        required: true
+        name: ReportID
+        description: Unique identifier for a Report
+        example: 00000000-0000-0000-0000-000000000000
+        schema:
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+      responses:
+        '200':
+          description: Success - return response of type ReportWithRows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportWithRows'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Reports/BudgetSummary:
+    summary: Retrieve budget summary report
+    description: Retrieve budget summary report.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.reports.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getReportBudgetSummary
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering,
+        ordering, paging, or modified-since parameters when the endpoint exposes them.
+      parameters:
+      - in: query
+        name: date
+        description: The date for the Bank Summary report e.g. 2018-03-31
+        example: '2019-03-31'
+        schema:
+          type: string
+          format: date
+          example: '2020-01-01'
+      - in: query
+        name: periods
+        description: The number of periods to compare (integer between 1 and 12)
+        example: 2
+        schema:
+          type: integer
+          example: 1
+      - in: query
+        name: timeframe
+        description: The period size to compare to (1=month, 3=quarter, 12=year)
+        example: 3
+        schema:
+          type: integer
+          example: 1
+      responses:
+        '200':
+          description: success- return a Report with Rows object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportWithRows'
+              example:
+                Id: 9f1e2722-0d98-4669-890f-f8f4217c968b
+                Status: OK
+                ProviderName: provider-name
+                DateTimeUTC: /Date(1573755037865)/
+                Reports:
+                - ReportName: Budget Summary
+                  ReportType: BudgetSummary
+                  ReportTitles:
+                  - Overall Budget
+                  - Budget Summary
+                  - Online Test 11
+                  - November 2019 to October 2022
+                  ReportDate: 14 November 2019
+                  UpdatedDateUTC: /Date(1573755037865)/
+                  Fields: []
+                  Rows:
+                  - RowType: Header
+                    Cells:
+                    - Value: Account
+                    - Value: Jan-20
+                    - Value: Apr-20
+                    - Value: Jul-20
+                    - Value: Oct-20
+                    - Value: Jan-21
+                    - Value: Apr-21
+                    - Value: Jul-21
+                    - Value: Oct-21
+                    - Value: Jan-22
+                    - Value: Apr-22
+                    - Value: Jul-22
+                    - Value: Oct-22
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Gross Profit
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Total Expenses
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Net Profit
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: '0.00'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Reports/ExecutiveSummary:
+    summary: Retrieve executive summary report
+    description: Retrieve executive summary report.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.reports.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getReportExecutiveSummary
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering,
+        ordering, paging, or modified-since parameters when the endpoint exposes them.
+      parameters:
+      - in: query
+        name: date
+        description: The date for the Bank Summary report e.g. 2018-03-31
+        example: '2019-03-31'
+        schema:
+          type: string
+          format: date
+          example: '2020-01-01'
+      responses:
+        '200':
+          description: Success - return response of type ReportWithRows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportWithRows'
+              example:
+                Id: 068d3505-ac37-43f3-8135-f912a5963d8a
+                Status: OK
+                ProviderName: provider-name
+                DateTimeUTC: /Date(1573755038314)/
+                Reports:
+                - ReportName: Executive Summary
+                  ReportType: ExecutiveSummary
+                  ReportTitles:
+                  - Executive Summary
+                  - Online Test 11
+                  - For the month of November 2019
+                  ReportDate: 14 November 2019
+                  UpdatedDateUTC: /Date(1573755038314)/
+                  Fields: []
+                  Rows:
+                  - RowType: Header
+                    Cells:
+                    - Value: ''
+                    - Value: Nov 2019
+                    - Value: Oct 2019
+                    - Value: Variance
+                  - RowType: Section
+                    Title: Cash
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Cash received
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Cash spent
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Cash surplus (deficit)
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Closing bank balance
+                      - Value: '79.01'
+                      - Value: '79.01'
+                      - Value: 0.0%
+                  - RowType: Section
+                    Title: Profitability
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Income
+                      - Value: '40.00'
+                      - Value: '0.00'
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Direct costs
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Gross profit (loss)
+                      - Value: '40.00'
+                      - Value: '0.00'
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Other Income
+                      - Value: '0.00'
+                      - Value: '0.00'
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Expenses
+                      - Value: '205.40'
+                      - Value: '0.00'
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Profit (loss)
+                      - Value: '-165.40'
+                      - Value: '0.00'
+                      - Value: 0.0%
+                  - RowType: Section
+                    Title: Balance Sheet
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Debtors
+                      - Value: '590.00'
+                      - Value: '550.00'
+                      - Value: 7.3%
+                    - RowType: Row
+                      Cells:
+                      - Value: Creditors
+                      - Value: '-44.00'
+                      - Value: '-44.00'
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Net assets
+                      - Value: '594.16'
+                      - Value: '759.56'
+                      - Value: -21.8%
+                  - RowType: Section
+                    Title: Income
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Number of invoices issued
+                      - Value: '1'
+                      - Value: '0'
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Average value of invoices
+                      - Value: '40.00'
+                      - Value: '0.00'
+                      - Value: 0.0%
+                  - RowType: Section
+                    Title: Performance
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Gross profit margin
+                      - Value: 100.0%
+                      - Value: ''
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Net profit margin
+                      - Value: -413.5%
+                      - Value: ''
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Return on investment (p.a.)
+                      - Value: -334.1%
+                      - Value: 0.0%
+                      - Value: 0.0%
+                  - RowType: Section
+                    Title: Position
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Average debtors days
+                      - Value: '442.50'
+                      - Value: '0'
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Average creditors days
+                      - Value: '-6.426484907497565725413826680'
+                      - Value: '0'
+                      - Value: 0.0%
+                    - RowType: Row
+                      Cells:
+                      - Value: Short term cash forecast
+                      - Value: '634.00'
+                      - Value: '594.00'
+                      - Value: 6.7%
+                    - RowType: Row
+                      Cells:
+                      - Value: Current assets to liabilities
+                      - Value: '4.0729764675459012154124644427'
+                      - Value: '-62.034024896265560165975103734'
+                      - Value: 106.6%
+                    - RowType: Row
+                      Cells:
+                      - Value: Term assets to liabilities
+                      - Value: ''
+                      - Value: ''
+                      - Value: 0.0%
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Reports:
+    summary: List organisation-specific reports requiring a unique ID
+    description: List organisation-specific reports requiring a unique ID.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.reports.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getReportsList
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering,
+        ordering, paging, or modified-since parameters when the endpoint exposes them.
+      responses:
+        '200':
+          description: Success - return response of type ReportWithRows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportWithRows'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Reports/ProfitAndLoss:
+    summary: Retrieve profit and loss report
+    description: Retrieve profit and loss report.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.reports.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getReportProfitAndLoss
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering,
+        ordering, paging, or modified-since parameters when the endpoint exposes them.
+      parameters:
+      - $ref: '#/components/parameters/FromDate'
+      - $ref: '#/components/parameters/ToDate'
+      - in: query
+        name: periods
+        description: The number of periods to compare (integer between 1 and 12)
+        example: 3
+        schema:
+          type: integer
+          example: 1
+      - in: query
+        name: timeframe
+        description: The period size to compare to (MONTH, QUARTER, YEAR)
+        example: MONTH
+        schema:
+          type: string
+          enum:
+          - MONTH
+          - QUARTER
+          - YEAR
+          example: MONTH
+      - in: query
+        name: trackingCategoryID
+        description: The trackingCategory 1 for the ProfitAndLoss report
+        example: 00000000-0000-0000-0000-000000000000
+        schema:
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+      - in: query
+        name: trackingCategoryID2
+        description: The trackingCategory 2 for the ProfitAndLoss report
+        example: 00000000-0000-0000-0000-000000000000
+        schema:
+          type: string
+          example: example
+      - in: query
+        name: trackingOptionID
+        description: The tracking option 1 for the ProfitAndLoss report
+        example: 00000000-0000-0000-0000-000000000000
+        schema:
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+      - in: query
+        name: trackingOptionID2
+        description: The tracking option 2 for the ProfitAndLoss report
+        example: 00000000-0000-0000-0000-000000000000
+        schema:
+          type: string
+          example: example
+      - in: query
+        name: standardLayout
+        description: Return the standard layout for the ProfitAndLoss report
+        example: true
+        schema:
+          type: boolean
+          example: false
+      - in: query
+        name: paymentsOnly
+        description: Return cash only basis for the ProfitAndLoss report
+        example: false
+        schema:
+          type: boolean
+          example: false
+      responses:
+        '200':
+          description: Success - return response of type ReportWithRows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportWithRows'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+  /Reports/TrialBalance:
+    summary: Retrieve trial balance report
+    description: Retrieve trial balance report.
+    parameters:
+    - $ref: '#/components/parameters/requiredHeader'
+    get:
+      security:
+      - OAuth2:
+        - accounting.reports.read
+      tags:
+      - Accounting
+      - Reports
+      operationId: getReportTrialBalance
+      summary: List reports for the organisation
+      description: Returns the organisation's reports in a Report With Rows response payload. Use the available filtering,
+        ordering, paging, or modified-since parameters when the endpoint exposes them.
+      parameters:
+      - in: query
+        name: date
+        description: The date for the Trial Balance report e.g. 2018-03-31
+        example: '2019-10-31'
+        schema:
+          type: string
+          format: date
+          example: '2020-01-01'
+      - in: query
+        name: paymentsOnly
+        description: Return cash only basis for the Trial Balance report
+        example: true
+        schema:
+          type: boolean
+          example: false
+      responses:
+        '200':
+          description: Success - return response of type ReportWithRows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportWithRows'
+              example:
+                Id: 0b3ee35e-b97c-4b3c-b7e2-9a465233e329
+                Status: OK
+                ProviderName: Java Public Example
+                DateTimeUTC: /Date(1556129558740)/
+                Reports:
+                - ReportName: Trial Balance
+                  ReportType: TrialBalance
+                  ReportTitles:
+                  - Trial Balance
+                  - Dev Evangelist - Sid Test 1 (US-2016-06)
+                  - As at 24 April 2019
+                  ReportDate: 24 April 2019
+                  UpdatedDateUTC: /Date(1556129558724)/
+                  Fields: []
+                  Rows:
+                  - RowType: Header
+                    Cells:
+                    - Value: Account
+                    - Value: Debit
+                    - Value: Credit
+                    - Value: YTD Debit
+                    - Value: YTD Credit
+                  - RowType: Section
+                    Title: Revenue
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Big Expense (002)
+                        Attributes:
+                        - Value: da962997-a8bd-4dff-9616-01cdc199283f
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: da962997-a8bd-4dff-9616-01cdc199283f
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: da962997-a8bd-4dff-9616-01cdc199283f
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: da962997-a8bd-4dff-9616-01cdc199283f
+                          Id: account
+                      - Value: '80.00'
+                        Attributes:
+                        - Value: da962997-a8bd-4dff-9616-01cdc199283f
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Sales (400)
+                        Attributes:
+                        - Value: 02439bca-5fdc-4b62-b281-0bdf9f16fd5b
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 02439bca-5fdc-4b62-b281-0bdf9f16fd5b
+                          Id: account
+                      - Value: '200.00'
+                        Attributes:
+                        - Value: 02439bca-5fdc-4b62-b281-0bdf9f16fd5b
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 02439bca-5fdc-4b62-b281-0bdf9f16fd5b
+                          Id: account
+                      - Value: '1020.22'
+                        Attributes:
+                        - Value: 02439bca-5fdc-4b62-b281-0bdf9f16fd5b
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Sales-35325 (1302)
+                        Attributes:
+                        - Value: 3f50db14-1fe6-450b-bfe8-b2d894f18c62
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 3f50db14-1fe6-450b-bfe8-b2d894f18c62
+                          Id: account
+                      - Value: '1000.00'
+                        Attributes:
+                        - Value: 3f50db14-1fe6-450b-bfe8-b2d894f18c62
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 3f50db14-1fe6-450b-bfe8-b2d894f18c62
+                          Id: account
+                      - Value: '1000.00'
+                        Attributes:
+                        - Value: 3f50db14-1fe6-450b-bfe8-b2d894f18c62
+                          Id: account
+                  - RowType: Section
+                    Title: Expenses
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Foobar14043 (123)
+                        Attributes:
+                        - Value: d1602f69-f900-4616-8d34-90af393fa368
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: d1602f69-f900-4616-8d34-90af393fa368
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: d1602f69-f900-4616-8d34-90af393fa368
+                          Id: account
+                      - Value: '40.00'
+                        Attributes:
+                        - Value: d1602f69-f900-4616-8d34-90af393fa368
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: d1602f69-f900-4616-8d34-90af393fa368
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: MyExp51937 (1231239)
+                        Attributes:
+                        - Value: 90f10e0a-a043-46fe-b87e-630e9a951dae
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 90f10e0a-a043-46fe-b87e-630e9a951dae
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 90f10e0a-a043-46fe-b87e-630e9a951dae
+                          Id: account
+                      - Value: '80.00'
+                        Attributes:
+                        - Value: 90f10e0a-a043-46fe-b87e-630e9a951dae
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 90f10e0a-a043-46fe-b87e-630e9a951dae
+                          Id: account
+                  - RowType: Section
+                    Title: Assets
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Accounts Receivable (120)
+                        Attributes:
+                        - Value: 31ae5bb4-611c-4f89-a369-86e4d56e90b6
+                          Id: account
+                      - Value: '1190.00'
+                        Attributes:
+                        - Value: 31ae5bb4-611c-4f89-a369-86e4d56e90b6
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 31ae5bb4-611c-4f89-a369-86e4d56e90b6
+                          Id: account
+                      - Value: '36555.04'
+                        Attributes:
+                        - Value: 31ae5bb4-611c-4f89-a369-86e4d56e90b6
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 31ae5bb4-611c-4f89-a369-86e4d56e90b6
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Business Wells Fargo (088)
+                        Attributes:
+                        - Value: 6f7594f2-f059-4d56-9e67-47ac9733bfe9
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 6f7594f2-f059-4d56-9e67-47ac9733bfe9
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 6f7594f2-f059-4d56-9e67-47ac9733bfe9
+                          Id: account
+                      - Value: '7639.04'
+                        Attributes:
+                        - Value: 6f7594f2-f059-4d56-9e67-47ac9733bfe9
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 6f7594f2-f059-4d56-9e67-47ac9733bfe9
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Generic Cash Clearing (8003)
+                        Attributes:
+                        - Value: f4be973a-25fc-48d0-a7df-7f719f239729
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: f4be973a-25fc-48d0-a7df-7f719f239729
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: f4be973a-25fc-48d0-a7df-7f719f239729
+                          Id: account
+                      - Value: '1443.00'
+                        Attributes:
+                        - Value: f4be973a-25fc-48d0-a7df-7f719f239729
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: f4be973a-25fc-48d0-a7df-7f719f239729
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Generic Credit Card Clearing (8002)
+                        Attributes:
+                        - Value: a10867ac-0bc4-4aa5-af00-b9e5b207c6c3
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: a10867ac-0bc4-4aa5-af00-b9e5b207c6c3
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: a10867ac-0bc4-4aa5-af00-b9e5b207c6c3
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: a10867ac-0bc4-4aa5-af00-b9e5b207c6c3
+                          Id: account
+                      - Value: '96.49'
+                        Attributes:
+                        - Value: a10867ac-0bc4-4aa5-af00-b9e5b207c6c3
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Generic Inventory (1400)
+                        Attributes:
+                        - Value: 7422f1b6-619f-488c-89e1-91bdde20216c
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 7422f1b6-619f-488c-89e1-91bdde20216c
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 7422f1b6-619f-488c-89e1-91bdde20216c
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 7422f1b6-619f-488c-89e1-91bdde20216c
+                          Id: account
+                      - Value: '160.00'
+                        Attributes:
+                        - Value: 7422f1b6-619f-488c-89e1-91bdde20216c
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: My Savings (090)
+                        Attributes:
+                        - Value: 7e5e243b-9fcd-4aef-8e3a-c70be1e39bfa
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 7e5e243b-9fcd-4aef-8e3a-c70be1e39bfa
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 7e5e243b-9fcd-4aef-8e3a-c70be1e39bfa
+                          Id: account
+                      - Value: '219.92'
+                        Attributes:
+                        - Value: 7e5e243b-9fcd-4aef-8e3a-c70be1e39bfa
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 7e5e243b-9fcd-4aef-8e3a-c70be1e39bfa
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Payment Wall Clearing Account (8001)
+                        Attributes:
+                        - Value: bc06840c-12c5-4e22-bb57-fef4d64bac10
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: bc06840c-12c5-4e22-bb57-fef4d64bac10
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: bc06840c-12c5-4e22-bb57-fef4d64bac10
+                          Id: account
+                      - Value: '1.00'
+                        Attributes:
+                        - Value: bc06840c-12c5-4e22-bb57-fef4d64bac10
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: bc06840c-12c5-4e22-bb57-fef4d64bac10
+                          Id: account
+                  - RowType: Section
+                    Title: Liabilities
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Accounts Payable (200)
+                        Attributes:
+                        - Value: e9132ee7-4dcf-4fad-b76c-86e212af645a
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: e9132ee7-4dcf-4fad-b76c-86e212af645a
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: e9132ee7-4dcf-4fad-b76c-86e212af645a
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: e9132ee7-4dcf-4fad-b76c-86e212af645a
+                          Id: account
+                      - Value: '9223.00'
+                        Attributes:
+                        - Value: e9132ee7-4dcf-4fad-b76c-86e212af645a
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Deferred Revenue (2300)
+                        Attributes:
+                        - Value: f22cd74e-f59d-4f38-a08d-07e14df28c24
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: f22cd74e-f59d-4f38-a08d-07e14df28c24
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: f22cd74e-f59d-4f38-a08d-07e14df28c24
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: f22cd74e-f59d-4f38-a08d-07e14df28c24
+                          Id: account
+                      - Value: '1854.24'
+                        Attributes:
+                        - Value: f22cd74e-f59d-4f38-a08d-07e14df28c24
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Rounding (260)
+                        Attributes:
+                        - Value: f0072999-8f7c-4b01-bce9-bd9352f98e02
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: f0072999-8f7c-4b01-bce9-bd9352f98e02
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: f0072999-8f7c-4b01-bce9-bd9352f98e02
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: f0072999-8f7c-4b01-bce9-bd9352f98e02
+                          Id: account
+                      - Value: '0.01'
+                        Attributes:
+                        - Value: f0072999-8f7c-4b01-bce9-bd9352f98e02
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Sales Tax (220)
+                        Attributes:
+                        - Value: af0be362-45fe-4730-a8af-634c2fb93f4d
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: af0be362-45fe-4730-a8af-634c2fb93f4d
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: af0be362-45fe-4730-a8af-634c2fb93f4d
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: af0be362-45fe-4730-a8af-634c2fb93f4d
+                          Id: account
+                      - Value: '1578.35'
+                        Attributes:
+                        - Value: af0be362-45fe-4730-a8af-634c2fb93f4d
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Suspense (250)
+                        Attributes:
+                        - Value: 5ec2f302-cd60-4f8b-a915-9229dd45e6fa
+                          Id: account
+                      - Value: '10.00'
+                        Attributes:
+                        - Value: 5ec2f302-cd60-4f8b-a915-9229dd45e6fa
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 5ec2f302-cd60-4f8b-a915-9229dd45e6fa
+                          Id: account
+                      - Value: '41.00'
+                        Attributes:
+                        - Value: 5ec2f302-cd60-4f8b-a915-9229dd45e6fa
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 5ec2f302-cd60-4f8b-a915-9229dd45e6fa
+                          Id: account
+                    - RowType: Row
+                      Cells:
+                      - Value: Unpaid Expense Claims (210)
+                        Attributes:
+                        - Value: 38e6967d-4da1-4a93-85f1-ea3c93b61041
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 38e6967d-4da1-4a93-85f1-ea3c93b61041
+                          Id: account
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 38e6967d-4da1-4a93-85f1-ea3c93b61041
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 38e6967d-4da1-4a93-85f1-ea3c93b61041
+                          Id: account
+                      - Value: '135.00'
+                        Attributes:
+                        - Value: 38e6967d-4da1-4a93-85f1-ea3c93b61041
+                          Id: account
+                  - RowType: Section
+                    Title: Equity
+                    Rows:
+                    - RowType: Row
+                      Cells:
+                      - Value: Retained Earnings (320)
+                        Attributes:
+                        - Value: 6ef53919-b47d-4341-b11a-735a3f8a6515
+                          Id: account
+                      - Value: ''
+                        Attributes:
+                        - Value: 6ef53919-b47d-4341-b11a-735a3f8a6515
+                          Id: account
+                        - Value: ''
+                          Id: fromDate
+                        - Value: 12/31/2018
+                          Id: toDate
+                      - Value: '0.00'
+                        Attributes:
+                        - Value: 6ef53919-b47d-4341-b11a-735a3f8a6515
+                          Id: account
+                        - Value: ''
+                          Id: fromDate
+                        - Value: 12/31/2018
+                          Id: toDate
+                      - Value: ''
+                        Attributes:
+                        - Value: 6ef53919-b47d-4341-b11a-735a3f8a6515
+                          Id: account
+                        - Value: ''
+                          Id: fromDate
+                        - Value: 12/31/2018
+                          Id: toDate
+                      - Value: '30871.69'
+                        Attributes:
+                        - Value: 6ef53919-b47d-4341-b11a-735a3f8a6515
+                          Id: account
+                        - Value: ''
+                          Id: fromDate
+                        - Value: 12/31/2018
+                          Id: toDate
+                  - RowType: Section
+                    Title: ''
+                    Rows:
+                    - RowType: SummaryRow
+                      Cells:
+                      - Value: Total
+                      - Value: '1200.00'
+                      - Value: '1200.00'
+                      - Value: '46019.00'
+                      - Value: '46019.00'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '500':
+          $ref: '#/components/responses/500Error'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/429Error'
+        '403':
+          $ref: '#/components/responses/400Error'
+components:
+  parameters:
+    BudgetID:
+      required: true
+      in: path
+      name: BudgetID
+      description: Unique identifier for Budgets
+      example: 00000000-0000-0000-0000-000000000000
+      schema:
+        type: string
+        format: uuid
+        example: 00000000-0000-0000-0000-000000000000
+    FromDate:
+      in: query
+      name: fromDate
+      description: filter by the from date of the report e.g. 2021-02-01
+      example: '2019-10-31'
+      schema:
+        type: string
+        format: date
+        example: '2019-10-31'
+    JournalID:
+      required: true
+      in: path
+      name: JournalID
+      description: Unique identifier for a Journal
+      example: 00000000-0000-0000-0000-000000000000
+      schema:
+        type: string
+        format: uuid
+        example: 00000000-0000-0000-0000-000000000000
+    JournalNumber:
+      required: true
+      in: path
+      name: JournalNumber
+      description: Number of a Journal
+      example: 1000
+      schema:
+        type: integer
+        example: 1000
+    ToDate:
+      in: query
+      name: toDate
+      description: filter by the to date of the report e.g. 2021-02-28
+      example: '2019-10-31'
+      schema:
+        type: string
+        format: date
+        example: '2019-10-31'
+    ifModifiedSince:
+      in: header
+      name: If-Modified-Since
+      description: Only records created or modified since this timestamp will be returned
+      example: '2020-02-06T12:17:43.202-08:00'
+      schema:
+        type: string
+        format: date-time
+        example: '2020-02-06T12:17:43.202-08:00'
+    requiredHeader:
+      in: header
+      name: xero-tenant-id
+      description: Xero identifier for Tenant
+      example: YOUR_XERO_TENANT_ID
+      schema:
+        type: string
+        example: YOUR_XERO_TENANT_ID
+      required: true
+  responses:
+    400Error:
+      description: A failed request due to validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    429Error:
+      description: Too Many Requests - The rate limit has been exceeded.
+      headers:
+        Retry-After:
+          description: The number of seconds to wait before retrying the request.
+          schema:
+            type: integer
+            example: 5
+        xero-correlation-id:
+          description: A unique identifier for the request, useful for troubleshooting with support.
+          schema:
+            type: string
+            format: uuid
+            example: 00000000-0000-0000-0000-000000000000
+      content: {}
+    500Error:
+      description: Internal Server Error - An unexpected error occurred on the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            Title: An error occurred
+            Detail: An error occurred in Xero. Check the API Status page http://status.developer.xero.com for current service
+              status.
+            Status: 500
+            Instance: 6964b201-1442-41f2-b22f-1e34f5baab08
+  schemas:
+    AccountType:
+      description: See Account Types
+      type: string
+      enum:
+      - BANK
+      - CURRENT
+      - CURRLIAB
+      - DEPRECIATN
+      - DIRECTCOSTS
+      - EQUITY
+      - EXPENSE
+      - FIXED
+      - INVENTORY
+      - LIABILITY
+      - NONCURRENT
+      - OTHERINCOME
+      - OVERHEADS
+      - PREPAYMENT
+      - REVENUE
+      - SALES
+      - TERMLIAB
+      - PAYG
+      example: BANK
+    Budget:
+      description: Represents the Budget schema used by the Accounting API.
+      type: object
+      externalDocs:
+        url: http://developer.xero.com/documentation/api/budgets/
+      properties:
+        BudgetID:
+          description: Xero identifier
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        Type:
+          description: Type of Budget. OVERALL or TRACKING
+          type: string
+          enum:
+          - OVERALL
+          - TRACKING
+          example: ValidationException
+        Description:
+          description: The Budget description
+          maxLength: 255
+          type: string
+          example: My business checking account
+        UpdatedDateUTC:
+          description: UTC timestamp of last update to budget
+          type: string
+          example: /Date(1573755038314)/
+          readOnly: true
+        BudgetLines:
+          description: The BudgetLines value.
+          type: array
+          items:
+            $ref: '#/components/schemas/BudgetLine'
+          example:
+          - AccountID: 00000000-0000-0000-0000-000000000000
+            AccountCode: 090
+            BudgetBalances:
+            - Period: '2020-01-01'
+              Amount: 1.0
+              UnitAmount: 1.0
+        Tracking:
+          description: The Tracking value.
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackingCategory'
+          example:
+          - TrackingCategoryID: 00000000-0000-0000-0000-000000000000
+            TrackingOptionID: 00000000-0000-0000-0000-000000000000
+            Name: Food Sales
+      example:
+        BudgetID: 00000000-0000-0000-0000-000000000000
+        Type: ValidationException
+        Description: My business checking account
+    BudgetBalance:
+      description: Represents the BudgetBalance schema used by the Accounting API.
+      type: object
+      properties:
+        Period:
+          description: Period the amount applies to (e.g. ΓÇ£2019-08ΓÇ¥)
+          type: string
+          example: '2020-01-01'
+        Amount:
+          description: LineItem Quantity
+          type: number
+          format: double
+          example: 1.0
+        UnitAmount:
+          description: Budgeted amount
+          type: number
+          format: double
+          example: 1.0
+        Notes:
+          description: Any footnotes associated with this balance
+          maxLength: 255
+          type: string
+          example: example
+      example:
+        Period: '2020-01-01'
+        Amount: 1.0
+        UnitAmount: 1.0
+    BudgetLine:
+      description: Represents the BudgetLine schema used by the Accounting API.
+      type: object
+      externalDocs:
+        url: http://developer.xero.com/documentation/api/budgets/
+      properties:
+        AccountID:
+          description: See Accounts
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        AccountCode:
+          description: See Accounts
+          type: string
+          example: 090
+        BudgetBalances:
+          description: The BudgetBalances value.
+          type: array
+          items:
+            $ref: '#/components/schemas/BudgetBalance'
+          example:
+          - Period: '2020-01-01'
+            Amount: 1.0
+            UnitAmount: 1.0
+      example:
+        AccountID: 00000000-0000-0000-0000-000000000000
+        AccountCode: 090
+        BudgetBalances:
+        - Period: '2020-01-01'
+          Amount: 1.0
+          UnitAmount: 1.0
+    Budgets:
+      description: Represents the Budgets schema used by the Accounting API.
+      type: object
+      properties:
+        Budgets:
+          description: The Budgets value.
+          type: array
+          items:
+            $ref: '#/components/schemas/Budget'
+          example:
+          - BudgetID: 00000000-0000-0000-0000-000000000000
+            Type: ValidationException
+            Description: My business checking account
+      example:
+        Budgets:
+        - BudgetID: 00000000-0000-0000-0000-000000000000
+          Type: ValidationException
+          Description: My business checking account
+    Element:
+      description: Represents the Element schema used by the Accounting API.
+      externalDocs:
+        url: https://developer.xero.com/documentation/api/http-response-codes
+      properties:
+        ValidationErrors:
+          description: Array of Validation Error message
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          example:
+          - Message: One or more validation errors occurred.
+        BatchPaymentID:
+          description: Unique ID for batch payment object with validation error
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        BankTransactionID:
+          description: The BankTransactionID value.
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        CreditNoteID:
+          description: The CreditNoteID value.
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        ContactID:
+          description: The ContactID value.
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        InvoiceID:
+          description: The InvoiceID value.
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        ItemID:
+          description: The ItemID value.
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        PurchaseOrderID:
+          description: The PurchaseOrderID value.
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      type: object
+      example:
+        ValidationErrors:
+        - Message: One or more validation errors occurred.
+        BatchPaymentID: 00000000-0000-0000-0000-000000000000
+        BankTransactionID: 00000000-0000-0000-0000-000000000000
+    Error:
+      description: Represents the Error schema used by the Accounting API.
+      externalDocs:
+        url: https://developer.xero.com/documentation/api/http-response-codes
+      properties:
+        ErrorNumber:
+          description: Exception number
+          type: integer
+          example: 10
+        Type:
+          description: Exception type
+          type: string
+          example: ValidationException
+        Message:
+          description: Exception message
+          type: string
+          example: One or more validation errors occurred.
+        Elements:
+          description: Array of Elements of validation Errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Element'
+          example:
+          - ValidationErrors:
+            - Message: One or more validation errors occurred.
+            BatchPaymentID: 00000000-0000-0000-0000-000000000000
+            BankTransactionID: 00000000-0000-0000-0000-000000000000
+      type: object
+      example:
+        ErrorNumber: 10
+        Type: ValidationException
+        Message: One or more validation errors occurred.
+    ErrorResponse:
+      type: object
+      properties:
+        Title:
+          type: string
+          description: A short, human-readable summary of the problem type.
+          example: An error occurred
+        Detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+          example: An error occurred in Xero. Check the API Status page...
+        Status:
+          type: integer
+          description: The HTTP status code generated by the origin server for this occurrence of the problem.
+          example: 500
+        Instance:
+          type: string
+          format: uuid
+          description: A URI reference that identifies the specific occurrence of the problem (often used as a Correlation
+            ID).
+          example: 00000000-0000-0000-0000-000000000000
+    Journal:
+      description: Represents the Journal schema used by the Accounting API.
+      externalDocs:
+        url: http://developer.xero.com/documentation/api/journals/
+      properties:
+        JournalID:
+          description: Xero identifier
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        JournalDate:
+          description: Date the journal was posted
+          type: string
+          example: '2020-01-01'
+        JournalNumber:
+          description: Xero generated journal number
+          type: integer
+          example: 1000
+        CreatedDateUTC:
+          description: Created date UTC format
+          type: string
+          example: /Date(1573755038314)/
+          readOnly: true
+        Reference:
+          description: reference field for additional indetifying information
+          type: string
+          example: Foobar
+        SourceID:
+          description: The identifier for the source transaction (e.g. InvoiceID)
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        SourceType:
+          description: The journal source type. The type of transaction that created the journal
+          type: string
+          enum:
+          - ACCREC
+          - ACCPAY
+          - ACCRECCREDIT
+          - ACCPAYCREDIT
+          - ACCRECPAYMENT
+          - ACCPAYPAYMENT
+          - ARCREDITPAYMENT
+          - APCREDITPAYMENT
+          - CASHREC
+          - CASHPAID
+          - TRANSFER
+          - ARPREPAYMENT
+          - APPREPAYMENT
+          - AROVERPAYMENT
+          - APOVERPAYMENT
+          - EXPCLAIM
+          - EXPPAYMENT
+          - MANJOURNAL
+          - PAYSLIP
+          - WAGEPAYABLE
+          - INTEGRATEDPAYROLLPE
+          - INTEGRATEDPAYROLLPT
+          - EXTERNALSPENDMONEY
+          - INTEGRATEDPAYROLLPTPAYMENT
+          - INTEGRATEDPAYROLLCN
+          example: ACCREC
+        JournalLines:
+          description: See JournalLines
+          type: array
+          items:
+            $ref: '#/components/schemas/JournalLine'
+          example:
+          - JournalLineID: 7be9db36-3598-4755-ba5c-c2dbc8c4a7a2
+            AccountID: ceef66a5-a545-413b-9312-78a53caadbc4
+            AccountCode: 090
+      type: object
+      example:
+        JournalID: 00000000-0000-0000-0000-000000000000
+        JournalDate: '2020-01-01'
+        JournalNumber: 1000
+    JournalLine:
+      description: Represents the JournalLine schema used by the Accounting API.
+      externalDocs:
+        url: https://developer.xero.com/documentation/api/journals#JournalLines
+      properties:
+        JournalLineID:
+          description: Xero identifier for Journal
+          type: string
+          format: uuid
+          example: 7be9db36-3598-4755-ba5c-c2dbc8c4a7a2
+        AccountID:
+          description: See Accounts
+          type: string
+          format: uuid
+          example: ceef66a5-a545-413b-9312-78a53caadbc4
+        AccountCode:
+          description: See Accounts
+          type: string
+          example: 090
+        AccountType:
+          description: The AccountType value.
+          allOf:
+          - $ref: '#/components/schemas/AccountType'
+          type: string
+          example: BANK
+        AccountName:
+          description: See AccountCodes
+          type: string
+          example: Checking Account
+        Description:
+          description: The description from the source transaction line item. Only returned if populated.
+          type: string
+          example: My business checking account
+        NetAmount:
+          description: Net amount of journal line. This will be a positive value for a debit and negative for a credit
+          type: number
+          format: double
+          example: 4130.98
+        GrossAmount:
+          description: Gross amount of journal line (NetAmount + TaxAmount).
+          type: number
+          format: double
+          example: 4130.98
+        TaxAmount:
+          description: Total tax on a journal line
+          type: number
+          format: double
+          readOnly: true
+          example: 0.0
+        TaxType:
+          description: The tax type from taxRates
+          type: string
+          example: INPUT2
+        TaxName:
+          description: see TaxRates
+          type: string
+          example: Tax Exempt
+        TrackingCategories:
+          description: Optional Tracking Category ΓÇô see Tracking. Any JournalLine can have a maximum of 2 <TrackingCategory>
+            elements.
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackingCategory'
+          example:
+          - TrackingCategoryID: 00000000-0000-0000-0000-000000000000
+            TrackingOptionID: 00000000-0000-0000-0000-000000000000
+            Name: Food Sales
+      type: object
+      example:
+        JournalLineID: 7be9db36-3598-4755-ba5c-c2dbc8c4a7a2
+        AccountID: ceef66a5-a545-413b-9312-78a53caadbc4
+        AccountCode: 090
+    Journals:
+      description: Represents the Journals schema used by the Accounting API.
+      type: object
+      properties:
+        Warnings:
+          description: Displays array of warning messages from the API
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          example:
+          - Message: One or more validation errors occurred.
+        Journals:
+          description: The Journals value.
+          type: array
+          items:
+            $ref: '#/components/schemas/Journal'
+          example:
+          - JournalID: 00000000-0000-0000-0000-000000000000
+            JournalDate: '2020-01-01'
+            JournalNumber: 1000
+      example:
+        Warnings:
+        - Message: One or more validation errors occurred.
+        Journals:
+        - JournalID: 00000000-0000-0000-0000-000000000000
+          JournalDate: '2020-01-01'
+          JournalNumber: 1000
+    Report:
+      description: Represents the Report schema used by the Accounting API.
+      externalDocs:
+        url: http://developer.xero.com/documentation/api/reports/
+      properties:
+        ReportName:
+          description: See Prepayment Types
+          type: string
+          example: Example Name
+        ReportType:
+          description: See Prepayment Types
+          type: string
+          enum:
+          - AgedPayablesByContact
+          example: AgedPayablesByContact
+        ReportTitle:
+          description: See Prepayment Types
+          type: string
+          example: Example title
+        ReportDate:
+          description: Date of report
+          type: string
+          example: '2020-01-01'
+        UpdatedDateUTC:
+          description: Updated Date
+          type: string
+          example: /Date(1573755038314)/
+          readOnly: true
+        Contacts:
+          description: The Contacts value.
+          type: array
+          items:
+            $ref: '#/components/schemas/TenNinetyNineContact'
+          example:
+          - Box1: 1.0
+            Box2: 1.0
+            Box3: 1.0
+      example:
+        ReportName: Example Name
+        ReportType: AgedPayablesByContact
+        ReportTitle: Example title
+    ReportAttribute:
+      description: Represents the ReportAttribute schema used by the Accounting API.
+      externalDocs:
+        url: http://developer.xero.com/documentation/api/reports/
+      properties:
+        Id:
+          description: The Id value.
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        Value:
+          description: The Value value.
+          type: string
+          example: example
+      example:
+        Id: 00000000-0000-0000-0000-000000000000
+        Value: example
+    ReportCell:
+      description: Represents the ReportCell schema used by the Accounting API.
+      type: object
+      properties:
+        Value:
+          description: The Value value.
+          type: string
+          example: example
+        Attributes:
+          description: The Attributes value.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportAttribute'
+          example:
+          - Id: 00000000-0000-0000-0000-000000000000
+            Value: example
+      example:
+        Value: example
+        Attributes:
+        - Id: 00000000-0000-0000-0000-000000000000
+          Value: example
+    ReportFields:
+      description: Represents the ReportFields schema used by the Accounting API.
+      type: object
+      properties:
+        FieldID:
+          description: The FieldID value.
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        Description:
+          description: The Description value.
+          type: string
+          example: My business checking account
+        Value:
+          description: The Value value.
+          type: string
+          example: example
+      example:
+        FieldID: 00000000-0000-0000-0000-000000000000
+        Description: My business checking account
+        Value: example
+    ReportRow:
+      description: Represents the ReportRow schema used by the Accounting API.
+      type: object
+      properties:
+        RowType:
+          description: The RowType value.
+          allOf:
+          - $ref: '#/components/schemas/RowType'
+          example: Header
+        Title:
+          description: The Title value.
+          type: string
+          example: Example title
+        Cells:
+          description: The Cells value.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportCell'
+          example:
+          - Value: example
+            Attributes:
+            - Id: 00000000-0000-0000-0000-000000000000
+              Value: example
+      example:
+        RowType: Header
+        Title: Example title
+        Cells:
+        - Value: example
+          Attributes:
+          - Id: 00000000-0000-0000-0000-000000000000
+            Value: example
+    ReportRows:
+      description: Represents the ReportRows schema used by the Accounting API.
+      type: object
+      properties:
+        RowType:
+          description: The RowType value.
+          allOf:
+          - $ref: '#/components/schemas/RowType'
+          example: Header
+        Title:
+          description: The Title value.
+          type: string
+          example: Example title
+        Cells:
+          description: The Cells value.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportCell'
+          example:
+          - Value: example
+            Attributes:
+            - Id: 00000000-0000-0000-0000-000000000000
+              Value: example
+        Rows:
+          description: The Rows value.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportRow'
+          example:
+          - RowType: Header
+            Title: Example title
+            Cells:
+            - Value: example
+              Attributes:
+              - Id: 00000000-0000-0000-0000-000000000000
+                Value: example
+      example:
+        RowType: Header
+        Title: Example title
+        Cells:
+        - Value: example
+          Attributes:
+          - Id: 00000000-0000-0000-0000-000000000000
+            Value: example
+    ReportWithRow:
+      description: Represents the ReportWithRow schema used by the Accounting API.
+      externalDocs:
+        url: http://developer.xero.com/documentation/api/reports/
+      properties:
+        ReportID:
+          description: ID of the Report
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        ReportName:
+          description: Name of the report
+          type: string
+          example: Example Name
+        ReportTitle:
+          description: Title of the report
+          type: string
+          example: Example title
+        ReportType:
+          description: The type of report (BalanceSheet,ProfitLoss, etc)
+          type: string
+          example: ExampleType
+        ReportTitles:
+          description: Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of report)
+          type: array
+          items:
+            type: string
+            example: Example title
+          example:
+          - Example title
+        ReportDate:
+          description: Date of report
+          type: string
+          example: '2020-01-01'
+        Rows:
+          description: The Rows value.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportRows'
+          example:
+          - RowType: Header
+            Title: Example title
+            Cells:
+            - Value: example
+              Attributes:
+              - Id: 00000000-0000-0000-0000-000000000000
+                Value: example
+        UpdatedDateUTC:
+          description: Updated Date
+          type: string
+          example: /Date(1573755038314)/
+          readOnly: true
+        Fields:
+          description: The Fields value.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportFields'
+          example:
+          - FieldID: 00000000-0000-0000-0000-000000000000
+            Description: My business checking account
+            Value: example
+      example:
+        ReportID: 00000000-0000-0000-0000-000000000000
+        ReportName: Example Name
+        ReportTitle: Example title
+    ReportWithRows:
+      description: Represents the ReportWithRows schema used by the Accounting API.
+      type: object
+      properties:
+        Reports:
+          description: The Reports value.
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportWithRow'
+          example:
+          - ReportID: 00000000-0000-0000-0000-000000000000
+            ReportName: Example Name
+            ReportTitle: Example title
+      example:
+        Reports:
+        - ReportID: 00000000-0000-0000-0000-000000000000
+          ReportName: Example Name
+          ReportTitle: Example title
+    Reports:
+      description: Represents the Reports schema used by the Accounting API.
+      type: object
+      properties:
+        Reports:
+          description: The Reports value.
+          type: array
+          items:
+            $ref: '#/components/schemas/Report'
+          example:
+          - ReportName: Example Name
+            ReportType: AgedPayablesByContact
+            ReportTitle: Example title
+      example:
+        Reports:
+        - ReportName: Example Name
+          ReportType: AgedPayablesByContact
+          ReportTitle: Example title
+    RowType:
+      description: Represents the RowType schema used by the Accounting API.
+      type: string
+      enum:
+      - Header
+      - Section
+      - Row
+      - SummaryRow
+      example: Header
+    TenNinetyNineContact:
+      description: Represents the TenNinetyNineContact schema used by the Accounting API.
+      properties:
+        Box1:
+          description: Box 1 on 1099 Form
+          type: number
+          format: double
+          example: 1.0
+        Box2:
+          description: Box 2 on 1099 Form
+          type: number
+          format: double
+          example: 1.0
+        Box3:
+          description: Box 3 on 1099 Form
+          type: number
+          format: double
+          example: 1.0
+        Box4:
+          description: Box 4 on 1099 Form
+          type: number
+          format: double
+          example: 1.0
+        Box5:
+          description: Box 5 on 1099 Form
+          type: number
+          format: double
+          example: 1.0
+        Box6:
+          description: Box 6 on 1099 Form
+          type: number
+          format: double
+          example: 1.0
+        Box7:
+          description: Box 7 on 1099 Form
+          type: number
+          format: double
+          example: 1.0
+        Box8:
+          description: Box 8 on 1099 Form
+          type: number
+          format: double
+          example: 1.0
+        Box9:
+          description: Box 9 on 1099 Form
+          type: number
+          format: double
+          example: 1.0
+        Box10:
+          description: Box 10 on 1099 Form
+          type: number
+          format: double
+          example: 1.0
+        Box11:
+          description: Box 11 on 1099 Form
+          type: number
+          format: double
+          example: 1.0
+        Box13:
+          description: Box 13 on 1099 Form
+          type: number
+          format: double
+          example: 1.0
+        Box14:
+          description: Box 14 on 1099 Form
+          type: number
+          format: double
+          example: 1.0
+        Name:
+          description: Contact name on 1099 Form
+          type: string
+          example: Food Sales
+        FederalTaxIDType:
+          description: Contact Fed Tax ID type
+          type: string
+          example: ExampleType
+        City:
+          description: Contact city on 1099 Form
+          type: string
+          example: example
+        Zip:
+          description: Contact zip on 1099 Form
+          type: string
+          example: example
+        State:
+          description: Contact State on 1099 Form
+          type: string
+          example: example
+        Email:
+          description: Contact email on 1099 Form
+          type: string
+          example: user@example.com
+        StreetAddress:
+          description: Contact address on 1099 Form
+          type: string
+          example: example
+        TaxID:
+          description: Contact tax id on 1099 Form
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+        ContactId:
+          description: Contact contact id
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        LegalName:
+          description: Contact legal name
+          type: string
+          example: Example Name
+        BusinessName:
+          description: Contact business name
+          type: string
+          example: Example Name
+        FederalTaxClassification:
+          description: Contact federal tax classification
+          type: string
+          enum:
+          - SOLE_PROPRIETOR
+          - PARTNERSHIP
+          - TRUST_OR_ESTATE
+          - NONPROFIT
+          - C_CORP
+          - S_CORP
+          - OTHER
+          example: SOLE_PROPRIETOR
+      example:
+        Box1: 1.0
+        Box2: 1.0
+        Box3: 1.0
+    TrackingCategory:
+      description: Represents the TrackingCategory schema used by the Accounting API.
+      externalDocs:
+        url: http://developer.xero.com/documentation/api/tracking-categories/
+      properties:
+        TrackingCategoryID:
+          description: The Xero identifier for a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        TrackingOptionID:
+          description: The Xero identifier for a tracking option e.g. dc54c220-0140-495a-b925-3246adc0075f
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        Name:
+          description: The name of the tracking category e.g. Department, Region (max length = 100)
+          maxLength: 100
+          type: string
+          example: Food Sales
+        Option:
+          description: The option name of the tracking option e.g. East, West (max length = 100)
+          maxLength: 100
+          type: string
+          example: North
+        Status:
+          description: The status of a tracking category
+          type: string
+          enum:
+          - ACTIVE
+          - ARCHIVED
+          - DELETED
+          example: ACTIVE
+        Options:
+          description: See Tracking Options
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackingOption'
+          example:
+          - TrackingOptionID: 00000000-0000-0000-0000-000000000000
+            Name: Food Sales
+            Status: ACTIVE
+      type: object
+      example:
+        TrackingCategoryID: 00000000-0000-0000-0000-000000000000
+        TrackingOptionID: 00000000-0000-0000-0000-000000000000
+        Name: Food Sales
+    TrackingOption:
+      description: Represents the TrackingOption schema used by the Accounting API.
+      externalDocs:
+        url: http://developer.xero.com/documentation/api/tracking-categories/
+      properties:
+        TrackingOptionID:
+          description: The Xero identifier for a tracking option e.g. ae777a87-5ef3-4fa0-a4f0-d10e1f13073a
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        Name:
+          description: The name of the tracking option e.g. Marketing, East (max length = 100)
+          maxLength: 100
+          type: string
+          example: Food Sales
+        Status:
+          description: The status of a tracking option
+          type: string
+          enum:
+          - ACTIVE
+          - ARCHIVED
+          - DELETED
+          example: ACTIVE
+        TrackingCategoryID:
+          description: Filter by a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      type: object
+      example:
+        TrackingOptionID: 00000000-0000-0000-0000-000000000000
+        Name: Food Sales
+        Status: ACTIVE
+    ValidationError:
+      description: Represents the ValidationError schema used by the Accounting API.
+      externalDocs:
+        url: https://developer.xero.com/documentation/api/http-response-codes
+      properties:
+        Message:
+          description: Validation error message
+          type: string
+          example: One or more validation errors occurred.
+      type: object
+      example:
+        Message: One or more validation errors occurred.
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: For more information
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.xero.com/identity/connect/authorize
+          tokenUrl: https://identity.xero.com/connect/token
+          scopes:
+            accounting.budgets.read: Grant read-only access to read budgets
+            accounting.journals.read: Grant read-only access to journals
+            accounting.reports.read: Grant read-only access to accounting reports
+            accounting.reports.tenninetynine.read: Grant read-only access to 1099 reports
